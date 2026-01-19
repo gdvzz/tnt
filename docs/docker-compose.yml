@@ -1,0 +1,15 @@
+services:
+  jk_gdvzz_tnt:
+    image: jekyll/jekyll:latest
+    container_name: gdvzz_tnt  # 容器名称
+    ports:
+      - "4029:4000"
+    volumes:
+      - ~/gdvzz/tnt/docs:/srv/jekyll
+    command: >
+      sh -c "
+      cd /srv/jekyll &&
+      bundle install &&
+      jekyll build &&
+      jekyll serve --host 0.0.0.0 --watch --force_polling
+      "
