@@ -1,5 +1,7 @@
 # 建站过程
 
+本文记录了相关测试和建站过程，供后续类似网站的建设供参考。
+
 ## 新建仓库 tnt
 
 在 github 账号 gdvzz 下，新建仓库 tnt。过程从略。
@@ -78,4 +80,46 @@ git push -u origin main
     Template Repository: https://github.com/just-the-docs/just-the-docs-template
     ```
 
+## 定制
+
+参考该主题的 [定制-customization], css 样式的定制可以写在 `_sass/custom/custom.scss` 中。比如：
+
+```scss
+// 文件路径：~/gdvzz/tnt/docs/_sass/custom/custom.scss
+// 覆盖 H2 标题的样式
+h2 {
+    font-size: 60px !important; // 将字体大小设置为 60 像素
+}
+```
+
+### 文字大小
+
+```scss
+body {
+    // font-family: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif, "Segoe UI Emoji";
+    // font-size: inherit;
+    // line-height: 1.4;
+    // color: #5c5962;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    line-height: 1.5;
+    color: #24292e;
+}
+
+h1 {
+    font-size: 2rem !important; // 32px
+}
+
+h2 {
+    font-size: 1.5rem !important; // 24px
+}
+
+h3 {
+    font-size: 1.125rem !important; // 20px
+}
+```
+
+
+
 [just-the-docs-template-README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
+[定制-customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization
