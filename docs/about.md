@@ -248,13 +248,13 @@ h2 {
 参考 [just-the-docs-template-README]，到对应仓库下，然后进入 Settings > Pages > Build and deployment > Source, 选择 `GitHub Actions` 即可。
 
 - 选择 GitHub Actions 后，可不必理会屏幕提示 “Use a suggested workflow, browse all workflows, or create your own. ”，因为 `pages.yml` 都已经写好了。
-
 - 不要选择 `Deploy from a branch`。应该上也是可以的，但相关配置文件要做对应调整，才可以部署成功。
 
 ## 主题配置
 
-
-
+```yml
+footer_content: 'Copyright &copy; 2017-2026 Patrick Marsceill and Just the Docs contributors. Distributed by an <a href="https://github.com/just-the-docs/just-the-docs/tree/main/LICENSE.txt">MIT license.</a> <a href="https://www.netlify.com/">This site is powered by Netlify.</a>'
+```
 
 [just-the-docs-template-README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
 [定制-customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization
