@@ -1,3 +1,10 @@
+---
+title: 关于本站
+layout: default
+nav_order: z0
+last_modified_date: 2026-01-21 19:22:00
+---
+
 # 建站过程
 
 本文记录了相关测试和建站过程，供后续类似网站的建设供参考。
@@ -252,9 +259,49 @@ h2 {
 
 ## 主题配置
 
-```yml
-footer_content: 'Copyright &copy; 2017-2026 Patrick Marsceill and Just the Docs contributors. Distributed by an <a href="https://github.com/just-the-docs/just-the-docs/tree/main/LICENSE.txt">MIT license.</a> <a href="https://www.netlify.com/">This site is powered by Netlify.</a>'
-```
+参考该主题的 [Configuration](https://just-the-docs.github.io/just-the-docs/docs/configuration/) 文档，从上到下逐个尝试和配置。
+
+设置了以下配置：
+
+- site logo
+- mermaid diagrams
+- aux links
+- navigation sidebar
+- heading anchor links
+- external navigation links
+- footer content
+- color scheme
+
+尚未设置（或不计划设置）以下配置：
+
+- site favicon
+
+
+遗留问题：
+
+- 要支持搜索中文。当前无法搜索中文。
+
+## 配置后的测试
+
+### 测试 callouts
+
+{: .highlight}
+这是 highlight 文本
+
+{: .important}
+这是 important 文本
+
+{: .new}
+这是 new 文本
+
+{: .note}
+这是 note 文本
+
+{: .warning}
+这是 warning 文本
+
+遗留：思考什么样的颜色配置，更符合大众习惯。比如红色表示xx，黄色表示xx，蓝色表示xx，灰色表示xx。
+
 
 [just-the-docs-template-README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
 [定制-customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization
