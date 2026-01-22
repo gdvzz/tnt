@@ -1,13 +1,26 @@
 ---
 title: 关于本站
 layout: default
-nav_order: z0
-last_modified_date: 2026-01-21 19:22:00
+nav_order: 9.90
+# nav_exclude: true
+# parent: <父页面的title>
+last_modified_date: 2026-01-22 11:58:00
 ---
 
 # 建站过程
+{: .no_toc}
 
 本文记录了相关测试和建站过程，供后续类似网站的建设供参考。
+
+<details open markdown="block">
+  <summary>
+    目录
+  </summary>
+  <!-- {: .text-delta } -->
+- TOC
+{:toc}
+</details>
+
 
 ## 新建仓库 tnt
 
@@ -30,25 +43,25 @@ last_modified_date: 2026-01-21 19:22:00
     ~/gdvzz/tnt % git push -u tnt master
     ```
 
-上述命令参考了 github 新建仓库后的如下提示信息：
-
-```bash
-…or create a new repository on the command line
-
-echo "# tnt" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin git@github.com:gdvzz/tnt.git
-git push -u origin main
-
-…or push an existing repository from the command line
-
-git remote add origin git@github.com:gdvzz/tnt.git
-git branch -M main
-git push -u origin main
-```
+    上述命令参考了 github 新建仓库后的如下提示信息：
+    
+    ```bash
+    …or create a new repository on the command line
+    
+    echo "# tnt" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M main
+    git remote add origin git@github.com:gdvzz/tnt.git
+    git push -u origin main
+    
+    …or push an existing repository from the command line
+    
+    git remote add origin git@github.com:gdvzz/tnt.git
+    git branch -M main
+    git push -u origin main
+    ```
 
 ## 基础配置
 
@@ -218,6 +231,14 @@ h2 {
 }
 ```
 
+```
+// 文件路径：~/gdvzz/tnt/docs/_sass/custom/custom.scss
+// 覆盖 H2 标题的样式
+h2 {
+    font-size: 60px !important; // 将字体大小设置为 60 像素
+}
+```
+
 1. 对部分内容的字体和大小做更改
 
     ```scss
@@ -247,6 +268,8 @@ h2 {
         font-size: 1.25em !important; // 20px
     }
     ```
+
+<mark>**遗留：待修改 h4 -h6**</mark>
 
 后续如有其他样式改动，也可写在这个文件中。先用浏览器的 Inspect 功能确定期望改动的样式是什么标签（或 class），然后再在该文件中写上对应的样式，才能覆盖成功。
 
@@ -286,7 +309,7 @@ h2 {
 ### 测试 callouts
 
 {: .highlight}
-这是 highlight 文本
+**注意：** 这是 highlight 文本
 
 {: .important}
 这是 important 文本
@@ -302,6 +325,56 @@ h2 {
 
 遗留：思考什么样的颜色配置，更符合大众习惯。比如红色表示xx，黄色表示xx，蓝色表示xx，灰色表示xx。
 
+### 测试颜色
+
+{: .text-blue-100}
+这是 bule-100 文字 
+你好你好！
+
+绿色绿色
+{: .text-green-100}
+
+这是 green-100 文字
+{: .text-green-100} 
+
+{: .text-red-200}
+这是 red-200 文字 
+
+### 测试 h1-h6 的大小
+
+测试标题开始 
+
+| head|size|
+|:----|:---|
+|`# h1 标题1`|32px|
+|`## h2 标题2`|24px|
+|`### h3 标题3`|20px|
+|`#### h4 标题4`|12px|
+|`##### h5 标题5`|14px|
+|`###### h6 标题6`|12px|
+
+测试标题结束
+
+## 编写说明
+
+### 左侧页面导航栏
+
+```yml
+---
+title: 关于本站
+layout: default
+nav_order: 0.01
+# nav_exclude: true
+# parent: <父页面的title>
+last_modified_date: 2026-01-22 11:58:00
+---
+```
+
+说明：
+
+- 在页首设置 `nav_order`，用于同级别页面的排序。可以是 数字、浮点数、字符串。用 0.00 ~ 9.99，是推荐的方式。
+- 在页首设置 `nav_exclude: true`，可不显示在左侧导航栏中。
+- 在页首设置 `parent: <父页面的title>`，可成为子页面。导航栏也呈现层次结构。
 
 [just-the-docs-template-README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
 [定制-customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization

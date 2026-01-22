@@ -5,7 +5,7 @@ description: "学习笔记，使用指导文档，等"
 theme: just-the-docs
     
 # url: https://just-the-docs.github.io
-url: https://gdvzz.github.io
+url: https://gdv5.github.io
     
 # aux_links:
 # Template Repository: https://github.com/just-the-docs/just-the-docs-template
@@ -61,8 +61,9 @@ search:
 
 # Aux links for the upper right navigation
 aux_links:
-  "George's Websites":
-    - "https://gdvzz.github.io"
+  George's Websites:
+    - https://gdv5.github.io
+  
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: true
 
@@ -71,6 +72,9 @@ aux_links_new_tab: true
 # Nav menu can also be selectively enabled or disabled using page variables or the minimal layout
 nav_enabled: true
 
+# Sort order for navigation links
+nav_sort: case_insensitive # default, equivalent to nil
+# nav_sort: case_sensitive # Capital letters sorted before lowercase
 
 # Heading anchor links appear on hover over h1-h6 tags in page content
 # allowing users to deep link to a particular heading on a page.
@@ -81,7 +85,7 @@ heading_anchors: true
 # External navigation links
 nav_external_links:
   - title: George's Websites
-    url: https://gdvzz.github.io
+    url: https://gdv5.github.io
     hide_icon: false # set to true to hide the external link icon - defaults to false
     opens_in_new_tab: true # set to true to open this link in a new tab - defaults to false
 
@@ -107,7 +111,7 @@ mermaid:
 back_to_top: true
 back_to_top_text: "回到顶部"
 
-footer_content: 'Copyright &copy; 2017-2026 Patrick Marsceill and Just the Docs contributors. Distributed by an <a href="https://github.com/just-the-docs/just-the-docs/tree/main/LICENSE.txt">MIT license.</a> <a href="https://www.netlify.com/">This site is powered by Netlify.</a>'
+footer_content: 'Copyright &copy; 2025-2026 George Donne and coming contributors. Distributed by an MIT license. <a href="https://www.github.com.com/">This site is powered by GitHub.</a>'
 
 # Footer last edited timestamp
 last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
@@ -117,7 +121,7 @@ last_edit_time_format: "%Y-%m-%d %H:%M:%S"
 # Footer "Edit this page on GitHub" link text
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/gdvzz/tnt" # the github URL for your repo
+gh_edit_repository: "https://github.com/gdv5/tnt" # the github URL for your repo
 gh_edit_branch: "master" # the branch that your docs is served from
 gh_edit_source: docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately

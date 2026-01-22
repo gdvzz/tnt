@@ -1,11 +1,11 @@
 services:
-  jk_gdvzz_tnt:
+  jk_gdv5_tnt:
     image: jekyll/jekyll:latest
-    container_name: gdvzz_tnt  # 容器名称
+    container_name: gdv5_tnt  # 容器名称
     ports:
       - "4029:4000"
     volumes:
-      - ~/gdvzz/tnt/docs:/srv/jekyll
+      - ~/gdv5/tnt/docs:/srv/jekyll
     command: >
       sh -c "
       cd /srv/jekyll &&
