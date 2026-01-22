@@ -11,14 +11,15 @@ url: https://gdv5.github.io
 # Template Repository: https://github.com/just-the-docs/just-the-docs-template
 
 # Set a path/url to a logo that will be displayed instead of the title
-logo: "/assets/images/try-and-test.jpg"
+# logo: "/assets/images/try-and-test.jpg"
+logo: "/assets/images/gear.svg"
 
 # Set a path/url to a favicon that will be displayed by the browser
 # favicon_ico: "/assets/images/favicon.ico"
 
 # Enable or disable the site search
 # Supports true (default) or false
-search_enabled: false
+# search_enabled: false
 
 search:
   # Split pages into sections that can be searched individually
@@ -61,8 +62,8 @@ search:
 
 # Aux links for the upper right navigation
 aux_links:
-  George's Websites:
-    - https://gdv5.github.io
+  George's Blog:
+    - https://gdv5.github.io/logd
   
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: true

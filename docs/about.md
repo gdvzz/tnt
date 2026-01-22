@@ -4,13 +4,33 @@ layout: default
 nav_order: 9.90
 # nav_exclude: true
 # parent: <父页面的title>
-last_modified_date: 2026-01-22 11:58:00
+last_modified_date: 2026-01-22 20:09:00
 ---
 
-# 建站过程
+# 关于本站
 {: .no_toc}
 
-本文记录了相关测试和建站过程，供后续类似网站的建设供参考。
+本文记录了相关测试和建站过程，供后续类似网站的建设供参考。本站使用 [Just the Docs](https://github.com/just-the-docs/just-the-docs) 主题，在此鸣谢作者！
+
+如需要技术支持或其他交流，请 [邮件联系我](mailto:georgedonnev2@outlook.com)。
+
+参考 [配置configuration], 复制了相关代码在此，供预览深色模式。尚不会设置深色模式，后续持续探索。<br>
+
+<button class="btn js-toggle-dark-mode">Preview dark color scheme</button>
+
+<script>
+const toggleDarkMode = document.querySelector('.js-toggle-dark-mode');
+
+jtd.addEvent(toggleDarkMode, 'click', function(){
+  if (jtd.getTheme() === 'dark') {
+    jtd.setTheme('light');
+    toggleDarkMode.textContent = 'Preview dark color scheme';
+  } else {
+    jtd.setTheme('dark');
+    toggleDarkMode.textContent = 'Return to the light side';
+  }
+});
+</script>
 
 <details open markdown="block">
   <summary>
@@ -21,29 +41,40 @@ last_modified_date: 2026-01-22 11:58:00
 {:toc}
 </details>
 
+## 整体说明
+
+以下操作都是在 MacOS 上进行的，Windows 操作可能有细微差别。
+
+- `~/gdv5` 是指当前 Mac 用户的根目录下的 gdv5 目录。以本机为例，绝对路径是 `/Users/george1442/gdv5`。
 
 ## 新建仓库 tnt
 
-在 github 账号 gdvzz 下，新建仓库 tnt。过程从略。
+先新建仓库用于存放网站内容。在 github 账号 gdv5 下，新建仓库 tnt，过程从略。
 
 ## 关联远程仓库
 
-1. 在本地电脑已有目录 `~/gdvzz` 下，新建子目录 `tnt`，用于本地存放网站内容。
+1. 在本地电脑已有目录 `~/gdv5` 下，新建子目录 `tnt`，用于本地存放网站内容。
 
-2. 新建文档 `~/gdvzz/tnt/docs/readme.md`，作为网站的首页。
+2. 新建文档 `~/gdv5/tnt/docs/index.md`，作为网站的首页。
 
-3. 在 `~/gdvzz/tnt` 依次执行以下命令，将本地仓库关联到远程仓库，并完成首次提交。如下：
+    - 可以先随便写一些内容，以跑通全流程。内容可后续持续更新。
+    - index.md 放在 ~/gdv5/tnt/docs/ 下，是后续网站内容都存放在 docs 目录下。存放在  ~/gdv5/tnt 也是同样可行的，对应配置做微调即可。建议网站内容放在 docs 目录下，同级可建目录 codes 存放代码之类的。
+    - 建议编写 `readme.md` 用于 github 展示。
+
+3. 添加ssh密钥到 github，如尚未。操作步骤请参考：[用 Github + Markdown 创建个人网站]。
+
+4. 在 `~/gdv5/tnt` 依次执行以下命令，将本地仓库关联到远程仓库，并完成首次提交。如下：
 
     ```bash
-    ~/gdvzz/tnt % git status
-    ~/gdvzz/tnt % git add .
-    ~/gdvzz/tnt % git commit -m "1st commit"
-    ~/gdvzz/tnt % git branch -M master
-    ~/gdvzz/tnt % git remote add tnt git@githubvzz.com:gdvzz/tnt.git
-    ~/gdvzz/tnt % git push -u tnt master
+    ~/gdv5/tnt % git status
+    ~/gdv5/tnt % git add .
+    ~/gdv5/tnt % git commit -m "1st commit"
+    ~/gdv5/tnt % git branch -M master
+    ~/gdv5/tnt % git remote add tnt git@gitubv5.com:gdv5/tnt.git
+    ~/gdv5/tnt % git push -u tnt master
     ```
 
-    上述命令参考了 github 新建仓库后的如下提示信息：
+    上述命令参考了 github 新建仓库后（尚未有代码时）的如下提示信息：
     
     ```bash
     …or create a new repository on the command line
@@ -53,29 +84,29 @@ last_modified_date: 2026-01-22 11:58:00
     git add README.md
     git commit -m "first commit"
     git branch -M main
-    git remote add origin git@github.com:gdvzz/tnt.git
+    git remote add origin git@github.com:gdv5/tnt.git
     git push -u origin main
     
     …or push an existing repository from the command line
     
-    git remote add origin git@github.com:gdvzz/tnt.git
+    git remote add origin git@github.com:gdv5/tnt.git
     git branch -M main
     git push -u origin main
     ```
 
 ## 基础配置
 
-参考 [just-the-docs-template-README]，做相关基础配置。
+参考 [jtd模板说明]，做相关基础配置。
 
 1. 复制 pages.yml
     
     在网站的根目录下，新建子目录 `.github/workfolws`, 然后复制 `pages.yml` 到该子目录。该文件就是 GitHuab Actions 需要的工作流文件。
 
-    经测试，应该放在 `~/gdvzz/tnt` 目录下。因为 `pages.yml` 中指定了网站内容放在 `~/gdvzz/tnt/docs` 中。
+    经测试，应该放在 `~/gdv5/tnt` 目录下。因为 `pages.yml` 中指定了网站内容放在 `~/gdv5/tnt/docs` 中。
 
-2. 复制了 .gitignore 到 ~/gdvzz/tnt 目录中。
+2. 复制 .gitignore 到 ~/gdv5/tnt 目录中。
 
-3. 复制了 Gemfile 到 ~/gdvzz/tnt/docs 目录中。
+3. 复制 Gemfile 到 ~/gdv5/tnt/docs 目录中。
 
     ```yml
     source 'https://rubygems.org'
@@ -115,7 +146,7 @@ last_modified_date: 2026-01-22 11:58:00
     # documentation.
     
     # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-    name: Deploy Jekyll site to Pages
+    name: Deploy Jekyll site tnt to Pages
     
     on: # 只有 master 分支的 docs 下的文件变化，才会重新编译和部署网站
       push:
@@ -127,7 +158,7 @@ last_modified_date: 2026-01-22 11:58:00
       # Allows you to run this workflow manually from the Actions tab
       workflow_dispatch:
     
-    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub     Pages
     permissions:
       contents: read
       pages: write
@@ -154,19 +185,19 @@ last_modified_date: 2026-01-22 11:58:00
             uses: ruby/setup-ruby@v1
             with:
               ruby-version: '3.3' # Not needed with a .ruby-version file
-              bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-              cache-version: 0 # Increment this number if you need to re-download cached gems
-              working-directory: '${{ github.workspace }}/docs' # 增加工作目录参数
+              bundler-cache: true # runs 'bundle install' and caches     installed gems automatically
+              cache-version: 0 # Increment this number if you need to     re-download cached gems
+              working-directory: '${{ github.workspace }}/docs' # 增加工    作目录参数
           - name: Setup Pages
             id: pages
             uses: actions/configure-pages@v5
           - name: Build with Jekyll
             # Outputs to the './_site' directory by default
-            run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+            run: bundle exec jekyll build --baseurl "${{ steps.pages.    outputs.base_path }}"
             env:
               JEKYLL_ENV: production
           - name: Upload artifact
-            # Automatically uploads an artifact from the './_site' directory by default
+            # Automatically uploads an artifact from the './_site'     directory by default
             uses: actions/upload-pages-artifact@v4 # readme是 V3？
             with: # 增加 path
               path: docs/_site/
@@ -189,14 +220,14 @@ last_modified_date: 2026-01-22 11:58:00
 3. 修改后的 `Gemfile` 如下：
     ```yml
     source 'https://rubygems.org'
-    
+
     gem "jekyll"
     # gem "jekyll", "~> 4.4.1" # installed by `gem jekyll`
     # gem "webrick"        # required when using Ruby >= 3 and Jekyll <= 4.2.2
-    
+
     gem "just-the-docs", "0.11.1" # pinned to the current release
     # gem "just-the-docs"        # always download the latest release
-    
+
     # 增加试试
     gem "github-pages", group: :jekyll_plugins
     ```
@@ -213,76 +244,119 @@ last_modified_date: 2026-01-22 11:58:00
     theme: just-the-docs
         
     # url: https://just-the-docs.github.io
-    url: https://gdvzz.github.io
+    url: https://gdv5.github.io
         
     # aux_links:
     # Template Repository: https://github.com/just-the-docs/just-the-docs-template
     ```
 
-## 定制样式
+## 发布网站
 
-参考该主题的 [定制-customization], css 样式的定制可以写在 `_sass/custom/custom.scss` 中。比如：
+上述初步调整后，依次执行如下命令推送到 github：
+
+```bash
+~/gdv5/tnt % git status
+~/gdv5/tnt % git add .
+~/gdv5/tnt % git commit -m "update config"
+~/gdv5/tnt % git push tnt
+```
+
+参考 [jtd模板说明]，到对应仓库下，然后进入 Settings > Pages > Build and deployment > Source, 选择 `GitHub Actions` 即可。
+
+- 选择 GitHub Actions 后，可不必理会屏幕提示 “Use a suggested workflow, browse all workflows, or create your own. ”，因为 `pages.yml` 都已经写好了。
+- 查看仓库的 Action。如果运行不成功，手工点击运行一次即可。
+- 不要选择 `Deploy from a branch`。应该也是可以的，但相关配置文件要做对应调整，才可以部署成功。
+
+至此，网站发布成功！
+
+
+## 定制配置网站
+
+为了让网站样式能被接受，已经让网站更美观，对网站进行如下定制和配置。
+
+### 修改css样式
+
+主题文字存在如下个人觉得可以改善的点：
+
+- 部分文字大小不合理。比如 h3 有点偏小。
+- 小屏幕浏览时，文字还会缩小，比如 20px缩小为16px。其实不必缩小，因为缩小后更不易看清。
+- 代码块文字行间距过大。可以紧凑些。
+
+参考该主题的 [定制customization]，css 样式定制可以写在 `_sass/custom/custom.scss` 中。经测试验证，定制了如下样式：
 
 ```scss
-// 文件路径：~/gdvzz/tnt/docs/_sass/custom/custom.scss
-// 覆盖 H2 标题的样式
+// 对相关 css 设置做定制
+// 以下设置将覆盖 just-the-docs theme 原有对应数值
+
+body {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    // color: #24292e !important; // 涉及深色浅色模式，不改了。
+}
+
+// 使用 !important，用于阻止 jtd 主题在小屏幕下缩小h1-h6的字号
+h1 {
+    font-size: 2em !important; // 32px
+}
+
 h2 {
-    font-size: 60px !important; // 将字体大小设置为 60 像素
+    font-size: 1.5em !important; // 24px
+}
+
+h3 {
+    font-size: 1.25em !important; // 20px
+}
+
+h4 {
+    font-size: 1em !important; // 16px
+}
+
+h5 {
+    font-size: 0.875em !important; // 14px
+}
+
+h6 {
+    font-size: 0.85em !important;
+    color: #6a737d;
+}
+
+.main-content {
+    line-height: 1.5;
+    // line-height: 1;
+}
+
+// 让代码块行距紧凑些
+pre {
+    // line-height: 1.5;
+    line-height: 1;
+}
+
+.main-content ol {
+    list-style-type: decimal;
+}
+
+.main-content ul {
+    list-style-type: disc;
+}
+
+.main-content ol>li::before {
+    display: none;
+    content: none;
+    visibility: hidden;
+}
+
+.main-content ul>li::before {
+    display: none;
+    content: none;
+    visibility: hidden;
 }
 ```
-
-```
-// 文件路径：~/gdvzz/tnt/docs/_sass/custom/custom.scss
-// 覆盖 H2 标题的样式
-h2 {
-    font-size: 60px !important; // 将字体大小设置为 60 像素
-}
-```
-
-1. 对部分内容的字体和大小做更改
-
-    ```scss
-    // 对相关 css 设置做定制
-    // 以下设置将覆盖 just-the-docs theme 原有对应数值
-    
-    body {
-        // font-family: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue",     arial, sans-serif, "Segoe UI Emoji";
-        // font-size: inherit;
-        // line-height: 1.4;
-        // color: #5c5962;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color     Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
-        font-size: 16px !important;
-        line-height: 1.5 !important;
-        color: #24292e !important;
-    }
-    
-    h1 {
-        font-size: 2em !important; // 32px
-    }
-    
-    h2 {
-        font-size: 1.5em !important; // 24px
-    }
-    
-    h3 {
-        font-size: 1.25em !important; // 20px
-    }
-    ```
-
-<mark>**遗留：待修改 h4 -h6**</mark>
 
 后续如有其他样式改动，也可写在这个文件中。先用浏览器的 Inspect 功能确定期望改动的样式是什么标签（或 class），然后再在该文件中写上对应的样式，才能覆盖成功。
 
-## 发布网站
+### 主题配置
 
-参考 [just-the-docs-template-README]，到对应仓库下，然后进入 Settings > Pages > Build and deployment > Source, 选择 `GitHub Actions` 即可。
-
-- 选择 GitHub Actions 后，可不必理会屏幕提示 “Use a suggested workflow, browse all workflows, or create your own. ”，因为 `pages.yml` 都已经写好了。
-- 不要选择 `Deploy from a branch`。应该上也是可以的，但相关配置文件要做对应调整，才可以部署成功。
-
-## 主题配置
-
-参考该主题的 [Configuration](https://just-the-docs.github.io/just-the-docs/docs/configuration/) 文档，从上到下逐个尝试和配置。
+参考该主题的 [配置configuration] 文档，从上到下逐个尝试和配置。
 
 设置了以下配置：
 
@@ -355,6 +429,13 @@ h2 {
 
 测试标题结束
 
+### 测试引用
+
+以下是引用
+
+> 这是引用
+> 这是引用1
+
 ## 编写说明
 
 ### 左侧页面导航栏
@@ -376,5 +457,13 @@ last_modified_date: 2026-01-22 11:58:00
 - 在页首设置 `nav_exclude: true`，可不显示在左侧导航栏中。
 - 在页首设置 `parent: <父页面的title>`，可成为子页面。导航栏也呈现层次结构。
 
-[just-the-docs-template-README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[定制-customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization
+### Markdown 相关
+
+1. 序号列表下的文字，要缩进 4 个空格。以确保序号不被打断，且下方文字相对于序号列表是缩进的。
+2. 多使用 h2，可以用 h3，少用 h4。
+
+
+[jtd模板说明]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
+[定制customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization
+[配置configuration]: https://just-the-docs.github.io/just-the-docs/docs/configuration/
+[用 Github + Markdown 创建个人网站]: https://gdv5.github.io/wssh/
