@@ -59,7 +59,7 @@ jobs:
         run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
-          JEKYLL_ENV_PRODUCTION: true   # 确保使用正确的 URL
+          # JEKYLL_ENV_PRODUCTION: true   # 确保使用正确的 URL
       
       - name: Verify _site contents
         run: |
