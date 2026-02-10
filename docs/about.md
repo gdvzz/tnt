@@ -96,7 +96,7 @@ jtd.addEvent(toggleDarkMode, 'click', function(){
 
 ## 基础配置
 
-参考 [jtd模板说明]，做相关基础配置。
+参考 [主题模板说明]，做相关基础配置。
 
 1. 复制 pages.yml
     
@@ -234,7 +234,7 @@ jtd.addEvent(toggleDarkMode, 'click', function(){
 
 4. `Gemfile.lock` 的内容没有修改。此处从略。
 
-5. 修改后的 `_coonfig.yml` 如下：
+5. 修改后的 `_config.yml` 如下：
 
     ```yml
     # title: Just the Docs Template
@@ -261,7 +261,7 @@ jtd.addEvent(toggleDarkMode, 'click', function(){
 ~/gdv5/tnt % git push tnt
 ```
 
-参考 [jtd模板说明]，到对应仓库下，然后进入 Settings > Pages > Build and deployment > Source, 选择 `GitHub Actions` 即可。
+参考 [主题模板说明]，到对应仓库下，然后进入 Settings > Pages > Build and deployment > Source, 选择 `GitHub Actions` 即可。
 
 - 选择 GitHub Actions 后，可不必理会屏幕提示 “Use a suggested workflow, browse all workflows, or create your own. ”，因为 `pages.yml` 都已经写好了。
 - 查看仓库的 Action。如果运行不成功，手工点击运行一次即可。
@@ -463,7 +463,7 @@ last_modified_date: 2026-01-22 11:58:00
 2. 多使用 h2，可以用 h3，少用 h4。
 
 
-[jtd模板说明]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
+[主题模板说明]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
 [定制customization]: https://just-the-docs.github.io/just-the-docs/docs/customization/#customization
 [配置configuration]: https://just-the-docs.github.io/just-the-docs/docs/configuration/
 [用 Github + Markdown 创建个人网站]: https://gdv5.github.io/wssh/
