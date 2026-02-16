@@ -4,8 +4,7 @@
 # documentation.
 
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-<<<<<<< HEAD
-name: Deploy Jekyll site to Pages
+name: Deploy Jekyll site tnt to Pages
 
 on: # 只有 master / docs 下的变化才触发
   push:
@@ -40,13 +39,19 @@ jobs:
         with:
           fetch-depth: 0 # 确保 CNAME 文件被检出
       
-      - name: Setup Ruby
+      - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3' # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
           # working-directory: '${{ github.workspace }}/docs' # 增加工作目录参数
+      
+      # 添加验证步骤，检查是否正确安装了 gems
+      - name: Verify bundle installation
+        run: |
+          bundle check || bundle install
+          bundle exec jekyll --version
       
       - name: Setup Pages
         id: pages
@@ -73,9 +78,8 @@ jobs:
           fi
 
       - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v4 # readme是 V3？
-        with: # 增加 path
+        uses: actions/upload-pages-artifact@v4
+        with:
           path: docs/_site/
   
         # 在 build 步骤后添加
