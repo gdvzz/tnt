@@ -4,6 +4,7 @@
 # documentation.
 
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
+<<<<<<< HEAD
 name: Deploy Jekyll site to Pages
 
 on: # 只有 master 分支的 docs 下的文件变化，才会重新编译和部署网站
