@@ -8,6 +8,14 @@ nav_order: 2601
 # 视觉实验-260304
 {: .no_toc }
 
+本次实验用视觉实验箱体验 3 个能力：
+
+- 76285. 实验1-3：面部检测 
+- 76286. 实验1-4：人脸检测
+- 76287. 实验1-5：手势识别
+
+原理和代码解读，可参考 CG 平台相关说明。本文档为操作说明。
+
 <details open markdown="block">
   <summary>
     目录
@@ -19,11 +27,44 @@ nav_order: 2601
 
 ---
 
-## 环境准备
+## Python环境准备
+
+采用 conda 创建 Python 虚拟环境。关于 conda，可参考 B 站视频：15分钟彻底搞懂！Anaconda Miniconda conda-forge miniforge Mamba [链接↗](https://www.bilibili.com/video/BV1Fm4ZzDEeY)。
+
+采用 conda 创建所需的 Python 虚拟环境，可以确保实验环境干净（不出未预期错误），同时可不污染开发板现有环境。
+
+**1、执行 `conda`，确认 `conda` 是否已安装。如已安装，可跳过第2步。**
+
+在开发板上启动 `终端 Terminal` 程序，然后输入 `conda` 并回车。如果提示“命令没有找到”之类的，则表明尚未安装。
+
+**2、如果尚未安装 `conda`，则依次执行以下命令安装并激活：（如已安装请跳过此步）**
+
+```bash
+mkdir ~/tmp2603 # 在用户 jetson 的家目录（HOME目录）下新建临时目录用于下载安装包
+cd ~/tmp2603    # 切换目录到刚建的目录
+pwd             # 显示当前目录。执行结果应显示 /home/jetson/tmp2603
+
+# 从科大镜像下载安装包
+wget https://mirrors.ustc.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-aarch64.sh
+
+# 安装过程中，请仔细阅读提示。并在询问“是否初始化Miniforge3”时输入 yes。
+bash Miniforge3-Linux-aarch64.sh
+
+# 安装完成后，关闭并重新打开终端，或者执行以下命令使配置生效：
+source ~/.bashrc
+
+# 之后，你的命令行前会出现 (base) 字样，表示基础环境已激活。
+```
+
+**3、创建 Python3.9 虚拟环境**
 
 ```bash
 conda create -n pye39 python=3.9
 ```
+
+> pye39 是给虚拟环境取的名字，方便识别。可以是其他名字。
+
+**4、激活 Python3.9 虚拟环境**
 
 ```bash
 (base) jetson@jetson-Yahboom:~$ conda activate pye39
@@ -31,17 +72,15 @@ conda create -n pye39 python=3.9
 Python 3.9.23
 ```
 
-```bash
-pip3 list | grep mediapipe
-pip3 list | grep opencv-python
-pip3 list | grep numpy
-```
+**5、在虚拟环境中安装软件包**
 
 ```bash
-pip3 install mediapipe==0.10.9
-pip3 install opencv-python==4.12.0.88
-pip3 install numpy==2.0.2
+(pye39) jetson@jetson-Yahboom:~$ pip3 install mediapipe==0.10.9
+(pye39) jetson@jetson-Yahboom:~$ pip3 install opencv-python==4.12.0.88
+(pye39) jetson@jetson-Yahboom:~$ pip3 install numpy==2.0.2
 ```
+
+> 确保要在虚拟环境中安装所需软件包。即命令行提示符头部显示(pye39)，这是上述步骤创建的虚拟环境。
 
 ---
 
@@ -52,6 +91,8 @@ pip3 install numpy==2.0.2
 - [76285. 实验1-3：面部检测 - face_mesh.zip](./imrobot260304.assets/face_mesh.zip)
 - [76286. 实验1-4：人脸检测 - haar_detection.zip](./imrobot260304.assets/haar_detection.zip)
 - [76287. 实验1-5：手势识别 - gesture_recognizer.zip](./imrobot260304.assets/gesture_recognizer.zip)
+
+> 样例代码也可从 CG 平台相关链接下载。CG 平台下载的 zip 包的名字是一长串数据字符，可从文件的时间确认哪个是哪个。
 
 
 ```bash
@@ -69,7 +110,7 @@ unzip -oq gesture_recognizer.zip -d ./
 ```
 
 ```bash
-(pye39) jetson@jetson-Yahboom:~/exp$ ls --group-directories-first
+(pye39) jetson@jetson-Yahboom:~/exp$ ls -l
 face_mesh  gesture_recognizer  haar_detection  face_mesh.zip  gesture_recognizer.zip  haar_detection.zip
 ```
 ---
@@ -160,3 +201,5 @@ pip3 install cycler
 - cheese。看看摄像头是否OK
 - 拔掉机械臂色摄像头。接上海康摄像头
 - 没有conda，则安装conda
+
+- 在开发板上打开 firefox 浏览器，访问 tnt.gdvzz.com 
