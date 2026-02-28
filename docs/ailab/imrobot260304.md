@@ -21,6 +21,59 @@ nav_order: 2601
 
 ## 环境准备
 
+```bash
+conda create -n pye39 python=3.9
+```
+
+```bash
+(base) jetson@jetson-Yahboom:~$ conda activate pye39
+(pye39) jetson@jetson-Yahboom:~$ python3 --version
+Python 3.9.23
+```
+
+```bash
+pip3 list | grep mediapipe
+pip3 list | grep opencv-python
+pip3 list | grep numpy
+```
+
+```bash
+pip3 install mediapipe==0.10.9
+pip3 install opencv-python==4.12.0.88
+pip3 install numpy==2.0.2
+```
+
+---
+
+## 下载解压样例代码
+
+样例代码下载链接如下：
+
+- [76285. 实验1-3：面部检测 - face_mesh.zip](./imrobot260304.assets/face_mesh.zip)
+- [76286. 实验1-4：人脸检测 - haar_detection.zip](./imrobot260304.assets/haar_detection.zip)
+- [76287. 实验1-5：手势识别 - gesture_recognizer.zip](./imrobot260304.assets/gesture_recognizer.zip)
+
+
+```bash
+mkdir ~/exp
+mv ~/Downloads/face_mesh.zip ~/exp
+mv ~/Downloads/haar_detection.zip ~/exp
+mv ~/Downloads/gesture_recognizer.zip ~/exp
+```
+
+```bash
+cd ~/exp
+unzip -oq face_mesh.zip -d ./
+unzip -oq haar_detection.zip -d ./
+unzip -oq gesture_recognizer.zip -d ./
+```
+
+```bash
+(pye39) jetson@jetson-Yahboom:~/exp$ ls --group-directories-first
+face_mesh  gesture_recognizer  haar_detection  face_mesh.zip  gesture_recognizer.zip  haar_detection.zip
+```
+---
+
 - Python 3.8
 - mediapipe 0.10.11
 - opencv-python 4.12.0.88
