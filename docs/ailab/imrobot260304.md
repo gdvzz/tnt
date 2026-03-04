@@ -54,20 +54,22 @@ nav_order: 2601
 
 ## 熟悉 Linux 命令
 
--  ❇️ 建议：如果还不大熟悉 Linux 命令和操作，尽量手敲以尽快熟悉。
-- ℹ️ 信息：Jetson 开发板账号密码是 jetson / yahboom，如需要。比如在笔记本电脑上通过 ssh 登录开发板，`ssh jetson@开发板IP地址`。
+- ❇️ 建议：如果还不大熟悉 Linux 命令和操作，尽量手敲以尽快熟悉。
+- ℹ️ 信息：Jetson 开发板账号密码是 jetson / yahboom，如需要。比如在笔记本电脑上通过 `ssh jetson@开发板IP地址` 登录开发板，。
 - ✨ 提示：在 Ubuntu 主界面左侧导航栏找到对应的 App，或者点击左下角  **九宫格 Show Applications** 后出现顶部搜索栏输入 App 的名字查找。
 - ✨ 提示：按 `tab` 键可补齐文字，加快输入。假定当前目录下有 3 个子目录（face_mesh，gesture_recognizer，haar_detection），输入 `cd ges` 后按 `tab` 键，则补齐为 `cd gesture_recognizer/`。
 - ✨ 提示：按 `esc` 键后，再按 `↑↓箭头` 键，可以找到输入过的命令。不必每次都重复敲命令。
 - ✨ 提示：浏览器和其他图形界面中，复制/粘贴的快捷键是 ctrl + c 和 ctrl + v。
 - ✨ 提示：在 **终端 Terminal** App 中，复制/粘贴的快捷键是 ctrl + shift + c 和 ctrl + shift + v。
-- ✨ 提示：`win` + `↑↓←→箭头`键，可排列屏幕。
+- ✨ 提示：`win` + `←↑↓→箭头`键，可排列屏幕。
 
 开始 Linux 操作之旅……
 
 - 启动浏览器访问网站
 
     在 Jetson 开发板上启动 **Firefox 浏览器** App，访问 `https://tnt.gdvzz.com/`，找到本次实验的文档：AI Lab → AI实验课 → 视觉实验-260304。
+
+    如果习惯使用 Chrome 浏览器，可以在终端中执行 `sudo apt install chromium-browser` 安装。
 
 - 在 Jetson 开发板上启动 **终端 Terminal** App。
 
@@ -316,7 +318,7 @@ numpy 2.0.2 # 屏幕显示
 
     如未激活或不确定，请参考 [conda常用命令](#conda常用命令)。
 
-2. 执行 `Python3 main.py` 启动程序
+2. 执行 `python3 main.py` 启动程序
 
     ```bash
     cd ~/exp
@@ -338,7 +340,7 @@ numpy 2.0.2 # 屏幕显示
 
     如未激活或不确定，请参考 [conda常用命令](#conda常用命令)。
 
-2. 执行 `Python3 main.py` 启动程序
+2. 执行 `python3 main.py` 启动程序
 
     ```bash
     cd ~/exp
@@ -365,7 +367,7 @@ numpy 2.0.2 # 屏幕显示
 
     如未激活或不确定，请参考 [conda常用命令](#conda常用命令)。
 
-2. 执行 `Python3 main.py` 启动程序
+2. 执行 `python3 main.py` 启动程序
 
     ```bash
     cd ~/exp
