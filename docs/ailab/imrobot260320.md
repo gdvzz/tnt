@@ -1,11 +1,11 @@
 ---
-title: 大模型RestAPI编程开发-260320
+title: 大模型编程-260320
 layout: default
 parent: AI实验课
 nav_order: 260301
 ---
 
-# 模型RestAPI编程开发-260320
+# 模型编程-260320
 {: .no_toc }
 `更新-260319` \| `发布-260319`
 
@@ -80,7 +80,7 @@ mkdir ~/tmp26/03 # 创建临时目录，目录名字可随意去
 cd ~/tmp26/03    # 切换到临时目录
 
 # 将已下载的 ollama压缩包 从某个开发板复制到临时目录中
-scp jetson@172.18.139.145:/home/jetson/tmp26/03/ollama.tar.gz .
+scp jetson@172.18.145.179:/home/jetson/tmp26/03/ollama.tar.gz .
 
 # 解开压缩包
 tar zxvf ollama.tar.gz
@@ -94,6 +94,8 @@ chmod a+x /usr/local/bin/ollama
 ```
 
 > scp 命令最后有个点，表示复制到当前目录中。不要遗漏。
+
+> scp 命令中 172.18.145.179 是实验室的某个 Jetson 开发板，在相关目录中已经下载了 ollama 压缩包。
 
 > Linux 文件权限 和 chmod 命令相关，可自行网上查找或与AI交流获得更多信息。
 
@@ -165,7 +167,7 @@ ollama ps             # 查看正在运行的模型进程
 curl --location --request POST "http://127.0.0.1:11434/v1/chat/completions" --header "Content-Type: application/json" --header "Authorization: Bearer EMPTY" --data-raw '{"model": "qwen2.5:3b", "messages":[{"role": "user", "content": "hi"}]}'
 ```
 
-### 2.3 OpenAI兼容Restful接口
+### OpenAI兼容Restful接口
 
 OpenAI兼容接口常用接口如下：
 
@@ -185,4 +187,166 @@ POST https://api.openai.com/v1/chat/completions
 
 ---
 
-## 
+## 搭建 Python 虚拟环境
+
+1. 在终端中执行以下命令创建 Python 虚拟环境：
+
+    ```bash
+    conda create -n py0320 python=3.12
+    ```
+
+    > py0320 是给虚拟环境起的名字。可以是其他名字，比如 llm312。
+
+    > CG 平台该实验的 2.4 API编程 给出了另一种方案，暂不采用。
+
+
+2. 激活刚创建的虚拟环境：
+
+    ```bash
+    conda activate py0320
+    ```
+
+    > py0320 是刚创建的虚拟环境的名字。激活后，命令行提示符首部会出现 `(py0320)` 字样，表示该虚拟环境已激活。
+
+**相关参考：**
+
+- 如果 conda 不存在，请参考：[视觉实验-260304 \| 第1步：安装conda↗](https://tnt.gdvzz.com/ailab/imrobot260304.html#%E7%AC%AC1%E6%AD%A5%E5%AE%89%E8%A3%85-conda)。
+- 虚拟环境管理，请参考：[视觉实验-260304 \| conda常用命令↗](https://tnt.gdvzz.com/ailab/imrobot260304.html#conda%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)。
+
+---
+
+## 运行样例程序
+
+1. 建议新建目录存放样例程序：
+
+    ```bash
+    mkdir ~/ailab/260320
+    cd ~/ailab/260320
+    ```
+
+2. 新建 main.py
+
+    可在 Jetson 开发板上新建 main.py：
+
+    - 在终端执行：`vim main.py`
+    - 复制 main.py 样例程序的代码
+    - 在终端 vim 窗口中按 `i` 键
+    - 鼠标 `右键`，选 `paste`
+    - 在终端 vim 窗口中，先按 `esc` 键，再输入 `:wq`，并按 `回车` 键
+
+    新建文件 main.py 完成后，还可以执行 `cat main.py` 看看文件内容。
+
+    还可以用 MobaXterm 软件或 powershell 等 ssh 方式登录 Jetson 开发板，然后新建 main.py。或在本地电脑新建 main.py，再通过 scp 命令复制到 Jetson 开发板指定目录中。此处从略。
+
+3. 在虚拟环境 py0320 中运行样例程序：
+
+    ```bash
+    (py0320) jetson@jetson-Yahboom:~/ailab/260320$ python3 main.py
+    ```
+
+    新建的虚拟环境还需要安装一些 Python 包，比如 requests。否则报错：requests 没有找到。
+
+    ```bash
+    (py0320) jetson@jetson-Yahboom:~/ailab/260320$ pip3 install requests
+    ```
+    
+    安装缺少的包以后，再次执行样例程序，并和 qwen 交互。
+
+**结果样例截图：**
+
+[[!](./imrobot260320.assets/t3.jpg)](./imrobot260320.assets/t3.jpg)
+[[!](./imrobot260320.assets/t2.jpg)](./imrobot260320.assets/t2.jpg)
+[[!](./imrobot260320.assets/t1.jpg)](./imrobot260320.assets/t1.jpg)
+
+### main.py样例程序
+
+    样例程序如下：
+
+    ```python
+    import requests
+    import json
+
+    API_URL = "http://127.0.0.1:11434/v1/chat/completions"
+    MODEL = "qwen2.5:3b"
+    API_KEY = "EMPTY"
+
+    def chat(messages):
+        """发送流式请求到API"""
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {API_KEY}"
+        }
+        
+        payload = {
+            "model": MODEL,
+            "messages": messages,
+            "stream": True
+        }
+        
+        response = requests.post(API_URL, headers=headers, json=payload, stream=True)
+        response.raise_for_status()
+        
+        return response
+
+    def main():
+        messages = []
+        
+        print("=" * 50)
+        print("欢迎使用 Qwen2.5:3b 流式对话助手")
+        print("输入内容开始对话，输入 'quit' 或 'exit' 退出")
+        print("=" * 50)
+        
+        while True:
+            user_input = input("\n你: ").strip()
+            
+            if not user_input:
+                continue
+            
+            if user_input.lower() in ["quit", "exit", "q"]:
+                print("再见!")
+                break
+            
+            messages.append({"role": "user", "content": user_input})
+            
+            print("\nAI: ", end="", flush=True)
+            
+            try:
+                response = chat(messages)
+                full_content = ""
+                
+                for line in response.iter_lines():
+                    if line:
+                        line = line.decode("utf-8")
+                        if line.startswith("data: "):
+                            data = line[6:]
+                            if data == "[DONE]":
+                                break
+                            try:
+                                json_data = json.loads(data)
+                                if "choices" in json_data and len(json_data["choices"]) > 0:
+                                    delta = json_data["choices"][0].get("delta", {})
+                                    if "content" in delta:
+                                        content = delta["content"]
+                                        print(content, end="", flush=True)
+                                        full_content += content
+                            except json.JSONDecodeError:
+                                continue
+                
+                print()
+                
+                if full_content:
+                    messages.append({"role": "assistant", "content": full_content})
+                    
+            except requests.exceptions.RequestException as e:
+                print(f"\n请求错误: {e}")
+                messages.pop()
+
+    if __name__ == "__main__":
+        main()
+```
+
+---
+
+## 关机&复原&离开
+
+‼️实验结束离开前，请各位同学完成相关事项。详见：[视觉实验-260304 \| 关机&复原&离开↗](https://tnt.gdvzz.com/ailab/imrobot260304.html#%E5%85%B3%E6%9C%BA%E5%A4%8D%E5%8E%9F%E7%A6%BB%E5%BC%80)
