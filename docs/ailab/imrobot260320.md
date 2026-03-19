@@ -76,10 +76,10 @@ Ollama支持Llama、Qwen、DeepSeek等主流架构的模型仓库管理，具备
 **方法1（首选）**
 
 ```bash
-mkdir ~/tmp26/03 # 创建临时目录，目录名字可随意去
+mkdir ~/tmp26/03 # 创建临时目录，目录名字可随意取
 cd ~/tmp26/03    # 切换到临时目录
 
-# 将已下载的 ollama压缩包 从某个开发板复制到临时目录中
+# 将已下载的 ollama 压缩包 从某个开发板复制到临时目录中
 scp jetson@172.18.145.179:/home/jetson/tmp26/03/ollama.tar.gz .
 
 # 解开压缩包
@@ -89,7 +89,7 @@ cd ollama_jetsonv5 # 切换到当前目录下的子目录（解压缩生成的�
 sudo  mv ollama /usr/local/bin/    # 移动文件到目标目录
 sudo  mv lib /usr/local/lib/ollama # 移动目录到目标目录
 
-# 修改文件 ollama 的权限，所有用户都可执行 ollama
+# 修改文件 ollama 的权限，让所有用户都可执行 ollama
 chmod a+x /usr/local/bin/ollama
 ```
 
@@ -128,19 +128,19 @@ chmod a+x /usr/local/bin/ollama
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-> Ollama 官网安装指令。网络原因，不一定在实验室能成功。
+> Ollama 官网安装指令。网络原因，不一定能在实验室安装成功。
 
 ---
 
 ## 启动qwen
 
-1. 新启一个 **终端 Terminal**，在终端中执行以下命令：
+1. 新启 **终端 Terminal** #1，在终端中执行以下命令：
 
     ```bash
     ollama serve          # 启动 API 服务（默认 11434 端口）
     ```
 
-2. 再启一个 **终端 Terminal**，在终端中执行以下命令：
+2. 再启 **终端 Terminal** #2，在终端中执行以下命令：
 
     ```bash
     ollama run qwen2.5:3b # 加载qwen2.5:3b量化模型，没有则下载
@@ -161,7 +161,7 @@ ollama ps             # 查看正在运行的模型进程
 
 ## 测试 Restful 接口
 
-再启一个 **终端 Terminal**，在终端中执行以下命令：
+再启 **终端 Terminal** #3，在终端中执行以下命令：
 
 ```bash
 curl --location --request POST "http://127.0.0.1:11434/v1/chat/completions" --header "Content-Type: application/json" --header "Authorization: Bearer EMPTY" --data-raw '{"model": "qwen2.5:3b", "messages":[{"role": "user", "content": "hi"}]}'
@@ -189,7 +189,7 @@ POST https://api.openai.com/v1/chat/completions
 
 ## 搭建 Python 虚拟环境
 
-1. 在终端中执行以下命令创建 Python 虚拟环境：
+1. 在 **终端** #3 中执行以下命令创建 Python 虚拟环境：
 
     ```bash
     conda create -n py0320 python=3.12
@@ -217,7 +217,7 @@ POST https://api.openai.com/v1/chat/completions
 
 ## 运行样例程序
 
-1. 建议新建目录存放样例程序：
+1. 在 **终端** #3，建议新建目录存放样例程序：
 
     ```bash
     mkdir ~/ailab/260320
@@ -254,96 +254,106 @@ POST https://api.openai.com/v1/chat/completions
 
 **结果样例截图：**
 
-[[!](./imrobot260320.assets/t3.jpg)](./imrobot260320.assets/t3.jpg)
-[[!](./imrobot260320.assets/t2.jpg)](./imrobot260320.assets/t2.jpg)
-[[!](./imrobot260320.assets/t1.jpg)](./imrobot260320.assets/t1.jpg)
+[![main.py](./imrobot260320.assets/t3.jpg)](./imrobot260320.assets/t3.jpg)
+[![qwen](./imrobot260320.assets/t2.jpg)](./imrobot260320.assets/t2.jpg)
+[![serve](./imrobot260320.assets/t1.jpg)](./imrobot260320.assets/t1.jpg)
 
 ### main.py样例程序
 
-    样例程序如下：
+样例程序如下：
 
-    ```python
-    import requests
-    import json
+```python
+import requests
+import json
 
-    API_URL = "http://127.0.0.1:11434/v1/chat/completions"
-    MODEL = "qwen2.5:3b"
-    API_KEY = "EMPTY"
+API_URL = "http://127.0.0.1:11434/v1/chat/completions"
+MODEL = "qwen2.5:3b"
+API_KEY = "EMPTY"
 
-    def chat(messages):
-        """发送流式请求到API"""
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {API_KEY}"
-        }
-        
-        payload = {
-            "model": MODEL,
-            "messages": messages,
-            "stream": True
-        }
-        
-        response = requests.post(API_URL, headers=headers, json=payload, stream=True)
-        response.raise_for_status()
-        
-        return response
+def chat(messages):
+    """发送流式请求到API"""
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {API_KEY}"
+    }
+    
+    payload = {
+        "model": MODEL,
+        "messages": messages,
+        "stream": True
+    }
+    
+    response = requests.post(API_URL, headers=headers, json=payload, stream=True)
+    response.raise_for_status()
+    
+    return response
 
-    def main():
-        messages = []
+def main():
+    messages = []
+    
+    print("=" * 50)
+    print("欢迎使用 Qwen2.5:3b 流式对话助手")
+    print("输入内容开始对话，输入 'quit' 或 'exit' 退出")
+    print("=" * 50)
+    
+    while True:
+        user_input = input("\n你: ").strip()
         
-        print("=" * 50)
-        print("欢迎使用 Qwen2.5:3b 流式对话助手")
-        print("输入内容开始对话，输入 'quit' 或 'exit' 退出")
-        print("=" * 50)
+        if not user_input:
+            continue
         
-        while True:
-            user_input = input("\n你: ").strip()
+        if user_input.lower() in ["quit", "exit", "q"]:
+            print("再见!")
+            break
+        
+        messages.append({"role": "user", "content": user_input})
+        
+        print("\nAI: ", end="", flush=True)
+        
+        try:
+            response = chat(messages)
+            full_content = ""
             
-            if not user_input:
-                continue
+            for line in response.iter_lines():
+                if line:
+                    line = line.decode("utf-8")
+                    if line.startswith("data: "):
+                        data = line[6:]
+                        if data == "[DONE]":
+                            break
+                        try:
+                            json_data = json.loads(data)
+                            if "choices" in json_data and len(json_data["choices"]) > 0:
+                                delta = json_data["choices"][0].get("delta", {})
+                                if "content" in delta:
+                                    content = delta["content"]
+                                    print(content, end="", flush=True)
+                                    full_content += content
+                        except json.JSONDecodeError:
+                            continue
             
-            if user_input.lower() in ["quit", "exit", "q"]:
-                print("再见!")
-                break
+            print()
             
-            messages.append({"role": "user", "content": user_input})
-            
-            print("\nAI: ", end="", flush=True)
-            
-            try:
-                response = chat(messages)
-                full_content = ""
+            if full_content:
+                messages.append({"role": "assistant", "content": full_content})
                 
-                for line in response.iter_lines():
-                    if line:
-                        line = line.decode("utf-8")
-                        if line.startswith("data: "):
-                            data = line[6:]
-                            if data == "[DONE]":
-                                break
-                            try:
-                                json_data = json.loads(data)
-                                if "choices" in json_data and len(json_data["choices"]) > 0:
-                                    delta = json_data["choices"][0].get("delta", {})
-                                    if "content" in delta:
-                                        content = delta["content"]
-                                        print(content, end="", flush=True)
-                                        full_content += content
-                            except json.JSONDecodeError:
-                                continue
-                
-                print()
-                
-                if full_content:
-                    messages.append({"role": "assistant", "content": full_content})
-                    
-            except requests.exceptions.RequestException as e:
-                print(f"\n请求错误: {e}")
-                messages.pop()
+        except requests.exceptions.RequestException as e:
+            print(f"\n请求错误: {e}")
+            messages.pop()
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
 ```
+
+---
+
+## 实验任务
+
+1. 修改示例代码中的stream参数为false，补充非流式输出处理程序，运行程序验证非流式输出的效果。
+
+2. Ollama库同时提供了自定义Python库和接口，请查阅资料，使用Ollama接口实现基于控制台的大模型对话程序。
+
+3. 流式输出（streaming）与非流式输出相比，在用户体验和数据传输上有什么优势？
 
 ---
 
