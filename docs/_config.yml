@@ -6,7 +6,7 @@ theme: just-the-docs
     
 # url: https://just-the-docs.github.io
 # url: https://gdv5.github.io
-url: "https://tnt.georgedonne.cn"  # 您的自定义域名
+url: "https://tnt.gdvzz.com"  # 您的自定义域名
 baseurl: ""  # 如果直接放在根域名下，留空
     
 # aux_links:
@@ -65,7 +65,7 @@ search:
 # Aux links for the upper right navigation
 aux_links:
   George's Blog:
-    - https://gdv5.github.io/logd
+    - https://gdvzz.github.io/logd
   
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: true
@@ -88,7 +88,7 @@ heading_anchors: true
 # External navigation links
 nav_external_links:
   - title: George's Websites
-    url: https://gdv5.github.io
+    url: https://gdvzz.github.io
     hide_icon: false # set to true to hide the external link icon - defaults to false
     opens_in_new_tab: true # set to true to open this link in a new tab - defaults to false
 
@@ -124,7 +124,7 @@ last_edit_time_format: "%Y-%m-%d %H:%M:%S"
 # Footer "Edit this page on GitHub" link text
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/gdv5/tnt" # the github URL for your repo
+gh_edit_repository: "https://github.com/gdvzz/tnt" # the github URL for your repo
 gh_edit_branch: "master" # the branch that your docs is served from
 gh_edit_source: docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
