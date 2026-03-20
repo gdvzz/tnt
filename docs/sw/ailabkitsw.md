@@ -7,6 +7,7 @@ nav_order: 10
 
 # 教具相关软件安装使用
 {: .no_toc }
+`更新-260320` \| `发布-251201`
 
 相关实验箱、开发板的相关软件安装和使用说明。
 
@@ -80,3 +81,9 @@ sudo apt install fcitx-googlepinyin
 截图可以通过 `微信文件传输网页版`，或 `scp` 命令等，传到微信或电脑中。此处从略。
 
 在界面左侧导航栏中找到该应用，鼠标右键选 `Add to Favorites`，以方便下次使用。
+
+---
+
+## MobaXterm
+
+[云盘下载链接↗](https://pan.jiangnan.edu.cn/link/AA1B6BD0FB597643F18945DA1E1FBAA3E2)
