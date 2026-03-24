@@ -211,7 +211,9 @@ Objects arranged successfully
 
 ### 体验样例demo
 
-- 可以在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {颜色} cube and move to {xy坐标}` 指令体验，如下：
+- 先在机械臂前面的桌面上放置带抓取的积木。
+
+- 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {颜色} cube and move to {xy坐标}` 指令体验，如下：
 
     ```bash
 grab blue cube and move to -80,200
@@ -219,6 +221,19 @@ grab green cube and move to 0,200
 grab red cube and move to 80,200
 grab yellow cube and move to 160,200
     ```
+
+🛎️ 目标 {xy坐标}，建议是 4 种组合之一：`-80,200`，`0,200`，`80,200`，`160,200`。
+
+🚫 **如果目标 {xy坐标} 已有积木，不能让机械臂抓积木再移动到相同坐标。否则可能导致机械臂损坏。**
+
+==========
+
+### 相关说明
+
+- 机械臂底座背部，和六角形空洞平齐。
+
+- 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，
+
 
 <!-- ## 搭建环境
 
