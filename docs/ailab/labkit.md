@@ -213,8 +213,9 @@ grab yellow cube and move to 160,200
 
 - 图纸样式：
 
-    <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="border:2px solid #999;width:50%"></a>
-    <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="width:50%"></a>
+    <!-- <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="border:2px solid #999;width:50%"></a> -->
+    <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="border:1px solid #999;width:50%"></a>
+    <!-- <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="width:50%"></a> -->
 
     <!-- [![map](./labkit.assets/map.jpg)](./labkit.assets/map.jpg) -->
 
