@@ -170,8 +170,8 @@ jetson@jetson-Yahboom:~/vkai$ python3 agent.py
 WARNING: Carrier board is not from a Jetson Developer Kit.
 WARNNIG: Jetson.GPIO library has not been verified with this carrier board,
 WARNING: and in fact is unlikely to work correctly.
-<USER>:
     ```
+<!-- <USER>: -->
 
 - 按 `ctrl` + `c` 键，可退出样例demo程序。
 
