@@ -203,25 +203,19 @@ grab yellow cube and move to 160,200
 
     <!-- [![scope](./labkit.assets/irobot2.jpg)](./labkit.assets/irobot2.jpg) -->
 
-- 整体外观：
+- 整体外观如下。✅ 坐标原点，是机械臂底座上方圆柱体中心和底座的交点。
 
     <a href="./labkit.assets/irobot1.jpg"><img src="./labkit.assets/irobot1.jpg" alt="overall" style="width:50%"></a>
 
     <!-- [![overall](./labkit.assets/irobot1.jpg)](./labkit.assets/irobot1.jpg) -->
 
-    坐标原点，是机械臂底座上方圆柱体中心和底座的交点。
-
-- 图纸样式：
+- 图纸样式如下。X、Y的箭头方向是正方向。Z的正方向是水平朝上。以 `-80,200` 为例：移动到 X=-80、Y=200。Z默认是110。
 
     <!-- <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="border:2px solid #999;width:50%"></a> -->
     <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="border:1px solid #999;width:50%"></a>
     <!-- <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="width:50%"></a> -->
 
     <!-- [![map](./labkit.assets/map.jpg)](./labkit.assets/map.jpg) -->
-
-    X、Y的箭头方向是正方向。Z的正方向是水平朝上。
-
-    以 `-80,200` 为例：移动到 X=-80、Y=200。Z默认是110。
 
 - ✅ 如果抓取不大准，可略微移动机械臂的位置。或者修改 config.json 中的 xyz 的数值。
 
