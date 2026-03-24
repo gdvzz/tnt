@@ -69,16 +69,12 @@ jetson@jetson-Yahboom:~$ ifconfig | grep 172
 - 创建/切换/显示当前目录：
 
     ```bash
-# 在用户的 HOME 目录下创建子目录 tmp2603
-mkdir ~/tmp2603
+mkdir ~/tmp2603 # 在用户的 HOME 目录下创建子目录 tmp2603
+cd              # 切换到 HOME 目录
+pwd             # 执行后屏幕应显示 /home/jetson
 
-# 切换到 HOME 目录
-cd
-pwd # 执行后屏幕应显示 /home/jetson
-
-# 切换到 tmp2603 子目录
-cd ~/tmp2603
-pwd # 执行后屏幕应显示 /home/jetson/tmp2603
+cd ~/tmp2603    # 切换到 tmp2603 子目录
+pwd             # 执行后屏幕应显示 /home/jetson/tmp2603
     ```
 
     说明：pwd 是 Print Working Directory，显示当前所在的目录路径。
@@ -88,20 +84,11 @@ pwd # 执行后屏幕应显示 /home/jetson/tmp2603
 - 复制/改名
 
     ```bash
-# 先切换到 /home/jetson/tmp2603
-cd ~/tmp2603
-
-# 在当前目录下生成文件 test.txt
-echo "Hello, World!" > test.txt
-
-# 复制文件 test.txt 到 hello.txt
-cp test.txt hello.txt
-
-# 修改文件 hello.txt 为 hiworld.txt
-mv hello.txt hiworld.txt
-
-# 列出当前目录下的文件
-ls -l
+cd ~/tmp2603                    # 先切换到 /home/jetson/tmp2603
+echo "Hello, World!" > test.txt # 在当前目录下生成文件 test.txt
+cp test.txt hello.txt           # 复制文件 test.txt 到 hello.txt
+mv hello.txt hiworld.txt        # 修改文件 hello.txt 为 hiworld.txt
+ls -l                           # 列出当前目录下的文件
     ```
 
 - 清除屏幕信息
@@ -176,33 +163,14 @@ cd ~/vkai
 jetson@jetson-Yahboom:~$ 
     ```
 
-- 执行 `python3 agent.py` 启动样例demo：
+- 执行 `python3 agent.py` 启动样例demo。
 
     ```bash
 jetson@jetson-Yahboom:~/vkai$ python3 agent.py
 WARNING: Carrier board is not from a Jetson Developer Kit.
 WARNNIG: Jetson.GPIO library has not been verified with this carrier board,
 WARNING: and in fact is unlikely to work correctly.
-\<USER\>:grab blue cube and move to -80,200
-\<LLM\>:✿FUNCTION✿: grab_object
-✿ARGS✿: {"object_name": "blue cube"}
-✿FUNCTION✿: move_to
-✿ARGS✿: {"target_coord": [-80, 200], "target_height": 110}
-functions_and_args: [('grab_object', {'object_name': 'blue cube'}), ('move_to', {'target_coord': [-80, 200], 'target_height': 110})]
-#################### <函数执行> ####################
-[ WARN:0@69.783] global cap_v4l.cpp:1119 tryIoctl VIDEOIO(V4L2:/dev/video0): select() timeout.
-Failed to capture image
-[{'x1': 540, 'x2': 705, 'y1': 267, 'y2': 526}]
-像素坐标 (398.40000000000003, 190.32000000000002) 对应的机械臂坐标为: [222.8 -21.7]
-#################### <函数执行> #################### 
-
-#################### <函数执行> ####################
-*************
-[-80, 200]
-Objects arranged successfully
-#################### <函数执行> #################### 
-
-\<USER\>:
+<USER>:
     ```
 
 - 按 `ctrl` + `c` 键，可退出样例demo程序。
@@ -232,7 +200,80 @@ grab yellow cube and move to 160,200
 
 - 机械臂底座背部，和六角形空洞平齐。
 
-- 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，
+    [![backend](./labkit.assets/irobot3.jpg)](./labkit.assets/irobot3.jpg)
+
+- 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，范围大约是 3 * 5 个积木。
+
+    [![scope](./labkit.assets/irobot2.jpg)](./labkit.assets/irobot2.jpg)
+
+- 整体外观：
+
+    [![overall](./labkit.assets/irobot1.jpg)](./labkit.assets/irobot1.jpg)
+
+    坐标原点，是机械臂底座上方圆柱体中心和底座的交点。
+
+- 图纸样式：
+
+    [![map](./labkit.assets/map.jpg)](./labkit.assets/map.jpg)
+
+    X、Y的箭头方向是正方向。Z的正方向是水平朝上。
+
+    以 `-80,200` 为例：移动到 X=-80、Y=200。Z默认是110。
+
+- ✅ 如果抓取不大准，可略微移动机械臂的位置。或者修改 config.json 中的 xyz 的数值。
+
+    ```json
+{
+    "points_pixel": [
+        [320,220],
+        [590,430],
+        [72,31],
+        [590,26]
+    ],
+    "points_arm": [
+        [210,0],
+        [140, -80],
+        [280,80],
+        [280,-80]
+    ],
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "voice":false,
+    "threshold": 110
+}
+    ```
+
+    可执行 `vim config.json` 编辑文件。用 vim 打开文件后，
+
+    **删除字符**：光标先移动到待删除字符，再按 `esc` 键，再按 `x` 键。
+
+    **插入字符**：光标先移动到待插入位置，先按 `esc` 键，再按 `i` 键，然后输入字符。
+
+    **保存修改**：先按 `esc` 键，再输入 `:wq`，再按 `回车` 键。
+
+    **放弃修改**：先按 `esc` 键，再输入 `:q!`，再按 `回车` 键。
+
+==========
+
+### 关机
+
+1. 在终端中执行关机命令 `shutdown -h now`。或者屏幕右上角：电源标志 → power off。
+2. 观察开发板小机箱的散热风扇。风扇停止后，按桌子下面的立方体插座上的开关，电源指示灯熄灭。
+3. 起身正对机械臂，将竖立的机械臂向前轻轻推倒，水平卧在 Jetson 开发板小机箱上即可。
+
+🚫 电源线：不必从视觉实验箱拔下来；也不必从桌子下面的插座上拔下来。<br>
+🚫 机械臂：水平自然卧倒在小机箱上即可。不必整理、扭成很好看的造型（可能导致下次启动时无法站立）。
+
+### 椅子复原
+
+椅子推到桌子下面。1 个桌子配备 6 个椅子。多余的椅子放到实验室的左右两侧。
+
+### 带走物品
+
+请带走个人物品。
+
+
 
 
 <!-- ## 搭建环境
@@ -256,10 +297,10 @@ pip3 install Jetson.GPIO
 pip3 install scipy -->
 
 
-## 演示程序
+<!-- ## 演示程序
 
 可访问以下链接获得演示程序源码：
 
 - NLP演示程序：[链接↗](https://gitlab.educg.net/cg_zmy/Jetson_ai.git)
 - 机械臂演示程序：[链接↗](https://pan.educg.net/s/QlQ0UX)
-- 机械臂演示程序：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) -->
+- 机械臂演示程序：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) --> -->
