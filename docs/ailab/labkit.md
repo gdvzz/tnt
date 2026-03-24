@@ -164,21 +164,13 @@ jetson@jetson-Yahboom:~$
 
 - 执行 `python3 agent.py` 启动样例demo。
 
-    ```bash
-jetson@jetson-Yahboom:~/vkai$ python3 agent.py
-WARNING: Carrier board is not from a Jetson Developer Kit.
-WARNNIG: Jetson.GPIO library has not been verified with this carrier board,
-WARNING: and in fact is unlikely to work correctly.
-    ```
-<!-- <USER>: -->
-
 - 按 `ctrl` + `c` 键，可退出样例demo程序。
 
 ==========
 
 ### 体验样例demo
 
-- 先在机械臂前面的桌面上放置带抓取的积木。
+- 先在机械臂前面的桌面上放置待抓取的积木。
 
 - 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {颜色} cube and move to {xy坐标}` 指令体验，如下：
 
@@ -200,26 +192,30 @@ grab yellow cube and move to 160,200
 - 机械臂底座背部，和六角形空洞平齐。
 
 
-<a href="./labkit.assets/irobot3.jpg">
-  <img src="./labkit.assets/irobot3.jpg" alt="backend" style="width:50%">
-</a>
+    <a href="./labkit.assets/irobot3.jpg"><img src="./labkit.assets/irobot3.jpg" alt="backend" style="width:50%"></a>
     <!-- <img src="./labkit.assets/irobot3.jpg" alt="backend" style="width:50%"> -->
 
-    [![backend](./labkit.assets/irobot3.jpg)](./labkit.assets/irobot3.jpg)
+    <!-- [![backend](./labkit.assets/irobot3.jpg)](./labkit.assets/irobot3.jpg) -->
 
 - 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，范围大约是 3 * 5 个积木。
 
-    [![scope](./labkit.assets/irobot2.jpg)](./labkit.assets/irobot2.jpg)
+    <a href="./labkit.assets/irobot2.jpg"><img src="./labkit.assets/irobot2.jpg" alt="scope" style="width:50%"></a>
+
+    <!-- [![scope](./labkit.assets/irobot2.jpg)](./labkit.assets/irobot2.jpg) -->
 
 - 整体外观：
 
-    [![overall](./labkit.assets/irobot1.jpg)](./labkit.assets/irobot1.jpg)
+    <a href="./labkit.assets/irobot1.jpg"><img src="./labkit.assets/irobot1.jpg" alt="overall" style="width:50%"></a>
+
+    <!-- [![overall](./labkit.assets/irobot1.jpg)](./labkit.assets/irobot1.jpg) -->
 
     坐标原点，是机械臂底座上方圆柱体中心和底座的交点。
 
 - 图纸样式：
 
-    [![map](./labkit.assets/map.jpg)](./labkit.assets/map.jpg)
+    <a href="./labkit.assets/map.jpg"><img src="./labkit.assets/map.jpg" alt="map" style="width:50%"></a>
+
+    <!-- [![map](./labkit.assets/map.jpg)](./labkit.assets/map.jpg) -->
 
     X、Y的箭头方向是正方向。Z的正方向是水平朝上。
 
