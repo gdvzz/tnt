@@ -8,7 +8,7 @@ nav_order: 9001
 
 # AI实验室教具使用说明New
 {: .no_toc }
-`更新-260323` \| `发布-251101`
+`更新-260324` \| `发布-251101`
 
 <!--  -->
 <details open markdown="block">
@@ -72,7 +72,6 @@ jetson@jetson-Yahboom:~$ ifconfig | grep 172
 mkdir ~/tmp2603 # 在用户的 HOME 目录下创建子目录 tmp2603
 cd              # 切换到 HOME 目录
 pwd             # 执行后屏幕应显示 /home/jetson
-
 cd ~/tmp2603    # 切换到 tmp2603 子目录
 pwd             # 执行后屏幕应显示 /home/jetson/tmp2603
     ```
@@ -121,7 +120,7 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?
     ```bash
 ...
 jetson@172.18.139.100's password: 
-vkai260325.zip            100%  463KB  77.7MB/s   00:00 
+vkai260325.zip   100%  463KB  77.7MB/s   00:00 
     ```
 
 - 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 vkai。
@@ -199,6 +198,12 @@ grab yellow cube and move to 160,200
 ### 相关说明
 
 - 机械臂底座背部，和六角形空洞平齐。
+
+
+<a href="./labkit.assets/irobot3.jpg">
+  <img src="./labkit.assets/irobot3.jpg" alt="backend" style="width:50%">
+</a>
+    <!-- <img src="./labkit.assets/irobot3.jpg" alt="backend" style="width:50%"> -->
 
     [![backend](./labkit.assets/irobot3.jpg)](./labkit.assets/irobot3.jpg)
 
@@ -303,4 +308,4 @@ pip3 install scipy -->
 
 - NLP演示程序：[链接↗](https://gitlab.educg.net/cg_zmy/Jetson_ai.git)
 - 机械臂演示程序：[链接↗](https://pan.educg.net/s/QlQ0UX)
-- 机械臂演示程序：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) --> -->
+- 机械臂演示程序：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) --> 
