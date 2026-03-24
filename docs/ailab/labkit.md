@@ -55,9 +55,9 @@ nav_order: 9001
 - 查看 IP 地址：`ifconfig | grep 172`
 
     ```bash
-    jetson@jetson-Yahboom:~$ ifconfig | grep 172
-        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
-        inet 172.18.139.99  netmask 255.255.255.0  broadcast 172.18.139.255
+jetson@jetson-Yahboom:~$ ifconfig | grep 172
+    inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+    inet 172.18.139.99  netmask 255.255.255.0  broadcast 172.18.139.255
     ```
 
     > 类似于 `172.18.139.99`，就是 Jetson 开发板的 IP 地址。本实验室的 IP 地址都是 172.18.xxx.xxx。
@@ -69,16 +69,16 @@ nav_order: 9001
 - 创建/切换/显示当前目录：
 
     ```bash
-    # 在用户的 HOME 目录下创建子目录 tmp2603
-    mkdir ~/tmp2603
-    
-    # 切换到 HOME 目录
-    cd
-    pwd # 执行后屏幕应显示 /home/jetson
-    
-    # 切换到 tmp2603 子目录
-    cd ~/tmp2603
-    pwd # 执行后屏幕应显示 /home/jetson/tmp2603
+# 在用户的 HOME 目录下创建子目录 tmp2603
+mkdir ~/tmp2603
+
+# 切换到 HOME 目录
+cd
+pwd # 执行后屏幕应显示 /home/jetson
+
+# 切换到 tmp2603 子目录
+cd ~/tmp2603
+pwd # 执行后屏幕应显示 /home/jetson/tmp2603
     ```
 
     说明：pwd 是 Print Working Directory，显示当前所在的目录路径。
@@ -88,26 +88,26 @@ nav_order: 9001
 - 复制/改名
 
     ```bash
-    # 先切换到 /home/jetson/tmp2603
-    cd ~/tmp2603
+# 先切换到 /home/jetson/tmp2603
+cd ~/tmp2603
 
-    # 在当前目录下生成文件 test.txt
-    echo "Hello, World!" > test.txt
+# 在当前目录下生成文件 test.txt
+echo "Hello, World!" > test.txt
 
-    # 复制文件 test.txt 到 hello.txt
-    cp test.txt hello.txt
+# 复制文件 test.txt 到 hello.txt
+cp test.txt hello.txt
 
-    # 修改文件 hello.txt 为 hiworld.txt
-    mv hello.txt hiworld.txt
+# 修改文件 hello.txt 为 hiworld.txt
+mv hello.txt hiworld.txt
 
-    # 列出当前目录下的文件
-    ls -l
+# 列出当前目录下的文件
+ls -l
     ```
 
 - 清除屏幕信息
 
     ```bash
-    clear
+clear
     ```
 
 ==========
@@ -119,28 +119,28 @@ nav_order: 9001
 - 启动 **终端 Terminal**，执行以下指令，从实验室某个视觉试验箱上复制一份：
 
     ```bash
-    scp jetson@172.18.139.100:/home/jetson/vkai260325.zip .
-    ```
-    
-    如果出现提示信息 `(yes/no/[fingerprint])? `，输入 `yes`：
-    ```bash
-    jetson@jetson-Yahboom:~$ scp jetson@172.18.139.100:/home/jetson/vkai260325.zip .
-    The authenticity of host '172.18.139.100 (172.18.139.100)' can't be established.
-    ECDSA key fingerprint is SHA256:FKxZyl0ul/cy21+QdY/SEYmeVEfCctq8SQlDi5XkUbg.
-    Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+scp jetson@172.18.139.100:/home/jetson/vkai260325.zip /home/jetson
     ```
 
-    要求输入口令时，输入 `yahboom`。随后可见复制文件完成。
+    如果出现提示信息 `(yes/no/[fingerprint])? `，输入 `yes`。下次再访问或登录该 Jetson 开发板时不会有此提示信息。
     ```bash
-    ...
-    jetson@172.18.139.100's password: 
-    vkai260325.zip            100%  463KB  77.7MB/s   00:00 
+jetson@jetson-Yahboom:~$ scp jetson@172.18.139.100:/home/jetson/vkai260325.zip .
+The authenticity of host '172.18.139.100 (172.18.139.100)' can't be established.
+ECDSA key fingerprint is SHA256:FKxZyl0ul/cy21+QdY/SEYmeVEfCctq8SQlDi5XkUbg.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+    ```
+
+    要求输入口令时，输入 `yahboom`。随后可见复制文件完成。✅ 输入口令时，屏幕不会有显示输入的口令内容，这是正常的（因为是口令，所以不能显示出来被别人看到）。输入口令完成后，按回车即可。输入过程中假定有误，可按退格键删除。
+    ```bash
+...
+jetson@172.18.139.100's password: 
+vkai260325.zip            100%  463KB  77.7MB/s   00:00 
     ```
 
 - 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 vkai。
 
     ```bash
-    unzip vkai260325.zip
+unzip vkai260325.zip
     ```
 
 **方法2**
@@ -161,7 +161,7 @@ unzip vkai260325.zip
 
 ==========
 
-### 启动样例demo
+### 启动和退出样例demo
 
 - 进入样例demo程序所在目录
 
@@ -183,8 +183,8 @@ jetson@jetson-Yahboom:~/vkai$ python3 agent.py
 WARNING: Carrier board is not from a Jetson Developer Kit.
 WARNNIG: Jetson.GPIO library has not been verified with this carrier board,
 WARNING: and in fact is unlikely to work correctly.
-<USER>:grab blue cube and move to -80,200
-<LLM>:✿FUNCTION✿: grab_object
+\<USER\>:grab blue cube and move to -80,200
+\<LLM\>:✿FUNCTION✿: grab_object
 ✿ARGS✿: {"object_name": "blue cube"}
 ✿FUNCTION✿: move_to
 ✿ARGS✿: {"target_coord": [-80, 200], "target_height": 110}
@@ -202,12 +202,23 @@ Failed to capture image
 Objects arranged successfully
 #################### <函数执行> #################### 
 
-<USER>:
+\<USER\>:
     ```
+
+- 按 `ctrl` + `c` 键，可退出样例demo程序。
 
 ==========
 
 ### 体验样例demo
+
+- 可以在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {颜色} cube and move to {xy坐标}` 指令体验，如下：
+
+    ```bash
+grab blue cube and move to -80,200
+grab green cube and move to 0,200
+grab red cube and move to 80,200
+grab yellow cube and move to 160,200
+    ```
 
 <!-- ## 搭建环境
 
