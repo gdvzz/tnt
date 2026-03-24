@@ -147,7 +147,67 @@ nav_order: 9001
 
 - 点击下载：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) 
 
+- 执行以下命令将下载的文件移动到 jetson 用户的 HOME 目录。浏览器下载文件通常存放在 jetson HOME 目录的 Downloads 子目录中。
 
+    ```bash
+mv ~/Downloads/vkai260325.zip ~/.
+    ```
+
+- 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 vkai。
+
+    ```bash
+unzip vkai260325.zip
+    ```
+
+==========
+
+### 启动样例demo
+
+- 进入样例demo程序所在目录
+
+    ```bash
+cd ~/vkai
+    ```
+
+- （可选）如果命令行提示符行首有 `(base)`（有带括号的一串字母，不一定是 base），则执行以下命令退出 Python 虚拟环境。命令执行后，行首就没有带括号的一串字母了。
+
+    ```bash
+(base) jetson@jetson-Yahboom:~$ conda deactivate
+jetson@jetson-Yahboom:~$ 
+    ```
+
+- 执行 `python3 agent.py` 启动样例demo：
+
+    ```bash
+jetson@jetson-Yahboom:~/vkai$ python3 agent.py
+WARNING: Carrier board is not from a Jetson Developer Kit.
+WARNNIG: Jetson.GPIO library has not been verified with this carrier board,
+WARNING: and in fact is unlikely to work correctly.
+<USER>:grab blue cube and move to -80,200
+<LLM>:✿FUNCTION✿: grab_object
+✿ARGS✿: {"object_name": "blue cube"}
+✿FUNCTION✿: move_to
+✿ARGS✿: {"target_coord": [-80, 200], "target_height": 110}
+functions_and_args: [('grab_object', {'object_name': 'blue cube'}), ('move_to', {'target_coord': [-80, 200], 'target_height': 110})]
+#################### <函数执行> ####################
+[ WARN:0@69.783] global cap_v4l.cpp:1119 tryIoctl VIDEOIO(V4L2:/dev/video0): select() timeout.
+Failed to capture image
+[{'x1': 540, 'x2': 705, 'y1': 267, 'y2': 526}]
+像素坐标 (398.40000000000003, 190.32000000000002) 对应的机械臂坐标为: [222.8 -21.7]
+#################### <函数执行> #################### 
+
+#################### <函数执行> ####################
+*************
+[-80, 200]
+Objects arranged successfully
+#################### <函数执行> #################### 
+
+<USER>:
+    ```
+
+==========
+
+### 体验样例demo
 
 <!-- ## 搭建环境
 
