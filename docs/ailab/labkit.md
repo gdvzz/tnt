@@ -8,7 +8,7 @@ nav_order: 9001
 
 # AI实验室教具使用说明New
 {: .no_toc }
-`更新-260324` \| `发布-251101`
+`更新-260327` \| `发布-251101`
 
 <!--  -->
 <details open markdown="block">
@@ -22,7 +22,7 @@ nav_order: 9001
 
 ---
 
-## 视觉实验箱-260325
+## 视觉实验箱
 
 ### 上电开机
 
@@ -36,13 +36,13 @@ nav_order: 9001
 
 - ✅ 建议：如果还不大熟悉 Linux 命令和操作，尽量手敲以尽快熟悉。
 - ℹ️ 信息：Jetson 开发板账号密码是 jetson / yahboom，如需要。比如在笔记本电脑上通过 `ssh jetson@开发板IP地址` 登录开发板，。
-- 🛎️ 提示：在 Ubuntu 主界面左侧导航栏找到对应的 App，或者点击左下角  **九宫格 Show Applications** 后出现顶部搜索栏输入 App 的名字查找。
-- 🛎️ 提示：按 `tab` 键可补齐文字，加快输入。假定当前目录下有 3 个子目录（face_mesh，gesture_recognizer，haar_detection），输入 `cd ges` 后按 `tab` 键，则补齐为 `cd gesture_recognizer/`。
-- 🛎️ 提示：按 `esc` 键后，再按 `↑↓箭头` 键，可以找到输入过的命令。不必每次都重复敲命令。
-- 🛎️ 提示：浏览器和其他图形界面中，复制/粘贴的快捷键是 ctrl + c 和 ctrl + v。
-- 🛎️ 提示：在 **终端 Terminal** App 中，复制/粘贴的快捷键是 ctrl + shift + c 和 ctrl + shift + v。
-- 🛎️ 提示：`win` + `←↑↓→箭头`键，可排列屏幕。
-- 🛎️ 如果习惯使用 Chrome 浏览器，可以在终端中执行 `sudo apt install chromium-browser` 安装。
+- ✳️ 提示：在 Ubuntu 主界面左侧导航栏找到对应的 App，或者点击左下角  **九宫格 Show Applications** 后出现顶部搜索栏输入 App 的名字查找。
+- ✳️ 提示：按 `tab` 键可补齐文字，加快输入。假定当前目录下有 3 个子目录（face_mesh，gesture_recognizer，haar_detection），输入 `cd ges` 后按 `tab` 键，则补齐为 `cd gesture_recognizer/`。
+- ✳️ 提示：按 `esc` 键后，再按 `↑↓箭头` 键，可以找到输入过的命令。不必每次都重复敲命令。
+- ✳️ 提示：浏览器和其他图形界面中，复制/粘贴的快捷键是 ctrl + c 和 ctrl + v。
+- ✳️ 提示：在 **终端 Terminal** App 中，复制/粘贴的快捷键是 ctrl + shift + c 和 ctrl + shift + v。
+- ✳️ 提示：`win` + `←↑↓→箭头`键，可排列屏幕。
+- ✳️ 如果习惯使用 Chrome 浏览器，可以在终端中执行 `sudo apt install chromium-browser` 安装。
 
 开始 Linux 操作之旅……
 
@@ -62,9 +62,9 @@ jetson@jetson-Yahboom:~$ ifconfig | grep 172
 
     > 类似于 `172.18.139.99`，就是 Jetson 开发板的 IP 地址。本实验室的 IP 地址都是 172.18.xxx.xxx。
 
-    🛎️ 如果还有 `inet 172.22.22.201  netmask 255.255.0.0  broadcast 172.22.222.255`（即屏幕显示了 3 行输出），则表示 WiFi 也开启了。建议不要同时连接网线和WiFi（可能会出现网络相关问题，比如无法远程 ssh 登录 Jetson 开发板）。连接网线时要关闭 WiFi：点击屏幕右上角（网络+喇叭+电源+箭头 连在一起的区域），选择第二行 WiFi 点开，点击 **Turn Off**。
+    ✳️ 如果还有 `inet 172.22.22.201  netmask 255.255.0.0  broadcast 172.22.222.255`（即屏幕显示了 3 行输出），则表示 WiFi 也开启了。建议不要同时连接网线和WiFi（可能会出现网络相关问题，比如无法远程 ssh 登录 Jetson 开发板）。连接网线时要关闭 WiFi：点击屏幕右上角（网络+喇叭+电源+箭头 连在一起的区域），选择第二行 WiFi 点开，点击 **Turn Off**。
 
-    🛎️ 如有网线断开了，还是点右上角，选择第一行 PCI Ethernet 点开，点击 **Connect** 重连就可。
+    ✳️ 如有网线断开了，还是点右上角，选择第一行 PCI Ethernet 点开，点击 **Connect** 重连就可。
 
 - 创建/切换/显示当前目录：
 
@@ -100,7 +100,7 @@ clear
 
 ### 获取样例demo
 
-**方法1**
+<!-- **方法1**
 
 - 启动 **终端 Terminal**，执行以下指令，从实验室某个视觉试验箱上复制一份：
 
@@ -129,21 +129,48 @@ vkai260325.zip   100%  463KB  77.7MB/s   00:00
 unzip vkai260325.zip
     ```
 
-**方法2**
+**方法2** -->
 
-- 点击下载：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) 
+1. 点击下载：[e江南云盘链接↗](https://pan.jiangnan.edu.cn/link/AA9E7A15CF025A49F9B9299B21A5448A83) 
 
-- 执行以下命令将下载的文件移动到 jetson 用户的 HOME 目录。浏览器下载文件通常存放在 jetson HOME 目录的 Downloads 子目录中。
-
-    ```bash
-mv ~/Downloads/vkai260325.zip ~/.
-    ```
-
-- 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 vkai。
+2. 执行以下命令将下载的文件移动到 jetson 用户的 HOME 目录。浏览器下载文件通常存放在 jetson HOME 目录的 Downloads 子目录中。
 
     ```bash
-unzip vkai260325.zip
+    mv ~/Downloads/vkai260325.zip ~/.
     ```
+
+3. 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 vkai。
+
+    ```bash
+    unzip vkai260325.zip
+    ```
+
+==========
+
+### 搭建Python虚拟环境
+
+1. 创建并激活 Python 3.9 虚拟环境
+
+    ```bash
+    conda create -n vkai python=3.9
+    conda activate vkai
+    ```
+
+    > vkai 是虚拟环境的名字。可以是其他取值。
+
+    > 虚拟环境激活后，命令行提示符首部有 `(vkai)` 字样。
+
+2. 安装样例demo需要的 Python 包
+
+    ```bash
+    pip3 install openai pyaudio numpy soundfile requests Pillow pymycobot==3.4.9 opencv-python Jetson.GPIO scipy
+    ```
+
+    > 机械臂相关的 pymycobot 安装 3.4.9 版本。否则后续运行样例demo会报错。
+
+    > 在激活的虚拟环境中安装 Python 包，不要安装到非虚拟环境或其他虚拟环境中。
+
+> 如果 Jetson 开发板上没有 conda，请参考 [第1步：安装conda](https://tnt.gdvzz.com/ailab/imrobot260304.html#%E7%AC%AC1%E6%AD%A5%E5%AE%89%E8%A3%85-conda)。
 
 ==========
 
@@ -155,11 +182,12 @@ unzip vkai260325.zip
 cd ~/vkai
     ```
 
-- （可选）如果命令行提示符行首有 `(base)`（有带括号的一串字母，不一定是 base），则执行以下命令退出 Python 虚拟环境。命令执行后，行首就没有带括号的一串字母了。
+- （可选）如尚未进入 vkai 虚拟环境，则先激活该虚拟环境
+<!-- 如果命令行提示符行首有 `(base)`（有带括号的一串字母，不一定是 base），则执行以下命令退出 Python 虚拟环境。命令执行后，行首就没有带括号的一串字母了。 -->
 
     ```bash
-(base) jetson@jetson-Yahboom:~$ conda deactivate
-jetson@jetson-Yahboom:~$ 
+    jetson@jetson-Yahboom:~$ conda activate vkai
+    (vkai) jetson@jetson-Yahboom:~$ 
     ```
 
 - 执行 `python3 agent.py` 启动样例demo。
@@ -181,7 +209,7 @@ grab red cube and move to 80,200
 grab yellow cube and move to 160,200
     ```
 
-🛎️ 目标 {xy坐标}，建议是 4 种组合之一：`-80,200`，`0,200`，`80,200`，`160,200`。
+✳️ 目标 {xy坐标}，建议是 4 种组合之一：`-80,200`，`0,200`，`80,200`，`160,200`。
 
 🚫 **如果目标 {xy坐标} 已有积木，不能让机械臂抓积木再移动到相同坐标。否则可能导致机械臂损坏。**
 
@@ -269,7 +297,6 @@ grab yellow cube and move to 160,200
 ### 带走物品
 
 请带走个人物品。
-
 
 
 
