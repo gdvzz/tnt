@@ -136,13 +136,13 @@ unzip vkai260325.zip
 2. 执行以下命令将下载的文件移动到 jetson 用户的 HOME 目录。浏览器下载文件通常存放在 jetson HOME 目录的 Downloads 子目录中。
 
     ```bash
-    mv ~/Downloads/vkai260325.zip ~/.
+mv ~/Downloads/vkai260325.zip ~/.
     ```
 
 3. 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 vkai。
 
     ```bash
-    unzip vkai260325.zip
+unzip vkai260325.zip
     ```
 
 ==========
@@ -152,8 +152,8 @@ unzip vkai260325.zip
 1. 创建并激活 Python 3.9 虚拟环境
 
     ```bash
-    conda create -n vkai python=3.9
-    conda activate vkai
+conda create -n vkai python=3.9
+conda activate vkai
     ```
 
     > vkai 是虚拟环境的名字。可以是其他取值。
@@ -163,7 +163,7 @@ unzip vkai260325.zip
 2. 安装样例demo需要的 Python 包
 
     ```bash
-    pip3 install openai pyaudio numpy soundfile requests Pillow pymycobot==3.4.9 opencv-python Jetson.GPIO scipy
+pip3 install openai pyaudio numpy soundfile requests Pillow pymycobot==3.4.9 opencv-python Jetson.GPIO scipy
     ```
 
     > 机械臂相关的 pymycobot 安装 3.4.9 版本。否则后续运行样例demo会报错。
@@ -186,8 +186,8 @@ cd ~/vkai
 <!-- 如果命令行提示符行首有 `(base)`（有带括号的一串字母，不一定是 base），则执行以下命令退出 Python 虚拟环境。命令执行后，行首就没有带括号的一串字母了。 -->
 
     ```bash
-    jetson@jetson-Yahboom:~$ conda activate vkai
-    (vkai) jetson@jetson-Yahboom:~$ 
+jetson@jetson-Yahboom:~$ conda activate vkai
+(vkai) jetson@jetson-Yahboom:~$ 
     ```
 
 - 执行 `python3 agent.py` 启动样例demo。
@@ -196,9 +196,9 @@ cd ~/vkai
 
 ==========
 
-### 体验样例demo
+### 体验-抓移颜色积木
 
-- 先在机械臂前面的桌面上放置待抓取的积木。
+- 先在机械臂前面的桌面上放置待抓取的积木。✅ 颜色面朝上。
 
 - 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {颜色} cube and move to {xy坐标}` 指令体验，如下：
 
@@ -209,9 +209,57 @@ grab red cube and move to 80,200
 grab yellow cube and move to 160,200
     ```
 
-✳️ 目标 {xy坐标}，建议是 4 种组合之一：`-80,200`，`0,200`，`80,200`，`160,200`。
+✳️ 建议：目标 {xy坐标}，可以尝试 4 种组合之一：`-80,200`，`0,200`，`80,200`，`160,200`。
 
-🚫 **如果目标 {xy坐标} 已有积木，不能让机械臂抓积木再移动到相同坐标。否则可能导致机械臂损坏。**
+🚫 禁止：**如果目标 {xy坐标} 已有积木，不能让机械臂抓积木再移动到相同坐标。否则可能导致机械臂损坏。**
+
+==========
+
+### 体验-抓移垃圾
+
+- 先在机械臂前面的桌面上放置待抓取的积木。✅ 图案面朝上。
+
+- 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {垃圾} and move to {xy坐标}` 指令体验，如下：
+
+    ```bash
+grab fish bone and move to -80,200
+    ```
+
+✳️ 建议：目标 {xy坐标}，可以尝试 4 种组合之一：`-80,200`，`0,200`，`80,200`，`160,200`。
+
+🚫 禁止：**如果目标 {xy坐标} 已有积木，不能让机械臂抓积木再移动到相同坐标。否则可能导致机械臂损坏。**
+
+==========
+
+### 体验-堆叠积木
+
+- 先在机械臂前面的桌面上放置待抓取的 **2** 个积木。
+
+- ✅ 提前清空坐标 y 正方向空间。因为稍后积木将堆叠在此。
+
+- 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入：
+
+    ```bash
+stack two cubes together
+    ```
+
+🚫 禁止：**坐标 y 正方向空间如已有积木，不要体验堆叠积木，要清空目标空间后体验。否则可能导致机械臂损坏。**
+
+==========
+
+### 体验-排成圆圈
+
+- 先在机械臂前面的桌面上放置待抓取的 **6** 个积木。在抓取范围内散开，分成 2*3 排列。
+
+- ✅ 提前清空坐标 y 正方向空间。因为稍后积木将排在此处。
+
+- 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入：
+
+    ```bash
+grab six cubes and put as a circle
+    ```
+
+🚫 禁止：**坐标 y 正方向空间如已有积木，不要体验排成圆圈，要清空目标空间后体验。否则可能导致机械臂损坏。**
 
 ==========
 
