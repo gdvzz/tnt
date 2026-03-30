@@ -229,7 +229,6 @@ conda activate viki
 
     <!-- [![backend](./labkit.assets/irobot3.jpg)](./labkit.assets/irobot3.jpg) -->
 
-<!-- - 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，范围大约是 3 * 5 个积木。 -->
 
     <!-- <a href="./labkit.assets/irobot2.jpg"><img src="./labkit.assets/irobot2.jpg" alt="scope" style="width:50%"></a> -->
 
