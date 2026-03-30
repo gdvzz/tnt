@@ -24,11 +24,17 @@ nav_order: 9010
 
 ## 注意事项
 
+🚫 禁止：不要搬动机械臂。否则机械臂会抓不准。
+
+🚫 禁止：机械臂在运动时，不要用肢体去触碰机械臂。以防人体受到伤害，或者损坏机械臂。
+
+✅ 建议：机械臂抓取时如果不大准确，可用手微微移动积木以辅助。（也可通过修改样例程序的配置文件来实现）
+
 ---
 
 ## 上电开机
 
-- 视觉实验箱（机械臂，以下简称机械臂）配有 1 个电源，一端连机械臂，另一端插头插在桌子下面的插座上。
+- 机械臂配有 1 个电源，一端连机械臂，另一端插头插在桌子下面的插座上。
 - 桌子下面有个带开关的的立方体插座。按下开关，电源指示灯亮，即表明接通电源。
 - 稍等片刻可完成启动。机械臂站立起来，且屏幕显示 Ubuntu 的主界面，就启动完成。
 
@@ -39,15 +45,15 @@ nav_order: 9010
 - 进入样例demo程序所在目录
 
     ```bash
-    cd ~/viki
+cd ~/viki
     ```
 
 - 执行 `conda activate viki` 激活体验虚拟环境
 <!-- 如果命令行提示符行首有 `(base)`（有带括号的一串字母，不一定是 base），则执行以下命令退出 Python 虚拟环境。命令执行后，行首就没有带括号的一串字母了。 -->
 
     ```bash
-    jetson@jetson-Yahboom:~/viki$ conda activate viki
-    (viki) jetson@jetson-Yahboom:~/viki$ 
+jetson@jetson-Yahboom:~/viki$ conda activate viki
+(viki) jetson@jetson-Yahboom:~/viki$ 
     ```
 
     > 虚拟环境激活后，命令行提示符首部有 `(viki)` 字样：`(viki) jetson@jetson-Yahboom:~$ 
@@ -65,7 +71,7 @@ nav_order: 9010
 
 - 按 `ctrl` + `c` 键，可退出样例demo程序。
 
-==========
+---
 
 ## 体验-抓颜色积木
 
@@ -77,36 +83,28 @@ nav_order: 9010
 
     （待补充照片）
 
-- 输入 `grab blue cube and move to -70,210`
-<!-- - 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入 `grab {颜色} cube and move to {xy坐标}` 指令体验，如下：
+- 抓取蓝色积木。输入 `grab blue cube and move to -80,200`
 
     ```bash
-grab blue cube and move to -70,210
-grab green cube and move to 0,210
-grab red cube and move to 80,200
-grab yellow cube and move to 160,200
-    ``` -->
-
-    ```bash
-    <USER>:grab blue cube and move to -70,210
+    <USER>:grab blue cube and move to -80,200
     ...
     #################### <函数执行> ####################
     *************
-    [-70, 210]
+    [-80, 200]
     Objects arranged successfully
     #################### <函数执行> #################### 
     
     <USER>:
     ```
 
-- 输入 `grab green cube and move to 0,210`
+- 抓取绿色积木。输入 `grab green cube and move to 0,200`
 
     ```bash
-    <USER>:grab green cube and move to 0,210
+    <USER>:grab green cube and move to 0,200
     ...
     #################### <函数执行> ####################
     *************
-    [0, 210]
+    [0, 200]
     Objects arranged successfully
     #################### <函数执行> #################### 
 
@@ -134,13 +132,13 @@ grab yellow cube and move to 160,200
     ...
     #################### <函数执行> ####################
     *************
-    [-70, 210]
+    [-80, 200]
     Objects arranged successfully
     #################### <函数执行> #################### 
     ...
     #################### <函数执行> ####################
     *************
-    [-70, 210]
+    [-80, 200]
     Objects arranged successfully
     #################### <函数执行> #################### 
 
@@ -153,11 +151,11 @@ grab yellow cube and move to 160,200
 
 ## 关机
 
-1. 在终端中执行关机命令 `shutdown -h now`。或者屏幕右上角：电源标志 → power off。
+1. 屏幕右上角：电源标志 → power off。
 2. 观察开发板小机箱的散热风扇。风扇停止后，按桌子下面的立方体插座上的开关，电源指示灯熄灭。
 3. 起身正对机械臂，将竖立的机械臂向前轻轻推倒，水平卧在 Jetson 开发板小机箱上即可。
 
-🚫 电源线：不必从视觉实验箱拔下来；也不必从桌子下面的插座上拔下来。<br>
+🚫 电源线：不必从机械臂拔下来；也不必从桌子下面的插座上拔下来。<br>
 🚫 机械臂：水平自然卧倒在小机箱上即可。不必整理、扭成很好看的造型（可能导致下次启动时无法站立）。
 
 ---
@@ -185,13 +183,13 @@ grab yellow cube and move to 160,200
 3. 执行以下命令将下载的文件移动到 jetson 用户的 HOME 目录。浏览器下载文件通常存放在 jetson HOME 目录的 Downloads 子目录中。
 
     ```bash
-    mv ~/Downloads/viki2604.zip ~/.
+mv ~/Downloads/viki2604.zip ~/.
     ```
 
 3. 执行以下命令解压缩 zip 文件。解压缩完成后生成子目录 viki。
 
     ```bash
-    unzip viki2604.zip
+unzip viki2604.zip
     ```
 
 ==========
@@ -201,8 +199,8 @@ grab yellow cube and move to 160,200
 1. 创建并激活 Python 3.9 虚拟环境
 
     ```bash
-    conda create -n viki python=3.9
-    conda activate viki
+conda create -n viki python=3.9
+conda activate viki
     ```
 
     > 虚拟环境激活后，命令行提示符首部有 `(viki)` 字样：`(viki) jetson@jetson-Yahboom:~$ 
@@ -211,7 +209,7 @@ grab yellow cube and move to 160,200
 2. 安装样例demo需要的 Python 包
 
     ```bash
-    (viki) jetson@jetson-Yahboom:~$ pip3 install openai pyaudio numpy soundfile requests Pillow pymycobot==3.4.9 opencv-python Jetson.GPIO scipy
+(viki) jetson@jetson-Yahboom:~$ pip3 install openai pyaudio numpy soundfile requests Pillow pymycobot==3.4.9 opencv-python Jetson.GPIO scipy
     ```
 
     > 机械臂相关的 pymycobot 安装 3.4.9 版本。否则后续运行样例demo会报错。
@@ -231,9 +229,9 @@ grab yellow cube and move to 160,200
 
     <!-- [![backend](./labkit.assets/irobot3.jpg)](./labkit.assets/irobot3.jpg) -->
 
-- 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，范围大约是 3 * 5 个积木。
+<!-- - 待抓取积木放置范围：距离桌面边缘约 1 个积木位置，距离机械臂约 2 个积木位置，范围大约是 3 * 5 个积木。 -->
 
-    <a href="./labkit.assets/irobot2.jpg"><img src="./labkit.assets/irobot2.jpg" alt="scope" style="width:50%"></a>
+    <!-- <a href="./labkit.assets/irobot2.jpg"><img src="./labkit.assets/irobot2.jpg" alt="scope" style="width:50%"></a> -->
 
     <!-- [![scope](./labkit.assets/irobot2.jpg)](./labkit.assets/irobot2.jpg) -->
 
