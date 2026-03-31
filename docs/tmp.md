@@ -56,3 +56,5 @@ Successfully installed Jetson.GPIO-2.1.12
 jetson@jetson-Yahboom:~$ pip3 list | grep GPIO
 Adafruit-GPIO                        1.0.3               
 Jetson.GPIO                          2.1.6     
+
+grab six cubes and put as a circle

@@ -77,11 +77,7 @@ jetson@jetson-Yahboom:~/viki$ conda activate viki
 
 - 先在机械臂前面的桌面上放置待抓取的积木。✅ 颜色面朝上。
 
-    （待补充照片）
-
 - 目标区域没有积木。
-
-    （待补充照片）
 
 - 抓取蓝色积木。输入 `grab blue cube and move to -80,200`
 
