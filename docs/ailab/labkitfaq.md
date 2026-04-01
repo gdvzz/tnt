@@ -24,10 +24,10 @@ nav_exclude: true
 
 ## 约定
 
-- 视觉实验箱：vkai
-- NLP 实验箱：nlpx
-- 昇腾开发板：asdk
-- 鲲鹏开发板：kpdk
+- 视觉实验箱：viki (VIsual KIt)
+- NLP 实验箱：nlpx (NLP)
+- 昇腾开发板：aidk (Ascend Innovation / Artificial Intelligence Developer Kit )
+- 鲲鹏开发板：dkoo (Like 'd cool'. dk = Developer Kit, k also for Kunpeng, oo = 2 Orange Pi)
 
 ----
 
@@ -69,3 +69,9 @@ df -h
 
 > 要输入提取码才能访问。
 
+
+---
+
+## viki小问题
+
+- ether 3c:6d:66:1f:5a:c5；摄像头颜色不准：绿的是品红的。
