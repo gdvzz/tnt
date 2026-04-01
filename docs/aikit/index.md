@@ -24,18 +24,23 @@ nav_order: k1
 
 ---
 
-## Abbr
+## AKA
+
+<br>
 
 后续文档将用以下缩写称呼相关 AI 教具：
 
-- 视觉实验箱：viki (VIsual KIt)
-- NLP 实验箱：nlpx (NLP)
-- 昇腾开发板：aidk (Ascend Innovation / Artificial Intelligence Developer Kit )
-- 鲲鹏开发板：dkoo (Like 'd cool'. dk = Developer Kit, k also for Kunpeng, oo = 2 Orange Pi)
+- 视觉实验箱：**viki** (VIsual KIt)
+- NLP 实验箱：**nlpx** (NLP)
+- 昇腾开发板：**aidk** (Ascend Innovation / Artificial Intelligence Developer Kit )
+- 鲲鹏开发板：**dkoo** (Like 'd cool'. dk = Developer Kit, k also for Kunpeng, oo = 2 Orange Pi)
+
+---
 
 ## UserPassword
 
 <br>
+
 AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 Linux（Ubutun）系统。
 
 > 以“用户 / 密码”方式表达。比如“jetson / yahoom”表示 Linux 用户 jetson 的默认密码是 yahboom。
@@ -59,9 +64,11 @@ AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 
 
 ## WiFi
 
-如何连接 WiFi 的方法。（未完待续）
+本章节介绍如何连接和断开 WiFi 的方法。（未完待续）
 
 ### viki
+
+<br>
 
 适用于视觉实验箱（viki）和 NLP实验箱（nlpx）。
 
@@ -74,6 +81,8 @@ AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 
 > 待补充命令行连接wifi。
 
 ### nlpx
+
+<br>
 
 同 [视觉实验箱viki](#viki)。
 
