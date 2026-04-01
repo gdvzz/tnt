@@ -75,9 +75,15 @@ jetson@jetson-Yahboom:~/viki$ conda activate viki
 
 ## 体验-抓颜色积木
 
-- 先在机械臂前面的桌面上放置待抓取的积木。✅ 颜色面朝上。
+- 先在机械臂前面的桌面上放置待抓取的积木。
+    
+    ✅ 颜色面朝上
+    
+    🚫 箭头虚线框区域没有积木
+    
+    如下图所示：
 
-- 目标区域没有积木。
+    <a href="./irobots.assets/irobot6.jpg"><img src="./irobots.assets/irobot6.jpg" alt="overall" style="width:50%"></a>
 
 - 抓取蓝色积木。输入 `grab blue cube and move to -80,200`
 
@@ -107,7 +113,9 @@ jetson@jetson-Yahboom:~/viki$ conda activate viki
     <USER>:
     ```
 
-🚫 禁止：**如果目标 {xy坐标} 已有积木，不能让机械臂抓积木再移动到相同坐标。否则可能导致机械臂损坏。**
+蓝色积木、绿色积木抓取移动后，如下图所示：
+
+<a href="./irobots.assets/irobot4.jpg"><img src="./irobots.assets/irobot4.jpg" alt="overall" style="width:50%"></a>
 
 ---
 
@@ -115,7 +123,11 @@ jetson@jetson-Yahboom:~/viki$ conda activate viki
 
 - 先在机械臂前面的桌面上放置待抓取的 **2** 个积木。
 
-- ✅ 提前清空坐标 y 正方向空间。因为稍后积木将堆叠在此。
+    🚫 箭头虚线框区域没有积木
+    
+    如下图所示：
+
+    <a href="./irobots.assets/irobot6.jpg"><img src="./irobots.assets/irobot6.jpg" alt="overall" style="width:50%"></a>
 
 - 然后在样例demo程序启动后的 `<USER>:` 提示符后，输入：
 
@@ -141,7 +153,9 @@ jetson@jetson-Yahboom:~/viki$ conda activate viki
     <USER>:
     ```
 
-🚫 禁止：**坐标 y 正方向空间如已有积木，不要体验堆叠积木，要清空目标空间后体验。否则可能导致机械臂损坏。**
+2 个积木堆叠后，如下图所示：
+
+<a href="./irobots.assets/irobot5.jpg"><img src="./irobots.assets/irobot5.jpg" alt="overall" style="width:50%"></a>
 
 ---
 
