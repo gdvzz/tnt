@@ -40,7 +40,6 @@ nav_order: k1
 ## UserPassword
 
 <br>
-
 AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 Linux（Ubutun）系统。
 
 > 以“用户 / 密码”方式表达。比如“jetson / yahoom”表示 Linux 用户 jetson 的默认密码是 yahboom。
@@ -64,6 +63,7 @@ AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 
 
 ## WiFi
 
+<br>
 本章节介绍如何连接和断开 WiFi 的方法。（未完待续）
 
 ### viki
@@ -83,6 +83,5 @@ AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 
 ### nlpx
 
 <br>
-
 同 [视觉实验箱viki](#viki)。
 
