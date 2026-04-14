@@ -114,7 +114,7 @@ mermaid:
 back_to_top: true
 back_to_top_text: "回到顶部"
 
-footer_content: 'Copyright &copy; 2025-2026 George Donne and coming contributors. Distributed by an MIT license. <a href="https://www.github.com.com/">This site is powered by GitHub.</a>'
+footer_content: 'Copyright &copy; 2025-2026 George Donne and coming contributors. Distributed by an MIT license. <a href="https://www.github.com/">This site is powered by GitHub.</a>'
 
 # Footer last edited timestamp
 last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
