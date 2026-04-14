@@ -1,7 +1,7 @@
 ---
 title: RAG实验-260417(tbc)
 layout: default
-parent: AI实验课
+parent: ailab实验课
 nav_order: -260417
 # nav_exclude: true
 ---
