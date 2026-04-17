@@ -135,6 +135,16 @@ chatpdf/
     
     ✴️ 一定要把 Python 包安装到虚拟环境中。
 
+### conda常用命令
+
+以下是常用的 conda 命令：
+
+- `conda create -n rag0417 python=3.10`：创建 Python 3.10 的名称是 rag0417 的虚拟环境
+- `conda remove -n rag0417 --all`   ：删除名称是 rag0417 的虚拟环境
+- `conda activate rag0417`：激活名称是 rag0417 的虚拟环境
+- `conda deactivate`：在 rag0417 虚拟环境中执行该命令，可去激活（退出）rag0417 的虚拟环境
+- `conda env list`：查看当前已创建了哪些虚拟环境
+
 ---
 
 ## 下载解压样例代码
@@ -165,8 +175,15 @@ chatpdf/
 
 1. 构建向量存储。使用提供的知识库文件 `2026jnu.pdf`（2026年本科直博研究生招生专业目录） 构建向量存储：
 
+    先切换到实验目录：
+
     ```bash
     cd ~/chatpdf
+    ```
+
+    构建向量存储：
+
+    ```bash
     python3 main.py --mode build --file 2026jnu.pdf
     ```
 
@@ -183,7 +200,7 @@ chatpdf/
 
 2. 命令行交互式查询
 
-    构建向量存储后，启动交互式查询：
+    构建向量存储后，在实验目录中，执行以下命令启动交互式查询：
 
     ```bash
     python3 main.py --mode interactive
@@ -191,7 +208,7 @@ chatpdf/
 
 3. 命令行单次查询
 
-    也可以使用单次查询模式：
+    也可以在实验目录中，执行以下命令使用单次查询模式：
 
     ```bash
     python3 main.py --mode query --question "2026江南大学本科直博研究生招生专业目录中，食品学院的招生专业有哪些？"
@@ -220,8 +237,15 @@ chatpdf/
 
 1. 在 **终端Terminal** 依次执行以下命令启动 Web 服务端：
 
+    先切换到实验目录：
+
     ```bash
     cd ~/chatpdf
+    ```
+
+    启动 Web 服务端：
+
+    ```bash
     python3 gradio_app.py
     ```
 
@@ -229,13 +253,15 @@ chatpdf/
 
     - `127.0.0.1:7860`
     - `localhost:7860`
-    - `{Jetson开发板校园网IP地址:7860`（比如 172.18.145.63:7860）
+    - `{Jetson开发板校园网IP地址}:7860`（比如 172.18.145.63:7860）
 
     可看到如下界面：
 
     ![gradio-web](./vikirag260417.assets/gradio-web.png)
 
-    ✳️ 也可以在接入校园网的电脑上，访问`{Jetson开发板校园网IP地址:7860`（比如 172.18.145.63:7860）。
+    ✳️ 也可以在接入校园网的电脑上，访问`{Jetson开发板校园网IP地址}:7860`（比如 172.18.145.63:7860）。
+
+    🚫 不是访问 `0.0.0.0:7860`。
 
 3. 在 Web 界面上传 pdf 文件并解析，在 Web 界面提问并得到答案。
 
