@@ -98,7 +98,8 @@ chatpdf/
 ```
 
 ### 相关信息
-
+<br>
+相关信息如下：
 - 账号 / 密码：jetson / yahboom
 - 中文输入法相关：[教具相关软件安装使用↗](https://tnt.gdvzz.com/sw/ailabkitsw.html)
 
@@ -136,7 +137,7 @@ chatpdf/
     ✴️ 一定要把 Python 包安装到虚拟环境中。
 
 ### conda常用命令
-
+<br>
 以下是常用的 conda 命令：
 
 - `conda create -n rag0417 python=3.10`：创建 Python 3.10 的名称是 rag0417 的虚拟环境
