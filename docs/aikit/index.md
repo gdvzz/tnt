@@ -1,8 +1,8 @@
 ---
-title: AI教具
+title: aikit教具
 layout: default
 # parent: AI Lab
-nav_order: k1
+nav_order: 30
 # nav_exclude: true
 ---
 
@@ -23,11 +23,9 @@ nav_order: k1
 </details>
 
 ---
-
 ## AKA
 
 <br>
-
 后续文档将用以下缩写称呼相关 AI 教具：
 
 - 视觉实验箱：**viki** (VIsual KIt)
@@ -40,7 +38,7 @@ nav_order: k1
 ## UserPassword
 
 <br>
-AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 Linux（Ubutun）系统。
+AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 Linux（Ubuntu）系统。
 
 > 以“用户 / 密码”方式表达。比如“jetson / yahoom”表示 Linux 用户 jetson 的默认密码是 yahboom。
 
@@ -69,7 +67,6 @@ AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 
 ### viki
 
 <br>
-
 适用于视觉实验箱（viki）和 NLP实验箱（nlpx）。
 
 - 点击屏幕右上角 **喇叭+电源+箭头** 连在一起的区域。（如果连了网线，还有**网络**标志，即 4 个图标连在一起的区域）
@@ -81,7 +78,7 @@ AI 教具的默认用户和密码如下，可用于登录和使用 AI 教具的 
 > 待补充命令行连接wifi。
 
 ### nlpx
-
 <br>
+
 同 [视觉实验箱viki](#viki)。
 
