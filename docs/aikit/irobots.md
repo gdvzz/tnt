@@ -1,8 +1,8 @@
 ---
 title: 机械臂体验
 layout: default
-parent: AI Lab
-nav_order: 9010
+parent: aikit教具
+nav_order: -260401
 # nav_exclude: true
 ---
 

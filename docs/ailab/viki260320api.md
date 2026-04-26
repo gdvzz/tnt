@@ -1,8 +1,8 @@
 ---
 title: 大模型API编程-260320
 layout: default
-parent: AI实验课
-nav_order: 260301
+parent: ailab实验课
+nav_order: -260320
 ---
 
 # 大模型API编程-260320
