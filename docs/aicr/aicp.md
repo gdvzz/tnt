@@ -1,8 +1,8 @@
 ---
 title: 人工智能算力平台
 layout: default
-parent: AI Lab
-nav_order: 5
+parent: aicr算力平台
+# nav_order: 5
 ---
 
 # 人工智能算力平台
