@@ -1,8 +1,8 @@
 ---
 title: NLP实验-251209
 layout: default
-parent: AI实验课
-nav_order: 15
+parent: ailab实验课
+nav_order: -251209
 ---
 
 # NLP实验-251209-RAG知识库大模型应用开发

@@ -1,8 +1,8 @@
 ---
 title: NLP实验-RAG-251113
 layout: default
-parent: AI实验课
-nav_order: 9
+parent: ailab实验课
+nav_order: -251113
 ---
 
 # NLP实验-RAG-251113
