@@ -1,12 +1,12 @@
 ---
-title: 昇腾开发板_pyACL
+title: 昇腾开发板_pyACL(tbc)
 layout: default
 parent: aikit教具
 # nav_order: 30
 # nav_exclude: true
 ---
 
-# 昇腾开发板 pyACL 快速入门
+# 昇腾开发板 pyACL 快速入门(tbc)
 {: .no_toc }
 `更新-260422` \| `发布-260422`
 

@@ -1,12 +1,12 @@
 ---
-title: AI教具使用简要说明New
+title: AI教具使用简要说明New(tbc)
 layout: default
-parent: AI Lab
+parent: aikit教具
 nav_order: 9001
 # nav_exclude: true
 ---
 
-# AI实验室教具使用说明New
+# AI实验室教具使用说明New(tbc)
 {: .no_toc }
 `更新-260327` \| `发布-251101`
 

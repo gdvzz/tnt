@@ -1,11 +1,11 @@
 ---
-title: AI教具使用简要说明
+title: AI教具使用简要说明(tbc)
 layout: default
-parent: AI Lab
-nav_order: 2
+parent: ailab教具
+# nav_order: 2
 ---
 
-# AI教具使用简要说明
+# AI教具使用简要说明(tbc)
 {: .no_toc }
 
 

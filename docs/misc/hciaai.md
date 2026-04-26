@@ -1,8 +1,8 @@
 ---
 title: HCIA-AI相关说明
 layout: default
-parent: AI Lab
-nav_order: 9
+parent: misc其他
+# nav_order: 9
 ---
 
 # HCIA-AI

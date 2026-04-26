@@ -1,7 +1,7 @@
 ---
 title: AI教具维护
 layout: default
-parent: AI Lab
+parent: aikit教具
 # nav_order: 9001
 nav_exclude: true
 ---
