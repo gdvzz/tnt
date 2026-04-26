@@ -2,7 +2,7 @@
 title: aicr算力平台
 layout: default
 # parent: AI Lab
-# nav_order: 30
+nav_order: 30
 # nav_exclude: true
 ---
 

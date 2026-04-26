@@ -2,7 +2,8 @@
 title: 教具相关软件安装使用
 layout: default
 parent: 软件使用
-nav_order: 10
+# nav_order: 10
+nav_exclude: true
 ---
 
 # 教具相关软件安装使用

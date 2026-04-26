@@ -2,7 +2,8 @@
 title: AI Lab
 layout: default
 # parent: 软件使用
-nav_order: a1
+# nav_order: a1
+nav_exclude: true
 ---
 
 # AI Lab 创新实践中心
