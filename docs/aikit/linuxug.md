@@ -34,58 +34,42 @@ nav_order: 90
 
 ## 常用命令
 
+### ls 查看文件和目录
+
+- `ls`：列出当前目录下的文件和子目录
+- `ls -l`：列出详细信息
+
+### cd/mkdir/pwd 创建/切换/显示目录
+
+- `cd`：切换到用户的 HOME 目录
+- `cd ~`：切换到用户的 HOME 目录
+- `cd ..`：返回上一级目录
+- `cd tmp`：切换到当前目录下的 tmp 子目录
+- `mkdir tmp`：在当前目录下创建 tmp 子目录
+- `pwd`：显示当前目录在哪里
+
+### cp/mv 复制/改名文件
+
+- `echo 'Hello, World!' > test.txt`：在当前目录下生成 test.txt 文件，文件内容是 Hello, World!
+- `cp test.txt hello.txt`：复制文件 test.txt 到 hello.txt
+- `mv hello.txt hiworld.txt`：将文件 hello.txt 改名为 hiworld.txt
+- `mv hiworld.txt tmp/`：将文件 hiworld 移动到当前目录的子目录 tmp 下面
+
 ### ifconfig 查看IP地址
 
 - `ifconfig`：查看 IP 地址
 - `ifconfig | grep 172`：查看包含 172 的 IP 地址
 
-### ls 查看文件和目录
+### clear 清屏
 
-- `ls`：列出当前目录下的文件和子目录
-- `ls -l`
+- `clear`：清除屏幕信息
 
-- 查看 IP 地址：`ifconfig | grep 172`
+### su 切换用户
 
-- 创建/切换/显示当前目录：
+- `su - root`：切换到 root 用户
+- `su - HwHiAiUser`：切换到 HwHiAiUser 用户
 
-    ```bash
-    # 在用户的 HOME 目录下创建子目录 tmp260304
-    mkdir ~/tmp260304
-    
-    # 切换到 HOME 目录
-    cd
-    pwd # 执行后屏幕应显示 /home/jetson
-    
-    # 切换到 tmp260304 子目录
-    cd ~/tmp260304
-    pwd # 执行后屏幕应显示 /home/jetson/tmp260304
-    ```
+### sudo 提升权限
 
-    说明：pwd 是 Print Working Directory，显示当前所在的目录路径。
+- `sudo python3 agent.py`：jetson 用户提升权限，用 root 权限执行 agent.py
 
-- 显示信息：`ls -l`
-
-- 复制/改名
-
-    ```bash
-    # 先切换到 /home/jetson/tmp260304
-    cd ~/tmp260304
-
-    # 在当前目录下生成文件 test.txt
-    echo "Hello, World!" > test.txt
-
-    # 复制文件 test.txt 到 hello.txt
-    cp test.txt hello.txt
-
-    # 修改文件 hello.txt 为 hiworld.txt
-    mv hello.txt hiworld.txt
-
-    # 列出当前目录下的文件
-    ls -l
-    ```
-
-- 清除屏幕信息
-
-    ```bash
-    clear
-    ```
