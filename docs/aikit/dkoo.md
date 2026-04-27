@@ -88,6 +88,15 @@ parent: aikit教具
 
 ✳️ 后续体验步骤，可参考：[熟悉昇腾开发者套件↗]。
 
+6. 部分截图
+
+![dkoo-01yolo1](./dkoo.assets/dkoo-01yolo1.jpg)
+![dkoo-01yolo2](./dkoo.assets/dkoo-01yolo2.jpg)
+![dkoo-01yolo3](./dkoo.assets/dkoo-01yolo3.jpg)
+![dkoo-01yolo4](./dkoo.assets/dkoo-01yolo4.jpg)
+![dkoo-01yolo5](./dkoo.assets/dkoo-01yolo5.jpg)
+![dkoo-01yolo6](./dkoo.assets/dkoo-01yolo6.jpg)
+
 <!--  -->
 [昇腾开发板预置样例代码↗]: https://pan.jiangnan.edu.cn/link/AA3111BE7AEEE54D8486377047D3375185
 [熟悉昇腾开发者套件↗]: https://tnt.gdvzz.com/ailab/aidk2604.html
