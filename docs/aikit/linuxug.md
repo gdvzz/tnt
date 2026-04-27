@@ -8,7 +8,7 @@ nav_order: 90
 
 # Linux常用操作
 {: .no_toc }
-`更新-260427` \| `发布-260320`
+`更新-260428` \| `发布-260320`
 
 本文档描述 Linux 常用操作，供同学参考。
 
@@ -48,7 +48,7 @@ nav_order: 90
 - `mkdir tmp`：在当前目录下创建 tmp 子目录
 - `pwd`：显示当前目录在哪里
 
-### cp/mv 复制/改名文件
+### cp/mv 复制/改名移动文件
 
 - `echo 'Hello, World!' > test.txt`：在当前目录下生成 test.txt 文件，文件内容是 Hello, World!
 - `cp test.txt hello.txt`：复制文件 test.txt 到 hello.txt
@@ -64,12 +64,21 @@ nav_order: 90
 
 - `clear`：清除屏幕信息
 
-### su 切换用户
+### whoami/id/su 显示/切换用户
 
+- `whoami`：显示用户名
+- `id`：显示用户id（用户名）、组id（组名）、其他组id（组名）
 - `su - root`：切换到 root 用户
 - `su - HwHiAiUser`：切换到 HwHiAiUser 用户
 
-### sudo 提升权限
+### sudo 提权操作
 
-- `sudo python3 agent.py`：jetson 用户提升权限，用 root 权限执行 agent.py
+- `sudo python3 agent.py`：普通用户A提升权限，用 root 权限执行 agent.py。普通用户A先要加入 sudo 组，才能执行 sudo 提权操作。
 
+### shutdown/poweroff 关机
+
+- `sudo shutdown -h now`：马上关机
+- `sudo poweroff`：关机
+
+<!--  -->
+<span style="font-size:12px; color:#999">THE END</span>
