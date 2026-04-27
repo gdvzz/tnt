@@ -3,7 +3,7 @@ title: 教具相关软件安装使用
 layout: default
 parent: aikit教具
 # nav_order: 10
-nav_exclude: true
+# nav_exclude: true
 ---
 
 # 教具相关软件安装使用
