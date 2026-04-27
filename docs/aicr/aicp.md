@@ -62,6 +62,7 @@ L40 算力，共：2896 TFLOPS(FP32)
 参考资料：https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-nvidia-us-2188504-web.pdf
 
 Nvidia A100，19.5 TFLOPS(FP32) / 80GB
+Nvidia A100，312 TFLOPS(FP16) / 80GB
 
 A100 算力，共：58.5 TFLOPS(FP32)
 
@@ -70,6 +71,7 @@ A100 算力，共：58.5 TFLOPS(FP32)
 参考资料：https://resources.nvidia.com/en-us-hopper-architecture/nvidia-tensor-core-gpu-datasheet?ncid=no-ncid
 
 Nvidia H100，67 TFLOPS(FP32) / 80GB
+Nvidia H100，1979 TFLOPS(FP16) / 80GB
 
 H100 算力，共：67 TFLOPS(FP32)
  -->

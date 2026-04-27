@@ -96,6 +96,11 @@ parent: aikit教具
 ![dkoo-01yolo4](./dkoo.assets/dkoo-01yolo4.jpg)
 ![dkoo-01yolo5](./dkoo.assets/dkoo-01yolo5.jpg)
 ![dkoo-01yolo6](./dkoo.assets/dkoo-01yolo6.jpg)
+![aidk-01yoloc](./dkoo.assets/aidk-01yoloc.jpg)
+![aidk-01yoloi](./dkoo.assets/aidk-01yoloi.jpg)
+![aidk-01yolov](./dkoo.assets/aidk-01yolov.jpg)
+![aidk-01yolors](./dkoo.assets/aidk-01yolors.jpg)
+![aidk-demo](./dkoo.assets/aidk-demo.jpg)
 
 <!--  -->
 [昇腾开发板预置样例代码↗]: https://pan.jiangnan.edu.cn/link/AA3111BE7AEEE54D8486377047D3375185
