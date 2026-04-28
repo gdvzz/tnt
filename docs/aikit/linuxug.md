@@ -48,7 +48,7 @@ nav_order: 90
 - `mkdir tmp`：在当前目录下创建 tmp 子目录
 - `pwd`：显示当前目录在哪里
 
-### cp/mv 复制/改名移动文件
+### cp/mv 复制/改名/移动文件
 
 - `echo 'Hello, World!' > test.txt`：在当前目录下生成 test.txt 文件，文件内容是 Hello, World!
 - `cp test.txt hello.txt`：复制文件 test.txt 到 hello.txt
