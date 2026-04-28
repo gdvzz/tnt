@@ -53,7 +53,8 @@ nav_order: 90
 
 ---
 
-## 远程连接<span id="remote"></span>
+## 远程连接
+<span id="remote"></span>
 <br>
 可在本地电脑使用 VSCode，远程 打开 Linux 服务器（包括开发板）上的文件，直接在本地电脑的 VSCode 编辑。
 
