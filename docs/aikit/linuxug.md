@@ -55,6 +55,69 @@ nav_order: 90
 - `mv hello.txt hiworld.txt`：将文件 hello.txt 改名为 hiworld.txt
 - `mv hiworld.txt tmp/`：将文件 hiworld 移动到当前目录的子目录 tmp 下面
 
+### zip/unzip 打包/解压
+
+- `zip -r 1stapp.zip 1stapp/`：把当前目录下的 1stapp 子目录，打包压缩成 1stapp.zip
+- `unzip -t 1stapp.zip`：验证 zip 文件是否正确，并不解压
+- `unzip 1stapp.zip`：解压 zip 文件到当前目录。解压后生成子目录 1stapp/
+- `zip res1.zip resnet50.onnx`：将文件 resnet50.onnx，压缩为 res1.zip
+
+### scp 远程复制文件/目录
+
+- `scp /local/path/file.txt user@remote_host:/remote/path/`：从本地复制文件到远程主机
+
+    ```bash
+    scp vscode1.jpg HwHiAiUser@172.18.145.125:/home/HwHiAiUser/samples/notebooks/01-yolov5
+    HwHiAiUser@172.18.145.125's password: 
+    vscode1.jpg    100% 1098KB  11.2MB/s   00:00    
+    ```
+
+    ✳️ 说明：将本地电脑当前目录下的文件 vscode1.jpg，复制到远程主机 172.18.145.125 的 /home/HwHiAiUser/samples/notebooks/01-yolov5 目录中，以用户 HwHiAiUser 访问远程主机
+
+- `scp -r /local/path/dir user@remote_host:/remote/path/`：从本地复制目录（递归，以及目录下的子目录和文件）到远程主机
+
+    ```bash
+    scp -r tmp123 HwHiAiUser@172.18.145.125:/home/HwHiAiUser/samples/notebooks/01-yolov5
+    HwHiAiUser@172.18.145.125's password: 
+    vscode9.jpg  100%  573KB  10.2MB/s   00:00    
+    vscode8.jpg  100%  570KB  10.6MB/s   00:00    
+    vscode1.jpg  100% 1098KB  12.0MB/s   00:00    
+    vscode2.jpg  100%  475KB  10.7MB/s   00:00    
+    vscode3.jpg  100%  499KB  11.0MB/s   00:00    
+    vscode7.jpg  100%  501KB   9.6MB/s   00:00    
+    vscode6.jpg  100%  530KB  11.8MB/s   00:00    
+    vscode4.jpg  100%  480KB   9.5MB/s   00:00    
+    vscode5.jpg  100%  537KB  12.2MB/s   00:00    
+    vscodea.jpg  100%  713KB  11.4MB/s   00:00    
+    vscodeb.jpg  100%  490KB  10.5MB/s   00:00     
+    ```
+
+    ✳️ 说明：将本地电脑当前目录下的子目录 tmp123（以及 tmp123 目录下的子目录和文件），复制到远程主机 172.18.145.125 的 /home/HwHiAiUser/samples/notebooks/01-yolov5 目录中，以用户 HwHiAiUser 访问远程主机。tmp123 目录下有 10 多个图片文件。
+
+- `scp user@remote_host:/remote/path/file.txt /local/path/`：从远程主机复制文件到本地
+
+    ```bash
+    scp HwHiAiUser@172.18.145.125:/home/HwHiAiUser/1stapp.zip .
+    HwHiAiUser@172.18.145.125's password: 
+    1stapp.zip  100%  136MB  16.2MB/s   00:08    
+    ```
+
+    ✳️ 说明：复制远程主机 172.18.145.125 的 /home/HwHiAiUser/1stapp.zip 文件，到本地的当前 目录中，以用户 HwHiAiUser 访问远程主机
+
+- `scp -r user@remote_host:/remote/path/dir /local/path/`：从远程主机复制目录（递归，以及目录下的子目录和文件）到本地
+
+    ```bash
+    scp -r HwHiAiUser@172.18.145.125:/home/HwHiAiUser/1stapp .
+    HwHiAiUser@172.18.145.125's password: 
+    first_app.py        100% 6689     1.4MB/s   00:00    
+    dog2_1024_683.jpg   100%   40KB   3.4MB/s   00:00    
+    dog1_1024_683.jpg   100%   35KB   4.1MB/s   00:00    
+    fusion_result.json  100% 3248   624.5KB/s   00:00    
+    resnet50.om         100%   49MB  16.1MB/s   00:03    
+    resnet50.onnx       100%   98MB  16.4MB/s   00:05 
+    ```
+    ✳️ 说明：复制远程主机 172.18.145.125 的 /home/HwHiAiUser/1stapp 目录递归，以及目录下的子目录和文件），到本地的当前目录中，以用户 HwHiAiUser 访问远程主机
+
 ### ifconfig 查看IP地址
 
 - `ifconfig`：查看 IP 地址
