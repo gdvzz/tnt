@@ -24,9 +24,17 @@ nav_order: 90
 
 ---
 
+## 安装
+
+MobaXterm下载：[链接↗](https://pan.jiangnan.edu.cn/link/AA1B6BD0FB597643F18945DA1E1FBAA3E2)
+
+解压后即可使用，免安装。
+
+---
+
 ## SSH登录
 
-**1. 新建session**
+1. **新建session**
 
     - 点击左上角 **Session**
     - 在 Session settings 界面中，点击左上角 **SSH**
@@ -40,7 +48,7 @@ nav_order: 90
 
     ![mx2](./mobaxtermug.assets/mx2.jpg)
 
-**1. 输入用户名和密码**
+1. **输入用户名和密码**
 
     输入用户名和正确的密码，即可登录。✅ Done！
     ![mx3](./mobaxtermug.assets/mx3.jpg)
@@ -51,7 +59,7 @@ nav_order: 90
 
 ## 传文件
 
-**1. 新建session**
+1. **新建session**
 
     - 点击左上角 **Session**
     - 在 Session settings 界面中，点击顶部中间的 **SFTP**
@@ -61,15 +69,15 @@ nav_order: 90
 
     ![mx4](./mobaxtermug.assets/mx4.jpg)
 
-**1. 输入密码**
+1. **输入密码**
 
     输入正确的密码。本样例就是输入 172.18.145.125 机器上的 HwHiAiUser 用户的密码。
 
     ![mx5](./mobaxtermug.assets/mx5.jpg)
 
-**2. 互传文件和目录**
+2. **互传文件和目录**
 
-    登录成功后，可通过鼠标拖拽，在本地和远程之间互传文件以及目录。
+    登录成功后，可通过鼠标拖拽，在本地和远程之间互传文件以及目录。✅ Done！
 
     ![mx6](./mobaxtermug.assets/mx6.jpg)
 
