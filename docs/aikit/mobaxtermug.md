@@ -25,8 +25,8 @@ nav_order: 90
 ---
 
 ## 安装
-
-MobaXterm下载：[链接↗](https://pan.jiangnan.edu.cn/link/AA1B6BD0FB597643F18945DA1E1FBAA3E2)
+<br>
+MobaXterm下载：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AA1B6BD0FB597643F18945DA1E1FBAA3E2)
 
 解压后即可使用，免安装。
 
