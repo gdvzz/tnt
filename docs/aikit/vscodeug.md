@@ -35,7 +35,7 @@ nav_order: 90
 （从略）
 
 ### Jetson开发板
-
+<br>
 点击界面左下角的 `九宫格(Show Applications)`，然后搜索 `VSCode`。如能找到则打开直接使用。如没有找到，参考如下步骤安装 VSCode 到开发板。
 
 - 打开发板上的浏览器，访问 VSCode 官网 Download 页面：[https://code.visualstudio.com/Download↗](https://code.visualstudio.com/Download)
@@ -53,8 +53,8 @@ nav_order: 90
 
 ---
 
-## 远程连接
-
+## 远程连接<span id="remote"></span>
+<br>
 可在本地电脑使用 VSCode，远程 打开 Linux 服务器（包括开发板）上的文件，直接在本地电脑的 VSCode 编辑。
 
 1. 安装 **Remote - SSH** 插件
@@ -65,7 +65,7 @@ nav_order: 90
 
 2. 新增远程
 
-    点击左侧导航栏的 **Remote Explorer**，鼠标移到在左上 SSH， 行末出现有 **+ New Remote**，点击后新增远程。
+    点击左侧导航栏的 **Remote Explorer**，鼠标移到左上 **SSH**， 行末出现有 **+ New Remote**，点击后新增远程。
 
     在右侧顶部按提示信息 `E.g. ssh hello@microsoft.com -A`，输入 `ssh 用户名@IP地址（或域名） `。比如，`ssh root@172.18.145.125`。
 
@@ -81,7 +81,7 @@ nav_order: 90
 
     刚配置的远程，可以点击右下角的 **Connect** 按钮连接远程。
 
-    或者下次再连接时，鼠标移到点击左侧要连接的远程的名字，行末出现 **→ Connect in Current Window...** 和 **Connect in New Window...**，点击其中之一连接远程。
+    或者下次再连接时，鼠标移到左侧要连接的远程的名字，行末出现 **→ Connect in Current Window...** 和 **Connect in New Window...**，点击其中之一连接远程。
     
     ![vscode4](./vscodeug.assets/vscode4.jpg)
 
@@ -124,6 +124,8 @@ nav_order: 90
 
     点击 **Yes, I trust the authors**。 ✅ Done！
     ![vscodeb](./vscodeug.assets/vscodeb.jpg)
+
+上述方法适用于临时连接远程。如果要经常连接某个远程服务器，避免经常输入密码，可通过配置 ssh 信息实现，详见：[vscode通过ssh连接服务器实现免密登录+删除（吐血总结）↗](https://blog.csdn.net/Oxford1151/article/details/137228119)
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
