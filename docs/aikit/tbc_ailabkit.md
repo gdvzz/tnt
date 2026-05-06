@@ -3,6 +3,7 @@ title: AI教具使用简要说明(tbc)
 layout: default
 parent: ailab教具
 # nav_order: 2
+nav_exclude: true
 ---
 
 # AI教具使用简要说明(tbc)

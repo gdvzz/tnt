@@ -13,13 +13,17 @@ parent: aikit教具
 本文档描述 **鲲鹏开发板** 的相关信息，用于快速熟悉和入门教具。
 
 <!--  -->
-<details open markdown="block">
-  <summary>
-    目录
-  </summary>
-  <!-- {: .text-delta } -->
+<details markdown="block">
+    <summary>✳️ 目录</summary>
 - TOC
 {:toc}
+</details>
+
+<details markdown="block">
+    <summary>ℹ️ 更新历史</summary>
+<br>
+**260506**
+- 新增：[连接外网](#连接外网)
 </details>
 
 ---
@@ -44,9 +48,9 @@ parent: aikit教具
 
 ---
 
-<span id="network-share"></span>
+<span id="nets"></span>
 ## 连接外网
-
+<br>
 可参考开发板官网的 [通过PC共享网络联网（Windows）↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Hardware%20Interfaces/hiug/hiug_0010.html)
 
 上述指导，以“可以访问互联网的 WiFi，共享给开发板”为例。也可以将“本地电脑可以访问互联网的以太网（插网线的），共享给开发板”，操作步骤是一样的。

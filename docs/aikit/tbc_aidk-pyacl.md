@@ -3,7 +3,7 @@ title: 昇腾开发板_pyACL(tbc)
 layout: default
 parent: aikit教具
 # nav_order: 30
-# nav_exclude: true
+nav_exclude: true
 ---
 
 # 昇腾开发板 pyACL 快速入门(tbc)

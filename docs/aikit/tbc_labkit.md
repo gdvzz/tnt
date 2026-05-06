@@ -2,8 +2,8 @@
 title: AI教具使用简要说明New(tbc)
 layout: default
 parent: aikit教具
-nav_order: 9001
-# nav_exclude: true
+# nav_order: 9001
+nav_exclude: true
 ---
 
 # AI实验室教具使用说明New(tbc)
