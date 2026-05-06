@@ -81,13 +81,28 @@ nav_order: -260509
 
 ## 上电开机
 
+### 鲲鹏开发板
+<br>
+插上电源即可开机：
+
+- 接通电源启动开发板
+- 前面板有2个 Type-C，电源插入➡️边上那个。
+- 拿掉顶部的磁吸盖子，看到2个绿灯亮，就表示开机完成。
+
+### 昇腾开发板
+<br>
+插上电源即可开机：
+
+- 接通开发板电源启动开发板
+- 开发板上电后，3个指示灯会依次绿色常亮，表示启动正常。
+
 ---
 
 ## 连接外网
 <br>
 开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：
 
-- 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
+- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1rem; max-width: 100%;">昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
 - 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
 
 ---
@@ -301,11 +316,13 @@ AI辅助编程可加快项目进度。重点是把要求说清楚，并不断测
 - 样例代码中的几个相关程序（`train.py` 、`test.py`、`model.py`），也发给AI做参考，可能给出的代码更符合和贴近要求
 - 可以不断给AI提出完整的全新要求。比如原始要求有3条，经过多次交流后，增加到了 7 条；可以一次性的给AI提出完整的7条的全新要求。
 
----
 
-## 参考资料
 
-[^1]: [零基础AI入门指南↗](https://liaoxuefeng.com/blogs/all/2023-05-08-mnist/index.html)
+<!-- ## 参考资料 -->
+
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
+
+<!--  -->
+[^1]: [零基础AI入门指南↗](https://liaoxuefeng.com/blogs/all/2023-05-08-mnist/index.html)
