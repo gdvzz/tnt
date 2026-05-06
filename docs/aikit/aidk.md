@@ -90,11 +90,11 @@ parent: aikit教具
 
 4. 先备份原有网络配置信息：
 
-```bash
-cp 01-netcfg.yaml 01-netcfg.bak年月曰
-```
+    ```bash
+    cp 01-netcfg.yaml 01-netcfg.bak年月曰
+    ```
 
-比如，`cp 01-netcfg.yaml 01-netcfg.bak260506`
+    比如，`cp 01-netcfg.yaml 01-netcfg.bak260506`
 
 5. 修改 01-netcfg.yaml 为如下内容：
 

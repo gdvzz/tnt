@@ -37,40 +37,46 @@ nav_order: -260509
 {:toc}
 </details>
 
+<details markdown="block">
+    <summary>
+        ✳️ 目录
+    </summary>
+- TOC
+{:toc}
+</details>
+
+---
+
+## 实验简介
+
+
+
+---
+
+## 实验目的
+
+---
+
+## 座位设备对应
+
+---
+
+## 上电开机
+
 ---
 
 ## 连接外网
+<br>
+开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：
 
-
-```yaml
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    eth0:
-      dhcp4: yes
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]   # 修正：合并为一个列表
-
-    eth1:
-      dhcp4: no
-      addresses: [192.168.137.100/24]
-      routes:
-        - to: default
-          via: 192.168.137.1
-          metric: 200          # 添加 metric，值大于 eth0 的 100，降低优先级
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]   # 修正列表
-
-    usb0:
-      dhcp4: no
-      addresses: [192.168.0.2/24]
-```
+- 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
+- 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
 
 ---
 
 ## 创建环境
-
+<br>
+创建
 用 conda 创建 Python 3.10 的虚拟环境：
 
 ```bash
