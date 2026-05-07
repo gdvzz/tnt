@@ -75,7 +75,41 @@ nav_order: -260509
 ---
 
 
-## 座位设备对应
+## 对号入座
+<br>
+小组 + 桌号 + 开发板编号，安排如下。✅请对号入座。
+
+![b102ted](./aidkoo-mnist260509.assets/b102ted.png)
+
+|小组|桌号|开发板|人数|
+|:---:|:---:|:---:|:---:|
+|1|1|昇腾1|3|
+|2|1|昇腾2|3|
+|3|3|昇腾3|3|
+|4|3|昇腾4|3|
+|5|4|昇腾5|2|
+|6|5|昇腾6|3|
+|7|4|昇腾7|2|
+|8|4|昇腾8|2|
+|9|5|昇腾9|3|
+|10|6|昇腾10|3|
+|11|8|昇腾11|2|
+|12|7|昇腾12|2|
+|13|7|昇腾13|2|
+|14|7|昇腾14|2|
+|15|6|昇腾16|3|
+|16|8|鲲鹏1|2|
+|17|9|鲲鹏2|3|
+|18|9|鲲鹏3|3|
+|19|8|鲲鹏4|2|
+|20|10|鲲鹏5|3|
+|21|11|鲲鹏6|2|
+|22|10|鲲鹏7|3|
+|23|11|鲲鹏8|2|
+|24|12|鲲鹏9|3|
+|25|12|鲲鹏10|3|
+|26|11|鲲鹏11|2|
+|27|2|鲲鹏12|1|
 
 ---
 
@@ -102,8 +136,8 @@ nav_order: -260509
 <br>
 开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：
 
-- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1rem; max-width: 100%;">昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
-- 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
+- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
+- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
 
 ---
 
