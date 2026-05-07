@@ -14,13 +14,13 @@ parent: aikit教具
 
 <!--  -->
 <details markdown="block">
-    <summary>✳️ 目录</summary>
+  <summary>✳️ 目录</summary>
 - TOC
 {:toc}
 </details>
 
 <details markdown="block">
-    <summary>ℹ️ 更新历史</summary>
+  <summary>ℹ️ 更新历史</summary>
 <br>
 **260506**
 - 新增：[连接外网](#连接外网)
@@ -114,7 +114,7 @@ parent: aikit教具
 
 5. 本地电脑 Web 浏览器体验。在本地电脑 Web 浏览器访问刚才复制的 `http://192.168.137.100:8888/lab?token=一串数字字母`
 
-✳️ 后续体验步骤，可参考：[熟悉昇腾开发者套件↗]。
+    ✳️ 后续体验步骤，可参考：[熟悉昇腾开发者套件↗]。
 
 6. 部分截图
 
@@ -124,12 +124,11 @@ parent: aikit教具
 ![dkoo-01yolo4](./dkoo.assets/dkoo-01yolo4.jpg)
 ![dkoo-01yolo5](./dkoo.assets/dkoo-01yolo5.jpg)
 ![dkoo-01yolo6](./dkoo.assets/dkoo-01yolo6.jpg)
-![aidk-01yoloc](./dkoo.assets/aidk-01yoloc.jpg)
+<!-- ![aidk-01yoloc](./dkoo.assets/aidk-01yoloc.jpg)
 ![aidk-01yoloi](./dkoo.assets/aidk-01yoloi.jpg)
 ![aidk-01yolov](./dkoo.assets/aidk-01yolov.jpg)
 ![aidk-01yolors](./dkoo.assets/aidk-01yolors.jpg)
-![aidk-demo](./dkoo.assets/aidk-demo.jpg)
-
+![aidk-demo](./dkoo.assets/aidk-demo.jpg) -->
 
 ---
 
