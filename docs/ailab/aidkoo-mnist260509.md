@@ -53,24 +53,32 @@ nav_order: -260509
 <br>
 本次实验主要完成以下任务：
 
-1. 完成 [体验样例](#体验样例) 任务
+1. **完成 [体验样例](#体验样例) 任务**
 
     - 依次执行分步骤：[训练模型](#训练模型)、[推理验证](#推理验证)、[产品化)](#产品化)
     - 并截图保存各个步骤的执行结果
 
-2. 输出样例源码功能说明，用于加深对参考样例的理解
+2. **修改训练 `train.py`，输出更多信息**
+
+    - 比如，每隔 10 个 batch，输出一条信息：已用时多久，预计还要多久，等。
+
+3. **完成 [拍摄并识别](#拍摄并识别) 任务**
+
+    - 输出源码
+    - 依次拍摄并识别 0~9 共 10 个数字，并截图保存
+
+4. **输出样例源码功能说明，用于加深对参考样例的理解**
 
     - 主要是 `train.py` 和 `test.py` 的功能说明
     - 比如：定义了一个xxxx的人工智能网络，输入了xxxx训练数据，经过xxxx，最终得到xxxx指标的模型，……
 
-3. 输出个人独特版本的程序（课后完成）
+5. **输出个人独特版本的程序**（可课后完成）
     
     - 建议结合AI辅助编程
     - 包括模型训练程序，以及推理程序
     - 可在个人电脑上完成
     - 如有条件使用 GPU 进行训练和推理，请尽快使用 GPU
     - 截图保存训练结果和推理结果
-
 
 ---
 
@@ -114,21 +122,13 @@ nav_order: -260509
 ---
 
 ## 上电开机
-
-### 鲲鹏开发板
 <br>
 插上电源即可开机：
 
 - 接通电源启动开发板
-- 前面板有2个 Type-C，电源插入➡️边上那个。
-- 拿掉顶部的磁吸盖子，看到2个绿灯亮，就表示开机完成。
-
-### 昇腾开发板
-<br>
-插上电源即可开机：
-
-- 接通开发板电源启动开发板
-- 开发板上电后，3个指示灯会依次绿色常亮，表示启动正常。
+- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 昇腾开发板：开发板上电后，3个指示灯会依次绿色常亮，表示启动正常。
+- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：前面板有2个 Type-C，电源插入➡️边上那个。
+- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：拿掉顶部的磁吸盖子，看到2个绿灯亮，就表示开机完成。
 
 ---
 
@@ -136,7 +136,7 @@ nav_order: -260509
 <br>
 开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：
 
-- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
+- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
 - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
 
 ---
@@ -195,16 +195,15 @@ nav_order: -260509
     ```bash
     pip3 install "numpy<2" flask opencv-python
     ```
-
 ---
 
 ## 获取源码
 <br>
 下载样例压缩包（源码+数据），并上传开发板，然后解压缩。
 
-1. **下载样例压缩包**：[江大云盘链接↗]
+1. **下载样例压缩包**：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AAC89B81796FB1466FA15714057FBA6445)
 
-    压缩包文件名是：demomnist.zip
+    压缩包文件名是：dmnist260509.zip
 
 2. **在开发板上新建实验用目录：**
 
@@ -315,10 +314,12 @@ python3 test.py
 
     在本地电脑浏览器输入以下 **IP:端口** 访问：
 
-    - 昇腾开发板：`192.168.137.100:5000` 
-    - 鲲鹏开发板：`192.168.137.100:5000` 
+    - <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 昇腾开发板：`192.168.137.100:5000` 
+    - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：`192.168.137.200:5000` 
 
     在本地电脑的浏览器界面，用鼠标手逐个写 0 ~ 9 共 10 个数字，点击识别，并获得识别结果。
+
+    ![scratch-infer](./aidkoo-mnist260509.assets/scratch-infer.jpg)
 
 ---
 
@@ -345,12 +346,12 @@ AI辅助编程可加快项目进度。重点是把要求说清楚，并不断测
 
 3. 得到阶段性成果如下：
 
+    ![photo-infer](./aidkoo-mnist260509.assets/photo-infer.jpg)
+
 ✳️ 几点建议：
 
 - 样例代码中的几个相关程序（`train.py` 、`test.py`、`model.py`），也发给AI做参考，可能给出的代码更符合和贴近要求
 - 可以不断给AI提出完整的全新要求。比如原始要求有3条，经过多次交流后，增加到了 7 条；可以一次性的给AI提出完整的7条的全新要求。
-
-
 
 <!-- ## 参考资料 -->
 
