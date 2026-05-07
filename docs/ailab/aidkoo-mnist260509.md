@@ -126,9 +126,9 @@ nav_order: -260509
 插上电源即可开机：
 
 - 接通电源启动开发板
-- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 昇腾开发板：开发板上电后，3个指示灯会依次绿色常亮，表示启动正常。
-- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：前面板有2个 Type-C，电源插入➡️边上那个。
-- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：拿掉顶部的磁吸盖子，看到2个绿灯亮，就表示开机完成。
+- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 昇腾开发板：开发板上电后，3个指示灯会依次绿色常亮，表示启动正常。
+- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 鲲鹏开发板：前面板有2个 Type-C，电源插入➡️边上那个。
+- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 鲲鹏开发板：拿掉顶部的磁吸盖子，看到2个绿灯亮，就表示开机完成。
 
 ---
 
@@ -136,8 +136,8 @@ nav_order: -260509
 <br>
 开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：
 
-- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
-- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
+- <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 昇腾开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/aidk.html#nets)
+- <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 鲲鹏开发板：[连接外网↗](https://tnt.gdvzz.com/aikit/dkoo.html#nets)
 
 ---
 
@@ -314,8 +314,8 @@ python3 test.py
 
     在本地电脑浏览器输入以下 **IP:端口** 访问：
 
-    - <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 昇腾开发板：`192.168.137.100:5000` 
-    - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.5rem; max-width: 100%;"> 鲲鹏开发板：`192.168.137.200:5000` 
+    - <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 昇腾开发板：`192.168.137.100:5000` 
+    - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> 鲲鹏开发板：`192.168.137.200:5000` 
 
     在本地电脑的浏览器界面，用鼠标手逐个写 0 ~ 9 共 10 个数字，点击识别，并获得识别结果。
 
