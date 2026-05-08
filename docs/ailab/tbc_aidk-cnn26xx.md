@@ -1,9 +1,9 @@
 ---
-title: 手写数字识别-260509
+title: 手写数字识别(tbd)
 layout: default
 parent: ailab实验课
-nav_order: -260509
-# nav_exclude: true
+# nav_order: -260509
+nav_exclude: true
 ---
 
 # 手写数字识别-260509
