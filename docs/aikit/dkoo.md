@@ -207,6 +207,18 @@ netplan-eth0  626dd384-8b3d-3690-9511-192b2c79b3fd  ethernet  --
 Connection 'Profile 1' (14db5d66-2a23-4b83-893e-f7e53ff1db06) successfully deleted.
 ```
 
+防止 NetworkManager 再次自动创建新的 eth0 连接：编辑 /etc/NetworkManager/NetworkManager.conf，在 [main] 段下添加：
+
+```ini
+no-auto-default=*
+```
+
+然后重启 NetworkManager：
+
+```bash
+sudo systemctl restart NetworkManager
+```
+
 ---
 
 ## 体验样例代码
