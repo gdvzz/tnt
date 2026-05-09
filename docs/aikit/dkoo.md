@@ -25,6 +25,7 @@ parent: aikit教具
 **260509**
 - 新增：[连WiFi](#连wifi)
 - 新增：[更改默认静态IP](#更改默认静态ip)
+- 默认IP地址改为 192.168.137.100
 
 **260506**
 - 新增：[连接外网](#连接外网)
@@ -48,7 +49,7 @@ parent: aikit教具
 <br>
 鲲鹏开发板的默认 IP 如下：
 
-- IP地址：`192.168.137.200`
+- IP地址：`192.168.137.100`
 - 子网掩码：`255.255.255.0`
 
 ---
@@ -83,7 +84,7 @@ parent: aikit教具
 ![network-share1](./dkoo.assets/network-share1.jpg)
 
 ### 连WiFi
-
+<br>
 先 root 用户登录开发板。或者已登录开发板，切换为 root 用户。
 
 - `nmcli dev wifi`：查看有哪些WiFi
@@ -230,7 +231,6 @@ nmcli conn show
     比如看到 NAME 是 `eth0`
     
     ```bash
-# nmcli conn show
 NAME          UUID                                  TYPE      DEVICE  
 b102          1363b997-7e0b-4953-a004-807b7d6de1fc  wifi      wlan0   
 eth0          14db5d66-2a23-4b83-893e-f7e53ff1db06  ethernet  eth0    
@@ -247,10 +247,9 @@ nmcli conn del eth0
     看到如下提示信息：
 
     ```bash
-# nmcli conn del eth0
 Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
     ```
-    
+
 ---
 
 ## 体验样例代码
