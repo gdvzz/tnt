@@ -25,6 +25,7 @@ parent: aikit教具
 **260509**
 - 新增：[连WiFi](#连wifi)
 - 新增：[更改默认静态IP](#更改默认静态ip)
+- 新增：[普通用户访问摄像头](#普通用户访问摄像头)
 - 默认IP地址改为 192.168.137.100
 
 **260506**
@@ -249,6 +250,30 @@ nmcli conn del eth0
     ```bash
 Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
     ```
+
+---
+
+<span id="access-camera"></span>
+
+## 普通用户访问摄像头 
+<br>
+如果普通用户（非 root 用户）打不开摄像头，可把普通用户添加到 Linux 的 `video` 组，就可以打开摄像头了。以 `HwHiAiUser` 用户为例： 
+
+- 以 root 用户登录开发板
+
+- 或已登录，先切换到 root
+
+    ```bash
+su - root
+    ```
+
+- 用 root 用户执行：
+
+    ```bash
+usermod -a -G video HwHiAiUser
+    ```
+
+- 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
 
 ---
 
