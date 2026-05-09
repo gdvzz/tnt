@@ -160,51 +160,52 @@ parent: aikit教具
 <br>
 将开发板默认IP地址修改为 `192.168.137.100`。
 
-1. root 用户登录开发板
+- root 用户登录开发板
 
-2. 修改 /etc/netplan/01-netcfg.yaml，内容如下：
+- 修改 /etc/netplan/01-netcfg.yaml，内容如下：
 
-    ```yaml
-    network:
-    version: 2
-    renderer: NetworkManager
-    ethernets:
-        eth0:
-        dhcp4: no
-        addresses:
-            - 192.168.137.100/24
-        routes:
-            - to: default
-            via: 192.168.137.1
-            metric: 700
-        nameservers:
-            addresses: [8.8.8.8, 114.114.114.114]
-    ```
-3. 先应用新的 IP 地址
+```yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eth0:
+      dhcp4: no
+      addresses:
+        - 192.168.137.100/24
+      routes:
+        - to: default
+          via: 192.168.137.1
+          metric: 700
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+```
 
-    ```bash
-    netplan try
-    ```
+- 先应用新的 IP 地址
 
-4. 再删除通过 UI 界面配置的 IP 地址
+```bash
+netplan try
+```
 
-    先看看 eth0 对应的配置 NAME（看到是 `Profile 1`）
+- 再删除通过 UI 界面配置的 IP 地址
 
-    ```bash
-    (base) root@orangepiaipro:/etc/netplan# nmcli conn show
-    NAME          UUID                                  TYPE      DEVICE  
-    b102          1363b997-7e0b-4953-a004-807b7d6de1fc  wifi      wlan0   
-    Profile 1     14db5d66-2a23-4b83-893e-f7e53ff1db06  ethernet  eth0    
-    docker0       6fdb6ff7-4ec5-46dc-9937-946a7988d084  bridge    docker0 
-    netplan-eth0  626dd384-8b3d-3690-9511-192b2c79b3fd  ethernet  --      
-    ```
-    
-    然后删除 eth0 对应的 `Profile 1`：
-    
-    ```bash
-    (base) root@orangepiaipro:/etc/netplan# nmcli conn del "Profile 1"
-    Connection 'Profile 1' (14db5d66-2a23-4b83-893e-f7e53ff1db06) successfully deleted.
-    ```
+先看看 eth0 对应的配置 NAME（看到是 `Profile 1`）
+
+```bash
+(base) root@orangepiaipro:/etc/netplan# nmcli conn show
+NAME          UUID                                  TYPE      DEVICE  
+b102          1363b997-7e0b-4953-a004-807b7d6de1fc  wifi      wlan0   
+Profile 1     14db5d66-2a23-4b83-893e-f7e53ff1db06  ethernet  eth0    
+docker0       6fdb6ff7-4ec5-46dc-9937-946a7988d084  bridge    docker0 
+netplan-eth0  626dd384-8b3d-3690-9511-192b2c79b3fd  ethernet  --      
+```
+
+然后删除 eth0 对应的 `Profile 1`：
+
+```bash
+(base) root@orangepiaipro:/etc/netplan# nmcli conn del "Profile 1"
+Connection 'Profile 1' (14db5d66-2a23-4b83-893e-f7e53ff1db06) successfully deleted.
+```
 
 ---
 
