@@ -162,13 +162,13 @@ parent: aikit教具
 
 - **root 用户登录开发板**
 
-- 进入网络配置目录
+- **进入网络配置目录**
 
     ```bash
 cd /etc/netplan
     ```
 
-- 修改 /etc/netplan/01-netcfg.yaml，
+- **修改网络配置文件**
 
     ```bash
 vim /etc/netplan/01-netcfg.yaml
@@ -193,15 +193,15 @@ vim /etc/netplan/01-netcfg.yaml
           addresses: [8.8.8.8, 114.114.114.114]
     ```
 
-- 先应用新的 IP 地址
+- **先应用新的 IP 地址**
 
     ```bash
 netplan try
     ```
 
-- 再删除通过 UI 界面配置的 IP 地址
+- **防止 NetworkManager 再次自动创建新的 eth0 连接**
 
-    防止 NetworkManager 再次自动创建新的 eth0 连接：
+    修改配置文件： 
 
     ```bash
 vim /etc/NetworkManager/NetworkManager.conf
@@ -219,6 +219,8 @@ no-auto-default=*
 systemctl restart NetworkManager
     ```
 
+- **再删除通过 UI 界面配置的 IP 地址**
+
     先看看 eth0 对应的配置 NAME
 
     ```bash
@@ -228,7 +230,7 @@ nmcli conn show
     比如看到 NAME 是 `eth0`
     
     ```bash
-(base) root@orangepiaipro:/etc/netplan# nmcli conn show
+# nmcli conn show
 NAME          UUID                                  TYPE      DEVICE  
 b102          1363b997-7e0b-4953-a004-807b7d6de1fc  wifi      wlan0   
 eth0          14db5d66-2a23-4b83-893e-f7e53ff1db06  ethernet  eth0    
@@ -242,6 +244,13 @@ netplan-eth0  626dd384-8b3d-3690-9511-192b2c79b3fd  ethernet  --
 nmcli conn del eth0
     ```
 
+    看到如下提示信息：
+
+    ```bash
+# nmcli conn del eth0
+Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
+    ```
+    
 ---
 
 ## 体验样例代码
