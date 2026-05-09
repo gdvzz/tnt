@@ -160,11 +160,23 @@ parent: aikit教具
 <br>
 将开发板默认IP地址修改为 `192.168.137.100`。
 
-- root 用户登录开发板
+- **root 用户登录开发板**
 
-- 修改 /etc/netplan/01-netcfg.yaml，内容如下：
+- 进入网络配置目录
 
-```yaml
+    ```bash
+cd /etc/netplan
+    ```
+
+- 修改 /etc/netplan/01-netcfg.yaml，
+
+    ```bash
+vim /etc/netplan/01-netcfg.yaml
+    ```
+
+    内容如下：
+
+    ```yaml
 network:
   version: 2
   renderer: NetworkManager
@@ -179,45 +191,56 @@ network:
           metric: 700
       nameservers:
         addresses: [8.8.8.8, 114.114.114.114]
-```
+    ```
 
 - 先应用新的 IP 地址
 
-```bash
+    ```bash
 netplan try
-```
+    ```
 
 - 再删除通过 UI 界面配置的 IP 地址
 
-先看看 eth0 对应的配置 NAME（看到是 `Profile 1`）
+    防止 NetworkManager 再次自动创建新的 eth0 连接：
 
-```bash
+    ```bash
+vim /etc/NetworkManager/NetworkManager.conf
+    ```
+
+    在 [main] 段下添加：
+
+    ```ini
+no-auto-default=*
+    ```
+
+    然后重启 NetworkManager：
+
+    ```bash
+systemctl restart NetworkManager
+    ```
+
+    先看看 eth0 对应的配置 NAME
+
+    ```bash
+nmcli conn show
+    ```
+
+    比如看到 NAME 是 `eth0`
+    
+    ```bash
 (base) root@orangepiaipro:/etc/netplan# nmcli conn show
 NAME          UUID                                  TYPE      DEVICE  
 b102          1363b997-7e0b-4953-a004-807b7d6de1fc  wifi      wlan0   
-Profile 1     14db5d66-2a23-4b83-893e-f7e53ff1db06  ethernet  eth0    
+eth0          14db5d66-2a23-4b83-893e-f7e53ff1db06  ethernet  eth0    
 docker0       6fdb6ff7-4ec5-46dc-9937-946a7988d084  bridge    docker0 
 netplan-eth0  626dd384-8b3d-3690-9511-192b2c79b3fd  ethernet  --      
-```
+    ```
 
-然后删除 eth0 对应的 `Profile 1`：
+    然后删除 eth0 对应的 `eth0`：
 
-```bash
-(base) root@orangepiaipro:/etc/netplan# nmcli conn del "Profile 1"
-Connection 'Profile 1' (14db5d66-2a23-4b83-893e-f7e53ff1db06) successfully deleted.
-```
-
-防止 NetworkManager 再次自动创建新的 eth0 连接：编辑 /etc/NetworkManager/NetworkManager.conf，在 [main] 段下添加：
-
-```ini
-no-auto-default=*
-```
-
-然后重启 NetworkManager：
-
-```bash
-sudo systemctl restart NetworkManager
-```
+    ```bash
+nmcli conn del eth0
+    ```
 
 ---
 
