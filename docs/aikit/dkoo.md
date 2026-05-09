@@ -177,20 +177,20 @@ vim /etc/netplan/01-netcfg.yaml
     内容如下：
 
     ```yaml
-network:
-  version: 2
-  renderer: NetworkManager
-  ethernets:
-    eth0:
-      dhcp4: no
-      addresses:
-        - 192.168.137.100/24
-      routes:
-        - to: default
-          via: 192.168.137.1
-          metric: 700
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]
+  network:
+    version: 2
+    renderer: NetworkManager
+    ethernets:
+      eth0:
+        dhcp4: no
+        addresses:
+          - 192.168.137.100/24
+        routes:
+          - to: default
+            via: 192.168.137.1
+            metric: 700
+        nameservers:
+          addresses: [8.8.8.8, 114.114.114.114]
     ```
 
 - 先应用新的 IP 地址
