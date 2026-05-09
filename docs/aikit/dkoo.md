@@ -8,7 +8,7 @@ parent: aikit教具
 
 # 鲲鹏开发板
 {: .no_toc }
-`更新-260507` \| `发布-260420`
+`更新-260509` \| `发布-260420`
 
 本文档描述 **鲲鹏开发板** 的相关信息，用于快速熟悉和入门教具。
 
@@ -21,9 +21,13 @@ parent: aikit教具
 
 <details markdown="block">
   <summary>ℹ️ 更新历史</summary>
-<br>
+
+**260509**
+- 新增：[连WiFi](#连wifi)
+
 **260506**
 - 新增：[连接外网](#连接外网)
+
 </details>
 
 ---
@@ -51,6 +55,13 @@ parent: aikit教具
 <span id="nets"></span>
 ## 连接外网
 <br>
+可以有几种方法：
+
+- 找一个可以连接外网的PC（个人电脑），将可以连接外网的那个网络，共享给开发板
+- 开发板连接可以访问外网的WiFi
+
+### PC共享网络
+<br>
 可参考开发板官网的 [通过PC共享网络联网（Windows）↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Hardware%20Interfaces/hiug/hiug_0010.html)
 
 上述指导，以“可以访问互联网的 WiFi，共享给开发板”为例。也可以将“本地电脑可以访问互联网的以太网（插网线的），共享给开发板”，操作步骤是一样的。
@@ -69,6 +80,78 @@ parent: aikit教具
 提示框显示：“Internet 连接共享被启用时……”，点击 **是(Y)**
 
 ![network-share1](./dkoo.assets/network-share1.jpg)
+
+### 连WiFi
+
+先 root 用户登录开发板。或者已登录开发板，切换为 root 用户。
+
+- `nmcli dev wifi`：查看有哪些WiFi
+
+    ```bash
+    (base) root@orangepiaipro:~# nmcli dev wifi
+    IN-USE  BSSID              SSID                MODE   CHAN  RATE        SIGNAL  BARS  SECURITY    
+            44:DF:65:E7:BC:65  b102                Infra  6     130 Mbit/s  100     ▂▄▆█  WPA2        
+            44:DF:65:E7:BC:64  b102                Infra  48    270 Mbit/s  84      ▂▄▆█  WPA2        
+            14:D8:64:D1:D4:F3  b216                Infra  1     270 Mbit/s  80      ▂▄▆_  WPA1 WPA2   
+    ```
+
+- `nmcli dev wifi connect "b102" password "b102b102"`：密码方式连接WiFi（WiFi是b102）
+
+    ```bash
+    (base) root@orangepiaipro:~# nmcli dev wifi connect "b102" password "b102b102"
+    Device 'wlan0' successfully activated with '3d96022d-1711-4206-8ff9-cfb991408b80'.
+    ```
+
+    连接 WiFi 成功后，可以执行 `curl -fsSL www.baidu.com` 访问百度是否成功。访问成功表示开发板可以访问外网了。
+
+- `nmcli con down "b102"`：断开和b102的连接
+- `nmcli con up "b102"`：连接（曾经连接过的）b102
+
+    ```bash
+    (base) root@orangepiaipro:/etc/netplan# nmcli con up "b102"
+    Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/6)
+    ```
+
+- `nmcli con show`：看看连接过哪些 WiFi
+
+    ```bash
+    (base) root@orangepiaipro:/etc/netplan# nmcli con show
+    NAME          UUID                                  TYPE      DEVICE  
+    b102          3d96022d-1711-4206-8ff9-cfb991408b80  wifi      wlan0   
+    eth0          112f0b6a-e274-4f66-8198-1c1ac5705217  ethernet  eth0    
+    docker0       6fdb6ff7-4ec5-46dc-9937-946a7988d084  bridge    docker0 
+    netplan-eth1  8bf25856-ca0b-388e-823c-b898666ab9d2  ethernet  --      
+    ```
+
+- `nmcli con del "b102"`：忘记（曾经连接过的）b102
+
+    ```bash
+    (base) root@orangepiaipro:/etc/netplan# nmcli con del "b102"
+    Connection 'b102' (3d96022d-1711-4206-8ff9-cfb991408b80) successfully deleted.
+    ```
+
+- `nmcli radio wifi`：查看 WiFi 状态（开 或 关）
+
+    ```bash
+    (base) root@orangepiaipro:/etc/netplan# nmcli radio wifi
+    enabled
+    ```
+
+- `nmcli radio wifi off`：关闭 WiFi
+- `nmcli radio wifi on`：打开 WiFi
+
+- `nmcli device status`：查看网络设备的状态
+
+    ```bash
+    (base) root@orangepiaipro:~# nmcli device status
+    DEVICE         TYPE      STATE                   CONNECTION 
+    eth0           ethernet  connected               eth0       
+    docker0        bridge    connected (externally)  docker0    
+    wlan0          wifi      disconnected            --         
+    p2p-dev-wlan0  wifi-p2p  disconnected            --         
+    bond0          bond      unmanaged               --         
+    lo             loopback  unmanaged               --   
+    ```
 
 ---
 
