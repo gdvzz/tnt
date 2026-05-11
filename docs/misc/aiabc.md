@@ -252,6 +252,10 @@ parent: misc其他
 
 将下载的证书，发给董老师。
 
+证书样例：
+![aiabc-cert](./aiabc.assets/photo.png)
+
+
 ---
 
 ## 后续
