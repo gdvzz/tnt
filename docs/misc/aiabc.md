@@ -15,7 +15,66 @@ parent: misc其他
 {:toc}
 </details>
 
-## 结课考试参考题库
+---
+
+## 加入班级
+
+1. **链接或扫码加入**
+
+    [点击链接↗](https://e.huawei.com/cn/talent/#/course/course-details?applicationId=1778383398276&courseType=ICT&invitedCode=A57h4n&urlForm=myclass)
+
+    或⬇️扫码加入
+
+    ![aiabc-code](./aiabc.assets/ai123-code.jpg)
+
+2. **点击“报名”**
+
+    ![aiabc-enroll1](./aiabc.assets/aiabc-enroll1.jpg)
+
+3. **填写资料**
+
+    ‼️ 顶部要勾选
+
+    ![aiabc-enroll2](./aiabc.assets/aiabc-enroll2.jpg)
+
+4. **加入班级后，显示“待审批”**
+
+    董老师随后审批。
+
+    ![aiabc-enroll3](./aiabc.assets/aiabc-enroll3.jpg)
+
+---
+
+## 刷课程
+
+1. **“在线课程”→ “去学习”**
+
+    ![ai123-20](./aiabc.assets/ai123-20.jpg)
+
+2. **刷课程，直至目录右侧显示“已完成98%”，大约需要 35 分钟**
+
+    - 点开一层层目录，从上到下点一遍
+    - 最终：已完成98%，行末都有✅
+
+    - 部分：点击后，就有✅
+    - 视频：拖动进度条到最后，就有✅
+    - 课件：点击 **最后页** 按钮，就有✅
+    - 随堂测验：可参考 **答题详情**，5题都对就有✅
+
+    - 大约需要 35 分钟
+    
+    ![aiabc-22](./aiabc.assets/aiabc-22.jpg)
+
+
+---
+
+## 结课考试
+<br>
+点击左下最后一行“结课考试”，参加考试。
+
+- 参考答案不一定100%正确
+- 70分通过
+- 大约需要 5 分钟
 
 ### 单选题
 <br>
@@ -184,6 +243,20 @@ parent: misc其他
 
 30. **Transformer 模型使用循环机制建模序列。**
     - 错误 ❌
+
+---
+
+## 结课证书
+
+华为官网 → 右上角  → 用户中心  → 我的证书  → 结课证书  → 下载
+
+将下载的证书，发给董老师。
+
+---
+
+## 后续
+
+可回看课程，加深理解。
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
