@@ -145,7 +145,8 @@ callouts:
     title: New
     color: green
   note:
-    color: grey-lt
+    title: Note
+    color: purple
   warning:
     title: Warning
     color: red
