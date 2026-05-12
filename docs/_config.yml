@@ -144,9 +144,6 @@ callouts:
   new:
     title: New
     color: green
-  # note:
-  #   title: Note
-  #   color: purple
   note:
     color: grey
   warning:
