@@ -2,8 +2,8 @@
 title: 手写数字识别CNN-260526
 layout: default
 parent: ailab实验课
-nav_order: -260526
-# nav_exclude: true
+# nav_order: -260526
+nav_exclude: true
 ---
 
 # 手写数字识别-260509
