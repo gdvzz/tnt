@@ -2,7 +2,7 @@
 title: 昇腾开发板指南
 layout: default
 parent: aikit教具
-# nav_order: 30
+nav_order: 10
 # nav_exclude: true
 ---
 

@@ -1,12 +1,12 @@
 ---
-title: 鲲鹏开发板
+title: 鲲鹏开发板指南
 layout: default
 parent: aikit教具
-# nav_order: 30
+nav_order: 10
 # nav_exclude: true
 ---
 
-# 鲲鹏开发板
+# 鲲鹏开发板指南
 {: .no_toc }
 `更新-260509` \| `发布-260420`
 

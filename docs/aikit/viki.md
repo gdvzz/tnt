@@ -2,7 +2,7 @@
 title: 视觉实验箱
 layout: default
 parent: aikit教具
-# nav_order: 30
+nav_order: 10
 # nav_exclude: true
 ---
 

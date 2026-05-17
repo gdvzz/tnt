@@ -2,7 +2,7 @@
 title: Docker指南
 layout: default
 parent: aikit教具
-# nav_order: 30
+nav_order: 90
 # nav_exclude: true
 ---
 
