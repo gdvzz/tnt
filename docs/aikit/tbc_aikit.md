@@ -2,8 +2,8 @@
 title: aikit教具
 layout: default
 # parent: AI Lab
-nav_order: 20
-# nav_exclude: true
+# nav_order: 20
+nav_exclude: true
 ---
 
 # AI教具说明
