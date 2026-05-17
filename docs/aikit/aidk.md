@@ -1,12 +1,12 @@
 ---
-title: 昇腾开发板
+title: 昇腾开发板指南
 layout: default
 parent: aikit教具
 # nav_order: 30
 # nav_exclude: true
 ---
 
-# 昇腾开发板
+# 昇腾开发板指南
 {: .no_toc }
 `更新-260507` \| `发布-260506`
 

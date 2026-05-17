@@ -1,12 +1,12 @@
 ---
-title: VSCode简要说明
+title: VSCode指南
 layout: default
 parent: aikit教具
 nav_order: 90
 # nav_exclude: true
 ---
 
-# VSCode简要说明
+# VSCode指南
 {: .no_toc }
 `更新-260428` \| `发布-260320`
 

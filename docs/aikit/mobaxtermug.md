@@ -1,12 +1,12 @@
 ---
-title: MobaXterm简要说明
+title: MobaXterm指南
 layout: default
 parent: aikit教具
 nav_order: 90
 # nav_exclude: true
 ---
 
-# MobaXterm简要说明
+# MobaXterm简要指南
 {: .no_toc }
 `更新-260428` \| `发布-260428`
 

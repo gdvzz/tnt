@@ -337,6 +337,319 @@ usermod -a -G video HwHiAiUser
 
 ---
 
+## 优化xfce界面
+
+我的开发板是：香橙派kunpeng pro。怎么设置xfce界面，最终和ubuntu-desktop很类似
+
+1、操作系统，当前安装了是ubuntu 22.04
+2、桌面整体，要类似ubuntu-desktop
+3、桌面dock栏，放到底部（ubuntu-desktop的dock栏在左侧），要类似ubuntu-desktop
+4、桌面右上角顶部栏，要类似ubuntu-desktop。不仅样式像，顶部栏中的应用也要类似。
+5、登录界面，暂时维持原样
+
+11、系统设置。尽可能采用 ubuntu-desktop 的 setting
+12、查找应用。类似 ubuntu-desktop桌面左下角有个applications那样
+13、使用gnome原生terminal，替代现有 xfce 的 terminal。
+14、增加快捷键定义的说明，用于terminal的窗口排列。
+15、拟采用yaru-dark样式。
+
+
+21、xfce界面当前是英文的。操作提示涉及界面的，还要给出英文，以便找到对应的item或界面。
+22、不需要汉化xfce界面。
+23、操作方案，就一条一条写即可，不要用表格方式。
+24、方案描述，既要明确，更要精炼
+
+<!-- 13、setting → window manager → style，已有：Yaru、Yaru-hdpi、Yaru-xhdpi、Yaru-dark、Yaru-dark-hdpi、Yaru-dark-xhdpi
+7、yaru-theme-gtk yaru-theme-icon yaru-theme-sound ubuntu-wallpapers fonts-ubuntu，都已经安装 -->
+
+
+# 香橙派Kunpeng Pro XFCE改Ubuntu Desktop风格配置手册（Ubuntu22.04）
+`更新-260516` \| `发布-260516`
+
+## 前置说明
+1、设备：香橙派 Kunpeng Pro；系统：Ubuntu 22.04 XFCE；全程**保留英文界面、不汉化**。
+2、最终效果：仿Ubuntu Desktop(GNOME)、底部Dock栏、原版Ubuntu顶部状态栏、Yaru-Dark主题、GNOME Terminal、仿Ubuntu系统设置、左下角应用启动器。
+
+## 一、基础依赖安装（终端执行）
+1、更新软件源：sudo apt update && sudo apt upgrade -y
+2、安装Yaru暗黑主题（Ubuntu原生主题）：sudo apt install yaru-theme-gtk yaru-theme-icon yaru-theme-sound -y
+3、安装GNOME原生设置（替换XFCE原生设置）：sudo apt install gnome-control-center gnome-settings-daemon -y
+4、安装GNOME Terminal（替换XFCE终端）：sudo apt install gnome-terminal -y
+5、安装底部Dock工具（仿Ubuntu Dock）：sudo apt install plank -y
+
+## 二、卸载冗余组件（净化界面，贴合Ubuntu）
+6、卸载XFCE多余面板插件：sudo apt remove xfce4-genmon-plugin xfce4-mailwatch-plugin -y
+7、禁用XFCE原生桌面图标（纯净桌面）：打开 **Settings → Desktop → Icons**，取消勾选所有桌面图标选项。
+
+## 三、主题美化（固定Yaru-Dark）
+8、设置GTK主题：打开 **Settings → Appearance → Style**，选择**Yaru-Dark**。
+9、设置图标主题：同一界面 **Icons**，选择 **Yaru-Dark**。
+10、设置窗口装饰主题：打开 **Settings → Window Manager → Style**，选择 **Yaru-Dark**。
+
+## 四、顶部状态栏改造（仿Ubuntu右上角状态栏）
+11、清空多余顶部面板：右键顶部Panel → **Panel Preferences → Items**，删除所有无关插件（Weather、Directory Menu等）。
+12、保留必备插件：仅保留 **Indicator Plugin、Clock、Sound、Power、Network、Bluetooth**。
+13、调整状态栏样式：**Panel Preferences → Appearance**，设置Panel Alpha透明度为90%，Height高度32px，贴合Ubuntu原生顶部栏尺寸。
+14、时间格式修改：右键Clock → **Clock Properties**，格式改为 **%H:%M %A %d %B**，显示星期+日期，复刻Ubuntu时间样式。
+
+## 五、底部Dock栏配置（替代原生左侧Dock）
+15、关闭XFCE原生底部面板：右键原生底部Panel → **Panel Preferences → General**，勾选 **Automatically hide the panel**，永久隐藏原生面板。
+16、启动Plank Dock：终端输入plank，首次启动生成默认Dock栏。
+17、Plank适配Yaru暗黑：右键Dock空白处 → **Preferences → Appearance → Theme**，选择 **Yaru**。
+18、Dock参数优化：Icon Size设为42px，透明度85%，勾选 **Lock Icons**，仿Ubuntu固定Dock图标。
+19、设置开机自启：打开 **Settings → Session and Startup → Application Autostart**，点击Add，Name填Plank，Command填/usr/bin/plank，保存开机自启。
+
+## 六、左下角应用查找器（仿Ubuntu Applications）
+20、添加应用启动器至顶部栏：打开顶部Panel **Items**，添加 **Whisker Menu**。
+21、修改启动器图标：右键Whisker Menu → **Properties → Button**，图标更换为Ubuntu默认应用网格图标。
+22、菜单样式调整：取消菜单圆角、模糊，配色跟随Yaru-Dark，实现和Ubuntu左下角应用菜单一致交互逻辑。
+
+## 七、终端替换（GNOME Terminal替代XFCE Terminal）
+23、设置默认终端：终端输入sudo update-alternatives --config x-terminal-emulator，选择编号对应 **gnome-terminal**。
+24、卸载XFCE原生终端：sudo apt remove xfce4-terminal -y。
+25、终端主题适配：打开GNOME Terminal → **Preferences → Appearance**，启用Yaru暗黑配色，关闭多余装饰边框。
+
+## 八、系统设置替换（纯Ubuntu原生Setting）
+26、屏蔽XFCE设置快捷键：打开 **Settings → Keyboard → Application Shortcuts**，删除XFCE Settings默认快捷键。
+27、绑定GNOME设置：新建快捷键，Command填入gnome-control-center，自定义快捷键Super+I（复刻Ubuntu系统设置快捷键）。
+28、禁用XFCE原生设置弹窗：终端输入mv ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-settings.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-settings.xml.bak
+
+## 九、窗口快捷键（Terminal窗口排列专用）
+29、打开快捷键配置：**Settings → Keyboard → Window Manager**，手动添加以下快捷键（全部英文标注）。
+30、Terminal窗口排列快捷键：Super+Left（Tile Left，左半屏）、Super+Right（Tile Right，右半屏）、Super+Up（Maximize，最大化）、Super+Down（Minimize，最小化）、Super+Shift+Up（Restore，还原窗口）。
+31、终端快速新建：Ctrl+Shift+T（New Tab）、Ctrl+Shift+N（New Terminal Window），复刻GNOME终端原生快捷键。
+
+## 十、收尾优化（保持Ubuntu纯净逻辑）
+32、关闭XFCE窗口动画：**Settings → Window Manager Tweaks → Compositor**，取消窗口动画，贴合Ubuntu无动画流畅逻辑。
+33、修改鼠标光标：**Settings → Appearance → Cursor**，选择Yaru光标样式。
+34、保留登录界面：不修改lightdm、greeter配置，维持原厂登录界面不变。
+35、重启生效：终端输入reboot，重启后所有配置生效。
+
+> （注：文档部分内容可能由 AI 生成）
+
+
+
+下面是你要的完整、可直接复制到 VSCode 的纯 Markdown 源码，从修复 Yaru-dark 主题开始，严格按照你的要求逐条写：
+
+# 香橙派 Kunpeng Pro | Ubuntu22.04 XFCE 仿Ubuntu-Desktop 最终方案
+
+## 环境说明
+
+- 设备：香橙派 Kunpeng Pro
+- 系统：Ubuntu 22.04 (arm64)
+- 桌面：XFCE（全程保留英文界面，不汉化）
+- 主题：Yaru-dark
+- 目标：顶部状态栏+底部Dock+左下角应用菜单+原生Gnome设置
+
+## 二、安装必备纯净依赖 (无多余垃圾包)
+
+终端执行安装刚需组件
+
+```bash
+sudo apt update
+sudo apt install indicator-application plank xfce4-whiskermenu-plugin gnome-control-center
+```
+
+1. indicator-application
+    - 作用：让 XFCE 顶部栏显示 Ubuntu 风格的系统指示器
+    - 包括：音量、网络、蓝牙、电源、系统菜单、后台应用托盘图标
+    - 不装：右上角顶部栏就只有光秃秃的时钟，完全没有 Ubuntu 那种完整的状态栏效果，达不到你 “顶部栏要像 Ubuntu-desktop” 的要求
+    - 结论：必须装，是仿 Ubuntu 顶部栏的核心依赖
+
+2. plank
+    - 作用：Ubuntu 风格的轻量级 Dock 栏程序
+    - 就是你要放在屏幕底部、模仿 Ubuntu 左侧 Dock 的那个 “应用快捷启动栏”
+    - 不装：XFCE 原生面板很难做出 Ubuntu 那种 Dock 效果，而且只能放在顶部 / 底部边缘，无法做到居中、半透明、自动隐藏等效果
+    - 结论：必须装，是实现底部仿 Ubuntu Dock 的唯一方案
+
+3. xfce4-whiskermenu-plugin
+    - 作用：仿 Ubuntu 的 “Applications” 应用启动菜单
+    - 它是一个可自定义的应用菜单插件，可以做成和 Ubuntu 左下角一样的应用列表、分类查找、收藏应用的样式
+    - 不装：你只能用 XFCE 默认的菜单，风格和布局都跟 Ubuntu 不一样，没法实现你要的 “左下角 Applications 那样的应用查找”
+    - 结论：必须装，是仿 Ubuntu 应用菜单的关键组件
+
+4. gnome-control-center
+    - 作用：Ubuntu-desktop 原生的系统设置控制面板
+    - 也就是你说的 “ubuntu-desktop 的 setting”，它包含网络、显示、电源、用户等所有系统设置项
+    - 不装：你只能用 XFCE 自带的xfce4-settings-manager，界面和功能都和 Ubuntu 不一样，没法实现你要的 “尽可能采用 ubuntu-desktop 的 setting”
+    - 结论：必须装，是使用 Ubuntu 原生设置界面的前提
+
+
+## 三、全局主题配置 Yaru-dark
+
+1. 打开外观设置，英文路径：Settings -> Appearance
+2. 切换 Style 选项卡，选择 Yaru-dark
+3. 切换 Icons 选项卡，选择 Yaru-dark
+4. 切换 Fonts 选项卡，全部字体改为 Ubuntu
+5. 打开窗口管理器样式，英文路径：Settings -> Window Manager -> Style
+6. 窗口装饰主题选择 Yaru-dark
+
+## 四、删除原生底部面板 (为了放 Plank Dock)
+1. 右键底部默认 Panel，选择：Panel -> Panel Preferences
+2. 在面板列表中，删除唯一底部面板，只保留顶部面板
+
+## 五、顶部状态栏配置 (仿 Ubuntu 右上角状态栏)
+1. 右键顶部面板，选择：Panel -> Add New Items
+2. 依次添加插件：Indicator Plugin、Notification Area、Clock
+3. 右键顶部面板，打开：Panel -> Panel Preferences -> Display
+4. 设置面板高度：32 px
+5. 右键 Indicator Plugin -> Properties
+6. 勾选全部指示器 (网络、音量、蓝牙、电源、系统菜单)
+
+## 六、配置底部 Plank Dock
+
+1. 终端输入命令启动 Dock
+
+    ```bash
+plank
+    ```
+
+2. 按住 Ctrl 右键 Plank 空白处，打开：Preferences
+3. Position 选择 Bottom（放在屏幕底部）
+4. Theme 选择 Yaru-dark
+5. 设置开机自启动，英文路径：Settings -> Session and Startup -> Application Autostart -> Add
+    - Name: Plank
+    - Command: plank
+
+## 七、配置左下角应用菜单 (仿 Ubuntu Applications)
+
+1. 右键顶部面板，选择：Panel -> Add New Items
+2. 添加插件：Whisker Menu
+3. 右键 Whisker Menu -> Properties
+4. 在 Appearance 选项卡中调整为 Ubuntu 风格布局
+5. 设置菜单图标为 Yaru-dark 风格，显示所有应用分类
+
+## 八、使用 Ubuntu 原生系统设置
+
+1. 终端输入命令打开原生设置
+
+    ```bash
+gnome-control-center
+    ```
+2. 将 gnome-control-center 固定到 Plank Dock，方便随时打开
+
+## 九、桌面壁纸与收尾设置
+
+1. 右键桌面空白处，打开：Desktop Settings
+2. 选择 Ubuntu 官方壁纸（已随ubuntu-wallpapers安装）
+3. 调整桌面图标布局，保持简洁风格
+4. 注销并重新登录，所有配置永久生效
+
+//---
+
+
+右键点击顶部面板 → Panel → Panel Preferences
+
+
+切到 Items（项目）
+删除原来的「Application Menu」（旧菜单）
+点 + Add → 选 Whisker Menu → 添加
+用上移按钮把 Whisker Menu 移到最顶部（最左边）
+
+gnome-control-center
+
+**一、桌面主题与控件（深色外观）**
+
+打开设置管理器
+点击左上角菜单 → Settings Manager。
+
+设置整体外观为深色
+在 Settings Manager 中点击 Appearance（外观）。
+切换到 Style（样式）选项卡，从列表中选择 Yaru-dark。
+英文对照：Appearance → Style → Yaru-dark
+
+图标主题
+仍在这个窗口，切换到 Icons（图标）选项卡，选择 Yaru。
+英文对照：Icons → Yaru
+
+字体
+切换到 Fonts（字体）选项卡：
+
+点击 Default Font（默认字体），选择 Ubuntu，大小推荐 10。
+
+点击 Monospace Font（等宽字体），选择 Ubuntu Mono。
+英文对照：Fonts → Default Font, Monospace Font
+
+窗口边框也改为深色
+回到 Settings Manager，打开 Window Manager（窗口管理器）。
+切换到 Style（样式）选项卡，在列表中选择 Yaru-dark（注意不要选带 hdpi/xhdpi 的，除非您是高分屏）。
+英文对照：Window Manager → Style → Yaru-dark
+
+鼠标光标主题
+在 Settings Manager 中打开 Mouse and Touchpad（鼠标和触摸板）。
+切换到 Theme（主题）选项卡，Cursor Theme（光标主题）选择 Yaru。
+英文对照：Mouse and Touchpad → Theme → Cursor Theme → Yaru
+
+桌面壁纸
+在桌面上右键，选择 Desktop Settings…（桌面设置）。
+在 Background（背景）选项卡中，如果它默认只显示 xfce 文件夹，请点击左侧的 File System（文件系统），然后进入 /usr/share/backgrounds。
+既然采用深色方案，选一张色调暗一些的壁纸会更协调（比如偏灰的 warty-final-ubuntu.png 或者任何您喜欢的图片）。点击 Open。
+英文对照：Right-click desktop → Desktop Settings → Background
+
+桌面 右键 desktop setting background
+folder：选上级目录 backgrounds
+style：zoomed
+
+**二、右上角顶部面板（模仿 Ubuntu 顶部栏）**
+删除不需要的默认面板
+在现有的底部面板上右键 → Panel → Panel Preferences…。
+在列表里选中默认面板（如 Panel 1），点击下方的 –（Remove）按钮删除。
+英文对照：Right-click panel → Panel → Panel Preferences → –
+
+新建顶部水平面板
+在 Panel Preferences 窗口中，点击 +（Add）添加一个新面板。
+
+切换到 Display（显示）选项卡：
+
+Mode（模式）选 Horizontal（水平）。
+
+勾选 Lock panel（锁定面板）。
+
+Row Size（行大小）设为 30 像素左右。
+
+切换到 Appearance（外观）选项卡：
+
+Background（背景）→ Style（样式）选 Solid color（纯色）。
+
+点击 Color（颜色）按钮，输入深灰色 #1E1E1E（和 Yaru-dark 标题栏接近），点击 OK。
+英文对照：Display: Mode → Horizontal, Lock panel, Row Size. Appearance: Background → Solid color, Color → #1E1E1E
+
+把面板拖到屏幕顶部
+在面板上找到两端由点组成的小把手，拖住它贴到屏幕顶部，松手即固定。
+英文对照：Drag the panel handle to the top edge.
+
+向顶部面板添加插件
+在顶部面板的空白处右键 → Add New Items…（添加新项目）。依次添加并排列下面的插件：
+
+Applications Menu（应用程序菜单）
+右键这个菜单图标 → Properties（属性），勾选 Show button title，在 Title 里输入 Activities，就变得和 Ubuntu 一样了。
+
+Separator（分隔符）
+右键它 → Properties，勾选 Expand（展开），这会把后面的项目推向右边。
+
+Workspace Switcher（工作区切换器） （可选，Ubuntu 顶部没有它，如果不需要可以跳过）
+
+Window Buttons（窗口按钮）
+
+Separator（分隔符）
+再添加一个分隔符，同样右键 → Properties → 勾选 Expand。
+
+Notification Area（通知区域）
+系统托盘会出现在这里。
+
+Clock（时钟）
+右键时钟 → Properties，在 Format 里可输入 %a %b %d, %H:%M 来显示如 “Sat May 15, 14:30”。
+
+Action Buttons（操作按钮）
+右上角的用户菜单（关机/重启等）。
+
+英文对照：右键面板空白 → Add New Items → 依次添加以上项目。
+
+
+sudo update-alternatives --config x-terminal-emulator
+
+---
+
 <span id="onoff"></span>
 
 ## 关机、断电和开机

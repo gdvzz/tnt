@@ -1,12 +1,12 @@
 ---
-title: Linux常用操作
+title: Linux指南
 layout: default
 parent: aikit教具
 nav_order: 90
 # nav_exclude: true
 ---
 
-# Linux常用操作
+# Linux指南
 {: .no_toc }
 `更新-260428` \| `发布-260320`
 
