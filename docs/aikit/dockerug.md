@@ -39,7 +39,7 @@ nav_order: 90
 
 ## 导出和恢复镜像
 <br>
-操作步骤如下：
+下载镜像后要归档，或者要把镜像传到其他计算机上，可使用镜像的导出（保存）和恢复（加载）功能。操作步骤如下：
 
 - **先查看镜像：**
 
@@ -58,54 +58,76 @@ ghcr.io/firecrawl/playwright-service   latest         665e3f996ed1   3 months ag
 rabbitmq                               3-management   de912cbbf07f   5 months ago   252MB
     ```
 
-- **导出镜像 rabbitmq:3-management 镜像：**
+- **导出镜像 rabbitmq:3-management：**
     
+    导出镜像，并加上管道直接压缩：
+
+    ```bash
+docker save rabbitmq:3-management | gzip > rabbitmq_3-management.tar.gz
+    ```
+
+    导出镜像 rabbitmq:3-management（先导出再压缩）
+
     ```bash
 docker save -o rabbitmq_3-management.tar rabbitmq:3-management
     ```
 
-    > 可以用 gzip 压缩（会生成 rabbitmq_3-management.tar.gz，并删除原 rabbitmq_3-management.tar）
-    >
-    > ```bash
-    > gzip rabbitmq_3-management.tar
-    > ```
+    可以用 gzip 压缩（会生成 rabbitmq_3-management.tar.gz，并删除原 rabbitmq_3-management.tar）
 
-    > 还可以加上管道直接压缩：
-    > 
-    > ```bash
-    > docker save rabbitmq:3-management | gzip > rabbitmq_3-management.tar.gz
-    > ```
-
-- **导出镜像 firecrawl-nuq-postgres:latest  镜像：**
+    ```bash
+gzip rabbitmq_3-management.tar
+    ```
     
-    ```bash
-docker save -o firecrawl-nuq-postgres_latest.tar firecrawl-nuq-postgres:latest
-    ```
+- **导出其他镜像**
 
-    然后用 gzip 压缩：
+    导出镜像 firecrawl-nuq-postgres:latest
 
     ```bash
-    gzip firecrawl-nuq-postgres_latest.tar
+docker save firecrawl-nuq-postgres:latest | gzip > firecrawl-nuq-postgres_latest.tar.gz
     ```
 
-    > 还可以加上管道直接压缩：
-    > 
-    > ```bash
-    > docker save firecrawl-nuq-postgres:latest | gzip > firecrawl-nuq-postgres_latest.tar.gz
-    > ```
+    导出镜像 ghcr.io/firecrawl/firecrawl:latest
+
+    ```bash
+docker save ghcr.io/firecrawl/firecrawl:latest | gzip > ghcr.io_firecrawl_firecrawl_latest.tar.gz
+    ```
+
+    导出镜像 redis:alpine
+
+    ```bash
+docker save redis:alpine | gzip >redis_alpine.tar.gz
+    ```
+
+    导出镜像 ghcr.io/firecrawl/playwright-service:latest
+
+    ```bash
+docker save ghcr.io/firecrawl/playwright-service | gzip >ghcr.io_firecrawl_playwright-service.tar.gz
+    ```
 
 - **删除镜像**
 
-    删除镜像 rabbitmq:3-management：
+    删除镜像 rabbitmq:3-management
 
     ```bash
 docker image rm rabbitmq:3-management
     ```
 
-    删除镜像 firecrawl-nuq-postgres:latest：
+    删除镜像 firecrawl-nuq-postgres:latest
 
     ```bash
 docker image rm firecrawl-nuq-postgres
+    ```
+
+    删除镜像 ghcr.io/firecrawl/firecrawl:latest
+
+    ```bash
+docker image rm ghcr.io/firecrawl/firecrawl
+    ```
+
+    删除镜像 redis:alpine
+
+    ```bash
+docker image rm redis:alpine
     ```
 
 - **恢复镜像：**
@@ -122,11 +144,8 @@ docker load -i rabbitmq_3-management.tar
 docker image load -i firecrawl-nuq-postgres_latest.tar.gz 
     ```
 
-    > （1）docker image load 可直接处理 gz 压缩文件。
+    > （1）docker image load 可直接处理 gz 压缩文件。<br>
     > （2）用 zip 压缩的文件，需要先解压。
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
-
-
-
