@@ -219,7 +219,7 @@ cd ~/cnn0519
     再解压缩：
 
     ```bash
-unzip cnn260509.zip
+unzip cnn260519.zip
     ```
 
     解压缩后生成子目录 mnist-master，完整路径应该是：/home/HwHiAiUser/cnn0519/mnist-master。
@@ -243,7 +243,7 @@ cd ~/cnn0519/mnist-master
     命令行提示符首部有 `(cnn0519)` 字样，即表示本次实验用虚拟环境已激活。如需激活，可执行以下命令：
 
     ```bash
-conda activate cnn0509
+conda activate cnn0519
     ```
 
 3. **（可选）修改 epochs 数字**
@@ -258,7 +258,7 @@ conda activate cnn0509
         optimizer = optim.Adam(model.parameters(), lr=0.001)
         # epochs = 5
         epochs = 1   # 先改成 1 用于体验
-    ...
+        ...
     ```
 
 4. **训练模型**
