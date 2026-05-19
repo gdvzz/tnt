@@ -8,18 +8,24 @@ nav_order: 90
 
 # Linux指南
 {: .no_toc }
-`更新-260428` \| `发布-260320`
+`更新-260519` \| `发布-260320`
 
 本文档描述 Linux 常用操作，供同学参考。
 
 <!--  -->
 <details markdown="block">
-  <summary>
-    目录
-  </summary>
-  <!-- {: .text-delta } -->
+  <summary>✳️ 目录</summary>
 - TOC
 {:toc}
+</details>
+
+<!--  -->
+<details>
+    <summary>ℹ️ 更新历史</summary>
+<br>
+
+**260519：新增vim**
+
 </details>
 
 ---
@@ -142,6 +148,19 @@ nav_order: 90
 
 - `sudo shutdown -h now`：马上关机
 - `sudo poweroff`：关机
+
+<!--  -->
+<span id="vim"></span>
+
+### vim 文本编辑
+<br>
+Vim 的全称是 Vi IMproved（意为“改进的 Vi”）。Vi 这个简称本身是从“Visual”（视觉的、可视的）一词演变而来的。
+
+- **新建/编辑文件：**
+
+    ```bash
+vim myfile.txt
+    ```
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
