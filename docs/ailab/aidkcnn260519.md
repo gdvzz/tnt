@@ -187,7 +187,7 @@ conda remove -n cnn0519 --all
 <br>
 下载样例压缩包（源码+数据），并上传开发板，然后解压缩。
 
-1. **下载样例压缩包**：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AA83654835855E493E8062E6EB97EFE46E)
+1. **下载样例压缩包**：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AAC267DFD123DD4F6FBC435A93E0B9AC2B)
 
     压缩包文件名是：cnn260519.zip
 
