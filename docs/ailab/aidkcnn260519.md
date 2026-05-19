@@ -418,89 +418,89 @@ AI辅助编程可加快项目进度。重点是把要求说清楚，并不断测
 
 如果用户更关心“不要把狗误认为猫”（例如猫咖门禁只让猫进），就应优先提高精确率；如果更关心“不要漏掉任何一只猫”（例如寻找走失的猫），就应优先提高召回率。混淆矩阵能直观地帮助你在两者之间做权衡。
 
-**参过过程**
+**参考过程：**
 
-1. 随机抽取MNIST数据集中1000张图片，0-9各100张
-
-    和AI多次交流如下，得到符合要求的样例代码。
-
-    ```
-1、对mnist的数据集中的测试集，随机抽取0-9个数字，各100张
-2、数据集已下载到本地，如下：
-~/tmp26/05/cnn260519/data/MNIST/raw % tree
-.
-├── t10k-images-idx3-ubyte
-├── t10k-images-idx3-ubyte.gz
-├── t10k-labels-idx1-ubyte
-├── t10k-labels-idx1-ubyte.gz
-├── train-images-idx3-ubyte
-├── train-images-idx3-ubyte.gz
-├── train-labels-idx1-ubyte
-└── train-labels-idx1-ubyte.gz
-
-3、用numpy实现
-4、抽取出来的图片，保存到目录中
-5、保存下来的图片，在文件名中记录在测试集中的位置
-    ```
-
-2. 计算指标
+1. **随机抽取MNIST数据集中1000张图片，0-9各100张**
 
     和AI多次交流如下，得到符合要求的样例代码。
 
     ```
-trainv2.py -- 训练
-test.py -- 推理
-sample.py -- 抽取0-9各100张图片
+    1、对mnist的数据集中的测试集，随机抽取0-9个数字，各100张
+    2、数据集已下载到本地，如下：
+    ~/tmp26/05/cnn260519/data/MNIST/raw % tree
+    .
+    ├── t10k-images-idx3-ubyte
+    ├── t10k-images-idx3-ubyte.gz
+    ├── t10k-labels-idx1-ubyte
+    ├── t10k-labels-idx1-ubyte.gz
+    ├── train-images-idx3-ubyte
+    ├── train-images-idx3-ubyte.gz
+    ├── train-labels-idx1-ubyte
+    └── train-labels-idx1-ubyte.gz
 
-1、请推理0-9各100张图片
-2、请输出混淆矩阵
-3、请输出混淆矩阵的相关指标
+    3、用numpy实现
+    4、抽取出来的图片，保存到目录中
+    5、保存下来的图片，在文件名中记录在测试集中的位置
+    ```
+
+2. **计算指标**
+
+    和AI多次交流如下，得到符合要求的样例代码。
+
+    ```
+    trainv2.py -- 训练
+    test.py -- 推理
+    sample.py -- 抽取0-9各100张图片
+
+    1、请推理0-9各100张图片
+    2、请输出混淆矩阵
+    3、请输出混淆矩阵的相关指标
     ```
 
     得到相关指标如下：
 
     ```
-(cnn0519) ~/tmp26/05/cnn260519 % python3 ev.py            
-using cpu
-Loaded model from mnist.pth
+    (cnn0519) ~/tmp26/05/cnn260519 % python3 ev.py            
+    using cpu
+    Loaded model from mnist.pth
 
-共测试 1000 张图片，每个数字应各 100 张
+    共测试 1000 张图片，每个数字应各 100 张
 
-混淆矩阵 (行=真实, 列=预测):
-[[ 99   0   0   0   0   0   0   1   0   0]
- [  0 100   0   0   0   0   0   0   0   0]
- [  0   0 100   0   0   0   0   0   0   0]
- [  0   0   2  98   0   0   0   0   0   0]
- [  0   0   0   0 100   0   0   0   0   0]
- [  0   0   0   1   0  99   0   0   0   0]
- [  0   0   0   0   0   0 100   0   0   0]
- [  0   0   2   0   0   0   0  97   0   1]
- [  0   0   1   0   0   0   0   0  99   0]
- [  0   0   1   0   0   0   0   0   0  99]]
+    混淆矩阵 (行=真实, 列=预测):
+    [[ 99   0   0   0   0   0   0   1   0   0]
+    [  0 100   0   0   0   0   0   0   0   0]
+    [  0   0 100   0   0   0   0   0   0   0]
+    [  0   0   2  98   0   0   0   0   0   0]
+    [  0   0   0   0 100   0   0   0   0   0]
+    [  0   0   0   1   0  99   0   0   0   0]
+    [  0   0   0   0   0   0 100   0   0   0]
+    [  0   0   2   0   0   0   0  97   0   1]
+    [  0   0   1   0   0   0   0   0  99   0]
+    [  0   0   1   0   0   0   0   0   0  99]]
 
 
-分类报告:
-              precision    recall  f1-score   support
+    分类报告:
+                precision    recall  f1-score   support
 
-           0     1.0000    0.9900    0.9950       100
-           1     1.0000    1.0000    1.0000       100
-           2     0.9434    1.0000    0.9709       100
-           3     0.9899    0.9800    0.9849       100
-           4     1.0000    1.0000    1.0000       100
-           5     1.0000    0.9900    0.9950       100
-           6     1.0000    1.0000    1.0000       100
-           7     0.9898    0.9700    0.9798       100
-           8     1.0000    0.9900    0.9950       100
-           9     0.9900    0.9900    0.9900       100
+            0     1.0000    0.9900    0.9950       100
+            1     1.0000    1.0000    1.0000       100
+            2     0.9434    1.0000    0.9709       100
+            3     0.9899    0.9800    0.9849       100
+            4     1.0000    1.0000    1.0000       100
+            5     1.0000    0.9900    0.9950       100
+            6     1.0000    1.0000    1.0000       100
+            7     0.9898    0.9700    0.9798       100
+            8     1.0000    0.9900    0.9950       100
+            9     0.9900    0.9900    0.9900       100
 
-    accuracy                         0.9910      1000
-   macro avg     0.9913    0.9910    0.9911      1000
-weighted avg     0.9913    0.9910    0.9911      1000
+        accuracy                         0.9910      1000
+    macro avg     0.9913    0.9910    0.9911      1000
+    weighted avg     0.9913    0.9910    0.9911      1000
 
-总体准确率: 0.9910
+    总体准确率: 0.9910
     ```
 
-3. 实际分析建议
+3. **实际分析建议**
 
     - 观察混淆矩阵的非对角线高亮格子：例如数字 1 经常被预测为 7，可能说明 1 和 7 的特征相似或数据标注有误。
     - 关注召回率低的数字：比如数字 5 的召回率只有 70%，意味着 30% 的真实 5 被误识别了，需要重点调优。
@@ -538,7 +538,7 @@ pip3 install onnxscript onnx -->
     开发板要先关机、再断电。🚫 **严谨开机状态直接断电（拔电源）！**
 
     - <img src="https://tnt.gdvzz.com/aikit/aidk.assets/ascend-logo.svg" alt="ascend-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> **昇腾**：[关机断电↗](https://tnt.gdvzz.com/aikit/aidk.html#onoff) 
-    - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> **鲲鹏**:[关机断电↗](https://tnt.gdvzz.com/aikit/dkoo.html#onoff) 
+    - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> **鲲鹏**：[关机断电↗](https://tnt.gdvzz.com/aikit/dkoo.html#onoff) 
 
 2. **归还实验器材，给实验室老师**
 
