@@ -165,11 +165,31 @@ vim myfile.txt
 <!-- [Link button](https://just-the-docs.com){: .btn .btn-outline }
 [Esc]{: .btn .btn-outline } → `:wq` →  -->
 
-Esc
-{: .label} 
-→ `:wq` → 
+- **插入字符（在光标前）**
 
-Esc{: .label} → `:wq` → 
+    按 `Esc`  → 按 `i`  → 输入内容
+
+- **插入字符（在光标后）**
+
+    按 `Esc`  → 按 `a`  → 输入内容
+
+- **插入字符（在行首）**
+
+    按 `Esc`  → 按 `I`（比如 `Shift` + `i`） → 输入内容
+
+- **插入字符（在行末）**
+
+    按 `Esc`  → 按 `A`（比如 `Shift` + `a`） → 输入内容
+
+- **删除字符（光标处）**
+
+    按 `Esc`  → 按 `x`
+
+- **删除一行**   
+
+    光标移到待删除行 → 按 `Esc`  → 按 `dd`
+
+
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
