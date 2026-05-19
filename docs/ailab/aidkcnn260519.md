@@ -262,6 +262,9 @@ conda activate cnn0519
         ...
     ```
 
+    ✳️ 文本编辑，可参考：[VSCode指南↗]，或者 [Linux指南 - vim文本编辑↗]
+
+
 4. **训练模型**
 
     ```bash
@@ -524,7 +527,7 @@ AI辅助编程可加快项目进度。重点是把要求说清楚，并不断测
 - 截图保存训练结果和推理结果
 
 ### （可选）使用NPU推理
-
+<br>
 参考 [AscendCL 应用开发指南（Python）- 快速入门↗]，改写推理程序，使用开发板 NPU 算力推理。
 
 <!-- ---
@@ -568,6 +571,9 @@ pip3 install onnxscript onnx -->
 <!--  -->
 
 [AscendCL 应用开发指南（Python）- 快速入门↗]: https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Application%20Development%20Guide/aadgp/aclpythondevg_0001.html
+
+[VSCode指南↗]: https://tnt.gdvzz.com/aikit/vscodeug.html
+[Linux指南 - vim文本编辑↗]: https://tnt.gdvzz.com/aikit/linuxug.html#vim
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
