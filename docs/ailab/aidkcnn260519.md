@@ -187,7 +187,7 @@ conda remove -n cnn0519 --all
 <br>
 下载样例压缩包（源码+数据），并上传开发板，然后解压缩。
 
-1. **下载样例压缩包**：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AAC89B81796FB1466FA15714057FBA6445)
+1. **下载样例压缩包**：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AA83654835855E493E8062E6EB97EFE46E)
 
     压缩包文件名是：cnn260519.zip
 
@@ -333,8 +333,9 @@ AI辅助编程可加快项目进度。重点是把要求说清楚，并不断测
 2. 运行和AI交流后得到的程序后，针对AI给出的代码，再新增以下要求：
 
     - 浏览器有个窗口，可以看到摄像头的画面。
+    - 拍摄窗口中，加个正方形的黄框，尽可能大。仅拍摄黄框内的画面。
     - 拍照和识别，拆成2个按钮。拍照后，显示被拍到的照片；识别，对照片识别
-    - 端口改成5001
+    - 处理为 28*28 的图片，送给推理程序识别的，也要显示在Web页面上
 
 3. 得到阶段性成果如下：
 
@@ -522,6 +523,10 @@ AI辅助编程可加快项目进度。重点是把要求说清楚，并不断测
 - 如有条件使用 GPU 进行训练和推理，请尽量使用 GPU
 - 截图保存训练结果和推理结果
 
+### （可选）使用NPU推理
+
+参考 [AscendCL 应用开发指南（Python）- 快速入门↗]，改写推理程序，使用开发板 NPU 算力推理。
+
 <!-- ---
 
 pip3 install onnxscript onnx -->
@@ -559,6 +564,10 @@ pip3 install onnxscript onnx -->
 
 <!-- 参考资料 -->
 [^1]: [零基础AI入门指南↗](https://liaoxuefeng.com/blogs/all/2023-05-08-mnist/index.html)
+
+<!--  -->
+
+[AscendCL 应用开发指南（Python）- 快速入门↗]: https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Application%20Development%20Guide/aadgp/aclpythondevg_0001.html
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
