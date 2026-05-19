@@ -168,5 +168,8 @@ vim myfile.txt
 Esc
 {: .label} 
 → `:wq` → 
+
+Esc{: .label} → `:wq` → 
+
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
