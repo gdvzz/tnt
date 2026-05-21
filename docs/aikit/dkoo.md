@@ -370,27 +370,66 @@ usermod -a -G video HwHiAiUser
 1、设备：香橙派 Kunpeng Pro；系统：Ubuntu 22.04 XFCE；全程**保留英文界面、不汉化**。
 2、最终效果：仿Ubuntu Desktop(GNOME)、底部Dock栏、原版Ubuntu顶部状态栏、Yaru-Dark主题、GNOME Terminal、仿Ubuntu系统设置、左下角应用启动器。
 
+先切换到 root 用户
+
 ## 一、基础依赖安装（终端执行）
-1、更新软件源：sudo apt update && sudo apt upgrade -y
+<!-- 1、更新软件源：sudo apt update && sudo apt upgrade -y -->
+1、更新软件源：apt update
+    不需要 apt upgrade
+
+## 三、主题美化（固定Yaru-Dark）
+
+8、设置GTK主题：打开 **Settings → Appearance → Style**，选择**Yaru-Dark**。
+
+    如果找不到，执行以下命令安装Yaru暗黑主题（Ubuntu原生主题）：
+    
+    ```bash
+    apt install yaru-theme-gtk yaru-theme-icon yaru-theme-sound
+    ```
+    
+9、设置图标主题：同一界面 **Icons**，选择 **Yaru-Dark**。
+10、设置窗口装饰主题：打开 **Settings → Window Manager → Style**，选择 **Yaru-Dark**。
+
+
+## 二、卸载冗余组件（净化界面，贴合Ubuntu）
+6、卸载XFCE多余面板插件：sudo apt remove xfce4-genmon-plugin xfce4-mailwatch-plugin -y
+
+    卸载前，可以看看是否存在：
+
+    ```bash
+    apt list | grep xfce4-genmon-plugin
+    apt list | grep xfce4-mailwatch-plugin
+    ```
+
+7、禁用XFCE原生桌面图标（纯净桌面）：打开 **Settings → Desktop → Icons**，取消勾选所有桌面图标选项。
+
+    就是 Default Icons 下打勾的，都取消勾选。然后桌面上就没有了。
+
+
+## 四、顶部状态栏改造（仿Ubuntu右上角状态栏）
+11、提前安装缺失指示器插件（终端执行）：
+```bash
+apt install xfce4-indicator-plugin ayatana-indicator-application
+```
+
+12、清空多余顶部面板：右键顶部Panel → **Panel Preferences → Items**，删除所有无关插件（Weather、Directory Menu等）。
+13、添加必备插件：点击Add按钮，搜索添加，最终仅保留 **Indicator Plugin、Clock、Sound、Power、Network、Bluetooth**。
+14、调整状态栏样式：**Panel Preferences → Appearance**，设置Panel Alpha透明度为90%，Height高度32px，贴合Ubuntu原生顶部栏尺寸。
+15、时间格式修改：右键Clock → **Clock Properties**，格式改为 **%H:%M %A %d %B**，显示星期+日期，复刻Ubuntu时间样式。
+
+
 2、安装Yaru暗黑主题（Ubuntu原生主题）：sudo apt install yaru-theme-gtk yaru-theme-icon yaru-theme-sound -y
 3、安装GNOME原生设置（替换XFCE原生设置）：sudo apt install gnome-control-center gnome-settings-daemon -y
 4、安装GNOME Terminal（替换XFCE终端）：sudo apt install gnome-terminal -y
 5、安装底部Dock工具（仿Ubuntu Dock）：sudo apt install plank -y
 
-## 二、卸载冗余组件（净化界面，贴合Ubuntu）
-6、卸载XFCE多余面板插件：sudo apt remove xfce4-genmon-plugin xfce4-mailwatch-plugin -y
-7、禁用XFCE原生桌面图标（纯净桌面）：打开 **Settings → Desktop → Icons**，取消勾选所有桌面图标选项。
 
-## 三、主题美化（固定Yaru-Dark）
-8、设置GTK主题：打开 **Settings → Appearance → Style**，选择**Yaru-Dark**。
-9、设置图标主题：同一界面 **Icons**，选择 **Yaru-Dark**。
-10、设置窗口装饰主题：打开 **Settings → Window Manager → Style**，选择 **Yaru-Dark**。
 
-## 四、顶部状态栏改造（仿Ubuntu右上角状态栏）
-11、清空多余顶部面板：右键顶部Panel → **Panel Preferences → Items**，删除所有无关插件（Weather、Directory Menu等）。
-12、保留必备插件：仅保留 **Indicator Plugin、Clock、Sound、Power、Network、Bluetooth**。
-13、调整状态栏样式：**Panel Preferences → Appearance**，设置Panel Alpha透明度为90%，Height高度32px，贴合Ubuntu原生顶部栏尺寸。
-14、时间格式修改：右键Clock → **Clock Properties**，格式改为 **%H:%M %A %d %B**，显示星期+日期，复刻Ubuntu时间样式。
+
+
+
+
+
 
 ## 五、底部Dock栏配置（替代原生左侧Dock）
 15、关闭XFCE原生底部面板：右键原生底部Panel → **Panel Preferences → General**，勾选 **Automatically hide the panel**，永久隐藏原生面板。
@@ -653,6 +692,7 @@ sudo update-alternatives --config x-terminal-emulator
 <span id="onoff"></span>
 
 ## 关机、断电和开机
+`onoff`
 <br>
 ✴️ 完成实验后，请先关机，再断电（拔掉电源）。
 
