@@ -230,9 +230,5 @@ vim myfile.txt
     按 `Esc`  → 输入 `:q!` → 按 `Enter回车`
 
 
-
-
-
-
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
