@@ -85,13 +85,13 @@ nav_order: 10
 3. 进入网络配置目录：
 
     ```bash
-    cd /etc/netplan
+cd /etc/netplan
     ```
 
 4. 先备份原有网络配置信息：
 
     ```bash
-    cp 01-netcfg.yaml 01-netcfg.bak年月曰
+cp 01-netcfg.yaml 01-netcfg.bak年月曰
     ```
 
     比如，`cp 01-netcfg.yaml 01-netcfg.bak260506`
@@ -99,26 +99,26 @@ nav_order: 10
 5. 修改 01-netcfg.yaml 为如下内容：
 
     ```yaml
-    network:
+  network:
     version: 2
     renderer: networkd
     ethernets:
-        eth0:
+      eth0:
         dhcp4: yes
         nameservers:
-            addresses: [8.8.8.8, 114.114.114.114]   # 修正：合并为一个列表
-
-        eth1:
+          addresses: [8.8.8.8, 114.114.114.114]
+    
+      eth1:
         dhcp4: no
         addresses: [192.168.137.100/24]
         routes:
-            - to: default
+          - to: default
             via: 192.168.137.1
-            metric: 200          # 添加 metric，值大于 eth0 的 100，降低优先级
+            metric: 200          # 优先级低于 eth0
         nameservers:
-            addresses: [8.8.8.8, 114.114.114.114]   # 修正列表
+          addresses: [8.8.8.8, 114.114.114.114]
 
-        usb0:
+      usb0:
         dhcp4: no
         addresses: [192.168.0.2/24]
     ```
@@ -126,7 +126,7 @@ nav_order: 10
 6. 让修改后的网络配置生效：
 
     ```bash
-    netplan try
+netplan try
     ```
 
     如果网络配置信息正确，屏幕提示按回车键生效。请按 **回车键** 生效。
@@ -136,7 +136,7 @@ nav_order: 10
 7. 验证是否可访问互联网：
 
     ```bash
-    curl -fsSL www.baidu.com
+curl -fsSL www.baidu.com
     ```
 
     如果能获取网页的信息，就表明开发板可以访问互联网了。

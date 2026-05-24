@@ -101,7 +101,7 @@ source ~/.bashrc
 - **显示虚拟环境列表**
 
     ```bash
-    conda env list
+conda env list
     ```
 
 - **进入/退出某个虚拟环境**
