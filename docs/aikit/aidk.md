@@ -98,6 +98,8 @@ cp 01-netcfg.yaml 01-netcfg.bak年月曰
 
 5. 修改 01-netcfg.yaml 为如下内容：
 
+    内容如下：
+
     ```yaml
   network:
     version: 2
