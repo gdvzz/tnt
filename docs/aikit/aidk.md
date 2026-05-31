@@ -49,7 +49,9 @@ nav_order: 10
 ---
 
 <span id="nets"></span>
+
 ## 连接外网
+`[aka]nets`
 
 ### 方法一：共享网络
 <br>
@@ -150,6 +152,8 @@ curl -fsSL www.baidu.com
 <span id="onoff"></span>
 
 ## 关机、断电和开机
+`[aka]onoff`
+
 <br>
 ✴️ 完成实验后，请先关机，再断电（拔掉电源）。
 

@@ -56,8 +56,10 @@ nav_order: 10
 ---
 
 <span id="nets"></span>
+
 ## 连接外网
-`id=nets`
+`[aka]nets`
+
 <br>
 可以有几种方法：
 
@@ -259,7 +261,8 @@ Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
 <span id="access-camera"></span>
 
 ## 普通用户访问摄像头 
-`id=access-camera`
+`[aka]access-camera`
+
 <br>
 如果普通用户（非 root 用户）打不开摄像头，可把普通用户添加到 Linux 的 `video` 组，就可以打开摄像头了。以 `HwHiAiUser` 用户为例： 
 
@@ -696,7 +699,8 @@ sudo update-alternatives --config x-terminal-emulator
 <span id="onoff"></span>
 
 ## 关机、断电和开机
-`onoff`
+`[aka]onoff`
+
 <br>
 ✴️ 完成实验后，请先关机，再断电（拔掉电源）。
 
