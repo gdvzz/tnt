@@ -57,6 +57,7 @@ nav_order: 10
 
 <span id="nets"></span>
 ## 连接外网
+`id=nets`
 <br>
 可以有几种方法：
 
@@ -83,6 +84,8 @@ nav_order: 10
 提示框显示：“Internet 连接共享被启用时……”，点击 **是(Y)**
 
 ![network-share1](./dkoo.assets/network-share1.jpg)
+
+✴️ 加密的无线网络（比如 JNU-Secure），不能被共享给开发板上网。JNU-WLAN 可以被共享给开发板上网。
 
 ### 连WiFi
 <br>
@@ -256,6 +259,7 @@ Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
 <span id="access-camera"></span>
 
 ## 普通用户访问摄像头 
+`id=access-camera`
 <br>
 如果普通用户（非 root 用户）打不开摄像头，可把普通用户添加到 Linux 的 `video` 组，就可以打开摄像头了。以 `HwHiAiUser` 用户为例： 
 
