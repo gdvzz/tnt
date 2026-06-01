@@ -266,7 +266,6 @@ Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
 ## 普通用户访问摄像头 
 `[aka]access-camera`
 
-<br>
 如果普通用户（非 root 用户）打不开摄像头，可把普通用户添加到 Linux 的 `video` 组，就可以打开摄像头了。以 `HwHiAiUser` 用户为例： 
 
 <!-- - 以 root 用户登录开发板
@@ -310,20 +309,25 @@ v4l2-ctl --list-devices
 
 如果普通用户（非 root 用户）不能使用喇叭和麦克风，可把普通用户添加到 Linux 的 `audio` 组，就可以使用了。以 `HwHiAiUser` 用户为例： 
 
-- **加入 audio 组**
+1. **加入 audio 组**
 
     ```bash
 sudo usermod -a -G audio HwHiAiUser
     ```
 
-- **查看 audio 设备**
+    ✳️ 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
+
+2. **查看 audio 设备**
+
+    查看喇叭：
 
     ```bash
 aplay -l
     ```
 
+    屏幕输出类似信息如下：
+
     ```bash
-    aplay -l
     **** List of PLAYBACK Hardware Devices ****
     card 0: ascend310b [ascend310b], device 0: ascend310b-playback ascend310b-hifi-0 []
     Subdevices: 1/1
@@ -336,7 +340,30 @@ aplay -l
     Subdevice #0: subdevice #0
     ```
 
-- **调节喇叭和麦克风音量**
+    查看麦克风：
+
+    ```bash
+arecord -l
+    ```
+
+    屏幕输出类似信息如下：
+
+    ```bash
+    **** List of CAPTURE Hardware Devices ****
+    card 0: ascend310b [ascend310b], device 1: ascend310b-capture ascend310b-hifi-1 []
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+    card 1: Camera [2K USB Camera], device 0: USB Audio [USB Audio]
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+    card 2: Q5 [Q5+], device 0: USB Audio [USB Audio]
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+    ```
+
+
+
+3. **调节喇叭和麦克风音量**
 
     ```bash
 alsamixer
@@ -354,7 +381,7 @@ alsamixer
     - 红色表示输入信号过强，会导致录音“爆音”或削波，后期无法修复。**（录制的声音，可能听不清）**
     - 应调整麦克风增益（通常是 Mic 或 Capture 项），让说话最大声时刚好触及白色顶部但不进入红色。**（✳️ 能录制比较好的声音）**
 
-- **测试摄像头喇叭**
+4. **测试摄像头喇叭**
 
     ```bash
 speaker-test -D hw:1 -c 1 -t wav
@@ -366,7 +393,7 @@ speaker-test -D hw:1 -c 1 -t wav
 
     ✳️ 如果没有声音，运行 `alsamixer -c 1`（-c 1 表示 aplay -l 中的 card 1 ），按 F3 切换到 Playback 视图，确保 PCM 条不是 MM（静音），且数值不为 0。
 
-- **测试Q5喇叭**
+5. **测试Q5喇叭**
 
     ```bash
 speaker-test -D hw:2 -c 2 -t wav
@@ -382,7 +409,7 @@ speaker-test -D hw:2 -c 2 -t wav
     - 运行 alsamixer -c 2，按 F3 进入播放视图，确认 PCM 或 Master 未静音（显示 MM 时按 m 键解除），且音量不为 0。
     - 喇叭是否已正确供电（部分 USB 喇叭需独立供电）。
 
-- **用摄像头的录制声音和播放**
+6. **用摄像头的录制声音和播放**
 
     录制：
 
@@ -408,7 +435,30 @@ aplay -D plughw:1 capture.wav
     ```bash
 aplay -D plughw:1 -c 1 -r 16000 -f S16_LE capture.wav
     ```
-    
+
+7. **使用Q5录制声音和播放**
+
+    录制：
+
+    ```bash
+arecord -D hw:2,0 -c 2 -r 44100 -f S16_LE -d 5 -t wav ~/test_q5_mic.wav
+    ```
+
+    - `-D hw:2,0`：直接访问 Q5 声卡硬件（无转换）
+    - `-c 2`：立体声（Q5 麦克风要求）
+    - `-r 44100`：采样率 44.1 kHz（硬件支持的）
+    - `-f S16_LE`：16 位小端 PCM（硬件支持的格式）
+    - `-d 5`：录制 5 秒
+    - `~/test_q5_mic.wav`：保存路径
+
+    播放：
+
+    ```bash
+aplay -D hw:2,0 ~/test_q5_mic.wav
+    ```
+
+    因为录制和播放的参数完全匹配（44100 Hz，立体声，16 位），直接使用 hw 设备即可。
+
 ---
 
 ## 体验样例代码
