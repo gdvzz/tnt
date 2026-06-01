@@ -8,7 +8,7 @@ nav_order: 10
 
 # 鲲鹏开发板指南
 {: .no_toc }
-`更新-260509` \| `发布-260420`
+`更新-260601` \| `发布-260420`
 
 本文档描述 **鲲鹏开发板** 的相关信息，用于快速熟悉和入门教具。
 
@@ -21,6 +21,9 @@ nav_order: 10
 
 <details markdown="block">
   <summary>ℹ️ 更新历史</summary>
+
+**260601**
+- 新增：[喇叭和麦克风](#普通用户访问喇叭和麦克风)
 
 **260509**
 - 新增：[连WiFi](#连wifi)
@@ -266,22 +269,146 @@ Connection 'eth0' (0da92994-463e-415e-abfc-6c500878e9b9) successfully deleted.
 <br>
 如果普通用户（非 root 用户）打不开摄像头，可把普通用户添加到 Linux 的 `video` 组，就可以打开摄像头了。以 `HwHiAiUser` 用户为例： 
 
-- 以 root 用户登录开发板
+<!-- - 以 root 用户登录开发板
 
 - 或已登录，先切换到 root
 
     ```bash
 su - root
-    ```
+    ``` -->
 
-- 用 root 用户执行：
+- **加入 video 组：**
 
     ```bash
-usermod -a -G video HwHiAiUser
+sudo usermod -a -G video HwHiAiUser
     ```
 
-- 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
+    ✳️ 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
 
+- **从 video 组中去掉**
+
+    如要将普通用户 HwHiAiUser 从 video 组去掉，可执行以下指令：
+
+    ```bash
+sudo gpasswd -d HwHiAiUser video
+    ```
+
+- **查看摄像头信息**
+
+    ```bash
+v4l2-ctl --list-devices
+    ```
+
+    > 普通用户 HwHiAiUser 加入 video 组以后，可通过上述指令（不加 sudo）得到摄像头信息。
+
+---
+
+<span id="mic-speaker"></span>
+
+## 普通用户访问喇叭和麦克风
+`[aka]mic-speaker`
+
+如果普通用户（非 root 用户）不能使用喇叭和麦克风，可把普通用户添加到 Linux 的 `audio` 组，就可以使用了。以 `HwHiAiUser` 用户为例： 
+
+- **加入 audio 组**
+
+    ```bash
+sudo usermod -a -G audio HwHiAiUser
+    ```
+
+- **查看 audio 设备**
+
+    ```bash
+aplay -l
+    ```
+
+    ```bash
+    aplay -l
+    **** List of PLAYBACK Hardware Devices ****
+    card 0: ascend310b [ascend310b], device 0: ascend310b-playback ascend310b-hifi-0 []
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+    card 1: Camera [2K USB Camera], device 0: USB Audio [USB Audio]
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+    card 2: Q5 [Q5+], device 0: USB Audio [USB Audio]
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+    ```
+
+- **调节喇叭和麦克风音量**
+
+    ```bash
+alsamixer
+    ```
+
+    📊 喇叭（播放）音量条：
+    
+    - 绿色 → 白色 → 红色：输出电平从低到高。
+    - 红色区域表示放大电路过载，喇叭可能会发出破音，甚至损坏扬声器。
+    - 通常应将峰值控制在白色区域，避免进入红色。
+
+    🎤 麦克风（录音）音量条：
+
+    - 绿色 → 白色 → 红色：输入增益从低到高。
+    - 红色表示输入信号过强，会导致录音“爆音”或削波，后期无法修复。**（录制的声音，可能听不清）**
+    - 应调整麦克风增益（通常是 Mic 或 Capture 项），让说话最大声时刚好触及白色顶部但不进入红色。**（✳️ 能录制比较好的声音）**
+
+- **测试摄像头喇叭**
+
+    ```bash
+speaker-test -D hw:1 -c 1 -t wav
+    ```
+
+    - `-D hw:1`：指定 ALSA 设备为 hw:1，数字 1 对应 aplay -l 中显示的 card 1（即你的 USB 摄像头声卡）。
+    - `-c 1`：设置声道数为 单声道 (mono)。因为之前尝试双声道 (-c 2) 时返回错误 Channels count (2) not available，说明该设备不支持立体声播放。
+    - `-t wav`：使用内置的 WAV 测试音（会播放 "Front Left" 等语音提示）。
+
+    ✳️ 如果没有声音，运行 `alsamixer -c 1`（-c 1 表示 aplay -l 中的 card 1 ），按 F3 切换到 Playback 视图，确保 PCM 条不是 MM（静音），且数值不为 0。
+
+- **测试Q5喇叭**
+
+    ```bash
+speaker-test -D hw:2 -c 2 -t wav
+    ```
+
+    - `-D hw:2`：指定 ALSA 设备为 hw:2，即你的 Q5+ USB 喇叭声卡。hw 表示直接访问硬件设备，数字 2 对应 aplay -l 中显示的 card 2。
+    - `-c 2`：设置声道数为 立体声 (2 声道)。Q5+ 是喇叭，通常支持双声道输出。
+    - `-t wav`：使用内置的 WAV 测试音，会依次播放 "Front Left" 和 "Front Right" 语音提示，用于检查左右声道是否正常。
+
+    ✳️ 如果只有一边出声或完全无声，请检查：
+    
+    - 喇叭音量旋钮是否打开？
+    - 运行 alsamixer -c 2，按 F3 进入播放视图，确认 PCM 或 Master 未静音（显示 MM 时按 m 键解除），且音量不为 0。
+    - 喇叭是否已正确供电（部分 USB 喇叭需独立供电）。
+
+- **用摄像头的录制声音和播放**
+
+    录制：
+
+    ```bash
+arecord -D hw:1 -c 1 -r 16000 -f S16_LE -d 5 capture.wav
+    ```
+
+    - `-D hw:1`：指定音频设备，hw:1 代表你的2K USB Camera声卡。
+    - `-c 1`：设置声道数为单声道。
+    - `-r 16000`：设置采样率为16kHz。
+    - `-f S16_LE`：设置采样格式为16位小端 (Signed 16-bit Little Endian)。
+    - `-d 5`：设置录音时长为5秒。
+    - `capture.wav`:指定输出的录音文件名。
+
+    播放：
+
+    ```bash
+aplay -D plughw:1 capture.wav
+    ```
+
+    或者，为了保证参数能完全匹配，也可以显式指定所有播放参数：
+
+    ```bash
+aplay -D plughw:1 -c 1 -r 16000 -f S16_LE capture.wav
+    ```
+    
 ---
 
 ## 体验样例代码
