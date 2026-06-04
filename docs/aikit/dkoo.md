@@ -301,6 +301,15 @@ v4l2-ctl --list-devices
 
     > 普通用户 HwHiAiUser 加入 video 组以后，可通过上述指令（不加 sudo）得到摄像头信息。
 
+<!-- - **测试拍照**
+
+    ```bash
+sudo apt update && sudo apt install fswebcam
+    ```
+
+    > 如果执行不成功，则先执行 `su - root` 切换到 root 用户，再执行上述命令。
+
+apt install 软件名 -o Acquire::http::Proxy="http://mirrors.tuna.tsinghua.edu.cn/ubuntu/" -->
 ---
 
 <span id="mic-speaker"></span>
