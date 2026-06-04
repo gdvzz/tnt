@@ -282,7 +282,8 @@ su - root
 sudo usermod -a -G video HwHiAiUser
     ```
 
-    ✳️ 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
+    - 如果执行不成功，则先执行 `su - root` 切换到 root 用户，再执行上述命令。
+    - ✳️ 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
 
 - **从 video 组中去掉**
 
@@ -315,7 +316,8 @@ v4l2-ctl --list-devices
 sudo usermod -a -G audio HwHiAiUser
     ```
 
-    ✳️ 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
+    - 如果执行不成功，则先执行 `su - root` 切换到 root 用户，再执行上述命令。
+    - ✳️ 用 `HwHiAiUser` 重新登录开发板，才能生效。重新登录开发板，并不一定要从本地电脑再 ssh 登录开发板，也可以执行 `su - HwHiAiUser` 就可以了。
 
 2. **查看 audio 设备**
 
@@ -360,8 +362,6 @@ arecord -l
     Subdevices: 1/1
     Subdevice #0: subdevice #0
     ```
-
-
 
 3. **调节喇叭和麦克风音量**
 
