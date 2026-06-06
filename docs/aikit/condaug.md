@@ -100,13 +100,16 @@ source ~/.bashrc
 
 ---
 
+<span id="conda-win"></span>
+
 ## Conda 安装（Windows）
-<br>
-选择安装 miniforge，而不是安装 miniconda。以下步骤在 **Windows 11 专业版 25H2** 验证通过。
+`[aka] conda-win`
+
+实际是选择安装 miniforge，而不是安装 miniconda。以下步骤在 **Windows 11 专业版 25H2** 验证通过。
 
 1. **下载安装包**
 
-    下载链接：[Miniforge3-Windows-x86_64.exe-清华镜像站↗](https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Windows-x86_64.exe}
+    下载链接：[Miniforge3-Windows-x86_64.exe-清华镜像站↗](https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Windows-x86_64.exe)
 
     <!-- 下载链接：[Miniforge3-Windows-x86_64.exe-江大云盘↗](https://pan.jiangnan.edu.cn/link/AA8849245EBDE74332B58BD76F474FCE3E) -->
 
@@ -116,16 +119,16 @@ source ~/.bashrc
 
 2. **安装**
 
-    有2个建议点，如下。其他，也没有什么特别的。
+    有2个建议点，如下。其他就也没有什么特别的。
 
-    <ins>**建议点一：** Select Installation Type（选 Just Me）</ins>
+    <ins>**建议点#1：** Select Installation Type（选 Just Me）</ins>
 
     - Just Me(recommended) （← 建议选择 Just Me）
     - All Users(requires admin privileges)
 
     建议选择 Just Me。选择后，conda（miniforge） 的路径会自动加入环境变量中，安装完成后就可以用了。
 
-    > 在选择了“All Users（为所有用户）”安装后，后续步骤Advanced Installation Options的“AAdd installation to my PATH environment variable”选项确实会故意消失。这是 Miniforge（以及 Anaconda/Miniconda 新版安装程序）出于安全考虑所做的设计，而不是故障。这个变化始于 Anaconda 2022.05 和 Miniconda 4.12.0 版本。之所以禁用“所有用户”安装时自动添加 PATH 的选项，是为了修复一个安全漏洞，防止权限提升攻击。简单来说，就是避免低权限用户通过修改系统级 PATH 变量来劫持高权限程序。解决方案：手动添加环境变量，如下：
+    > 在选择了“All Users（为所有用户）”安装后，后续步骤Advanced Installation Options的“Add installation to my PATH environment variable”选项确实会故意消失。这是 Miniforge（以及 Anaconda/Miniconda 新版安装程序）出于安全考虑所做的设计，而不是故障。这个变化始于 Anaconda 2022.05 和 Miniconda 4.12.0 版本。之所以禁用“所有用户”安装时自动添加 PATH 的选项，是为了修复一个安全漏洞，防止权限提升攻击。简单来说，就是避免低权限用户通过修改系统级 PATH 变量来劫持高权限程序。解决方案：手动添加环境变量，如下：
     >
     > 1. 找到安装路径。先确认你把 Miniforge3 安装在了哪个文件夹。例如：C:\Users\你的用户名\Miniforge3。如果在安装时选择了“所有用户”，它很可能会安装在一个如 C:\ProgramData\miniforge3 的路径下。
     > 
@@ -155,8 +158,10 @@ source ~/.bashrc
     - 左侧导航栏，点击 **应用**
     - 在右侧“应用”界面，选择 **安装的应用**
     - 在顶部搜索框输入 “forge”
-    - 点击在找到的应用“Miniforge3 26.3.2-3 (Python 3.13.13 64-bit)”行末3个点 ...，选择 **卸载**
+    - 点击在找到的应用“Miniforge3 ...”行末3个点 ...，选择 **卸载**
     - 稍候可完成卸载
+
+[🔝](#top)
 
 --
 
