@@ -150,9 +150,13 @@ source ~/.bashrc
 
     建议都勾选上。
 
-3. **测试**
+3. **验证测试**
 
-3. **卸载**
+    `win` + `s` 键调出搜索 → 输入 `powershell`  → 点击执行 PowerShell → 在 PowerShell 界面中执行  `conda --version` 
+
+    如果得到 `conda 26.3.2` 之类的信息，就表示 conda 安装成功了。
+
+4. **卸载**
 
     如不再使用 miniforge，则可以按如下步骤将 miniforge 从电脑中卸载（删除）。
 
@@ -203,11 +207,7 @@ conda deactivate
 conda create -n <虚拟环境名> <python=版本>
     ```
 
-    比如，创建虚拟环境 `myproject`，python 用 3.10：
-
-```bash
-    conda create -n myproject python=3.10
-```    
+    比如，创建 python 3.10 的 虚拟环境 `myproject`：`conda create -n myproject python=3.10`
 
 - **删除虚拟环境**
 
