@@ -30,8 +30,11 @@ nav_order: 90
 
 ---
 
+<span id="why-conda"></span>
+
 ## 为什么需要 Conda
-<br>
+`[aka] why-conda`
+
 以下信息摘自网络文章“<ins>Python中的Anaconda（Conda）是什么？为什么需要它？</ins>” [^2]，供了解 conda 大致是什么。
 
 感兴趣同学还可查看：
