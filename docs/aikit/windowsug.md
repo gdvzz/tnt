@@ -8,7 +8,7 @@ nav_order: 90
 
 # Windows指南
 {: .no_toc }
-`更新-260526` \| `发布-260526`
+`更新-260607` \| `发布-260526`
 
 本文档描述 **Windows操作** 的相关信息，用于快速熟悉和教具相关的操作。
 
@@ -60,6 +60,11 @@ nav_order: 90
 
 ![win01](./windowsug.assets/win01.jpg)
     
+---
+
+## 运行 Python 项目
+<br>
+
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>

@@ -150,7 +150,9 @@ source ~/.bashrc
 
     建议都勾选上。
 
-- **卸载**
+3. **测试**
+
+3. **卸载**
 
     如不再使用 miniforge，则可以按如下步骤将 miniforge 从电脑中卸载（删除）。
 
@@ -163,7 +165,7 @@ source ~/.bashrc
 
 [🔝](#top)
 
---
+---
 
 ## Conda常用命令
 <br>
@@ -193,6 +195,20 @@ conda deactivate
 
     假定当前在虚拟环境 abc 中。执行上述去激活命令后，命令行提示符头部的 `(abc)` 会变化：消失（回到非虚拟环境）；或者显示 `(base)`（假定是从 `(base)` 虚拟环境执行 `conda activate abc` 激活 abc 虚拟环境的）
 
+- **创建虚拟环境**
+
+    执行 `conda create` 可创建虚拟环境：
+
+    ```bash
+conda create -n <虚拟环境名> <python=版本>
+    ```
+
+    比如，创建虚拟环境 `myproject`，python 用 3.10：
+
+```bash
+    conda create -n myproject python=3.10
+```    
+
 - **删除虚拟环境**
 
     执行 `conda remove` 命令可删除虚拟环境：
@@ -203,6 +219,15 @@ conda remove -n <虚拟环境名> --all
 
     比如执行 `conda remove -n myenv --all`，可以 remove all packages from environment `myenv` and the environment itself。
 
+- **不自动激活base**
+
+    新开终端时默认激活base，这需要一点时间。可执行如下命令，不自动激活base。
+
+    ```bash
+conda config --set auto_activate_base false
+    ```
+
+[🔝](#top)
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
