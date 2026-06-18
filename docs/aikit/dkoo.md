@@ -8,7 +8,7 @@ nav_order: 10
 
 # 鲲鹏开发板指南
 {: .no_toc }
-`更新-260601` \| `发布-260420`
+`更新-260618` \| `发布-260420`
 
 本文档描述 **鲲鹏开发板** 的相关信息，用于快速熟悉和入门教具。
 
@@ -21,6 +21,9 @@ nav_order: 10
 
 <details markdown="block">
   <summary>ℹ️ 更新历史</summary>
+
+**260618**
+- 新增：[连接串口](#连接串口)
 
 **260601**
 - 新增：[喇叭和麦克风](#普通用户访问喇叭和麦克风)
@@ -61,7 +64,7 @@ nav_order: 10
 <span id="nets"></span>
 
 ## 连接外网
-`[aka]nets`
+`[aka] nets`
 
 <br>
 可以有几种方法：
@@ -163,6 +166,41 @@ nav_order: 10
     bond0          bond      unmanaged               --         
     lo             loopback  unmanaged               --   
     ```
+
+---
+
+<span id="serial"></span>
+
+## 连接串口
+`[aka] serial`
+
+连接开发板，还可以通过 **串口**（串行口）方式。相关步骤如下：
+
+1. **连接PC（个人电脑）和开发板**
+
+    找一根 USB 串口线，一端是USB口（USB Type-A），一端是 Micro USB。USB口连接PC（个人电脑），Micro USB 端连开发板上标识 Micro USB 的口。
+
+    感兴趣者可阅读参考资料：一篇带你读懂USB接口：从Type-A到Type-C，你最常用哪个接口？[^1]
+
+2. **设置串口访问相关参数**
+
+    以 Windows 下的 MoberXterm 为例。
+
+    - 点击主页面左上角的 **Session**
+    - 在 Session Setting 页面，点击顶部的 **Serial**
+    - **Serial Port**：选择 Windows 系统识别到的串口。比如：COM4(USB-Enhanced-SERIAL CH343)
+    - **Speed(bps)**：选择 `115200`
+    - 然后点击底部的 `OK` 按钮 
+
+    [![mx1](./dkoo.assets/serial.png)](./dkoo.assets/serial.png)
+
+3. **访问开发板**
+
+    用上一步骤设置好的 session 访问开发板。如下所示：
+
+    [![mx2](./dkoo.assets/serial2.png)](./dkoo.assets/serial2.png)
+
+[🔝](#top)
 
 ---
 
@@ -941,3 +979,6 @@ shutdown -h now  # shutdown 马上关机
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
+
+<!--  -->
+[^1]: [一篇带你读懂USB接口：从Type-A到Type-C，你最常用哪个接口？ ↗](https://zhuanlan.zhihu.com/p/703321838)；知乎；2024-06-14
