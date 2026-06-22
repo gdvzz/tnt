@@ -8,7 +8,7 @@ nav_order: 10
 
 # 昇腾开发板指南
 {: .no_toc }
-`更新-260507` \| `发布-260506`
+`更新-260622` \| `发布-260506`
 
 本文档描述 **昇腾开发板** 的相关信息，用于快速熟悉和入门教具。
 
@@ -19,12 +19,20 @@ nav_order: 10
 {:toc}
 </details>
 
-<!-- <details markdown="block">
+<!--  -->
+<details markdown="block">
     <summary>ℹ️ 更新历史</summary>
 <br>
-**260506**
-- 新增：[连接外网](#连接外网)
-</details> -->
+**260622**
+- 新增：[外观](#外观)
+</details>
+
+---
+
+## 外观
+
+[![aidk1](./aidk.assets/aidks1.png)](./aidk.assets/aidk1.png)
+[![aidk2](./aidk.assets/aidks2.png)](./aidk.assets/aidk2.png)
 
 ---
 

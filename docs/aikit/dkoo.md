@@ -8,7 +8,7 @@ nav_order: 10
 
 # 鲲鹏开发板指南
 {: .no_toc }
-`更新-260618` \| `发布-260420`
+`更新-260622` \| `发布-260420`
 
 本文档描述 **鲲鹏开发板** 的相关信息，用于快速熟悉和入门教具。
 
@@ -21,6 +21,9 @@ nav_order: 10
 
 <details markdown="block">
   <summary>ℹ️ 更新历史</summary>
+
+**260622**
+- 新增：[外观](#外观)
 
 **260618**
 - 新增：[连接串口](#连接串口)
@@ -38,6 +41,13 @@ nav_order: 10
 - 新增：[连接外网](#连接外网)
 
 </details>
+
+---
+
+## 外观
+
+[![dkoo2](./dkoo.assets/dkoos2.jpg)](./dkoo.assets/dkoo2.jpg)
+[![dkoo1](./dkoo.assets/dkoos1.jpg)](./dkoo.assets/dkoo1.jpg)
 
 ---
 
