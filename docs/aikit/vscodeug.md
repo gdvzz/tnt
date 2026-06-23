@@ -14,13 +14,18 @@ nav_order: 90
 
 <!--  -->
 <details markdown="block">
-  <summary>
-    目录
-  </summary>
-  <!-- {: .text-delta } -->
+  <summary>✳️ 目录</summary>
 - TOC
 {:toc}
 </details>
+
+<!--  -->
+<!-- <details markdown="block">
+    <summary>ℹ️ 更新历史</summary>
+<br>
+**260622**
+- 新增：[外观](#外观)
+</details> -->
 
 ---
 
@@ -54,8 +59,10 @@ nav_order: 90
 ---
 
 <span id="remote-ssh"></span>
+
 ## 远程连接
-<br>
+`[aka] remote-ssh`
+
 可在本地电脑使用 VSCode，远程 打开 Linux 服务器（包括开发板）上的文件，直接在本地电脑的 VSCode 编辑。
 
 1. 安装 **Remote - SSH** 插件
