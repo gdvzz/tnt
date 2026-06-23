@@ -68,7 +68,10 @@ nav_order: 90
 - `unzip 1stapp.zip`：解压 zip 文件到当前目录。解压后生成子目录 1stapp/
 - `zip res1.zip resnet50.onnx`：将文件 resnet50.onnx，压缩为 res1.zip
 
+<span id="scp"></span>
+
 ### scp 远程复制文件/目录
+`[aka] scp`
 
 - `scp /local/path/file.txt user@remote_host:/remote/path/`：从本地复制文件到远程主机
 

@@ -6,7 +6,7 @@ nav_order: 90
 # nav_exclude: true
 ---
 
-# MobaXterm简要指南
+# MobaXterm指南
 {: .no_toc }
 `更新-260428` \| `发布-260428`
 
@@ -14,13 +14,18 @@ nav_order: 90
 
 <!--  -->
 <details markdown="block">
-  <summary>
-    目录
-  </summary>
-  <!-- {: .text-delta } -->
+  <summary>✳️ 目录</summary>
 - TOC
 {:toc}
 </details>
+
+<!--  -->
+<!-- <details markdown="block">
+    <summary>ℹ️ 更新历史</summary>
+<br>
+**260622**
+- 新增：[外观](#外观)
+</details> -->
 
 ---
 
@@ -32,7 +37,10 @@ MobaXterm下载：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AA1B6
 
 ---
 
+<span id="ssh"></span>
+
 ## SSH登录
+`[aka] ssh`
 
 1. **新建session**
 
@@ -55,9 +63,14 @@ MobaXterm下载：[江大云盘链接↗](https://pan.jiangnan.edu.cn/link/AA1B6
 
     ✳️ 如果在 1. 新建session 指定了用户名，则登录时至要求输入正确密码即可。
 
+[🔝](#top)
+
 ---
 
+<span id="sftp"></span>
+
 ## 传文件
+`[aka] sftp`
 
 1. **新建session**
 
