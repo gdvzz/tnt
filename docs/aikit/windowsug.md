@@ -8,7 +8,7 @@ nav_order: 90
 
 # Windows指南
 {: .no_toc }
-`更新-260607` \| `发布-260526`
+`更新-260623` \| `发布-260526`
 
 本文档描述 **Windows操作** 的相关信息，用于快速熟悉和教具相关的操作。
 
@@ -22,9 +22,70 @@ nav_order: 90
 <details markdown="block">
   <summary>ℹ️ 更新历史</summary>
 
+**260623**
+- 新增：[设置PC（个人电脑）IP](#setip)
+
 **260607**
 - 新增：[运行python项目](#运行-python-项目)
 </details>
+
+---
+
+<span id="setip"></span>
+
+## 设置PC（个人电脑）IP
+`[aka] setip`
+
+将 PC（个人电脑）的 IP 地址设置为和开发板同一个网段，以便通过网线访问开发板。以下以 Windows 11 Pro 25H2 为例。
+
+**一、打开<ins>网络和Internet</ins>设置**
+
+1. 按 `win` + `i` 键，调出 **设置（Settings）** 界面
+2. 点击左侧导航栏的 **网络和Internet（Network & internet）**
+3. 点击右侧 <ins>网络和Internet（Network & internet）</ins> 界面中底部的 **高级网络设置（Advanced network settings）**
+4. 查看界面上列出的 <ins>网络适配器（Network adapters）</ins>，确定哪个是连接开发板的，通常是那个 **以太网xx**。然后点击那个 **以太网xx** 那行的任意处，以展开信息
+5. 再点击 **查看更多属性（View additional properties）** 那行的任意处，可进入 IP 地址设置界面
+
+样例界面如下：
+
+[![setip](./windowsug.assets/setip.png)](./windowsug.assets/setip.png)
+
+**✴️ 注意事项：**
+
+- **确定PC（个人电脑）是否有网口**。可在上述样例界面查看，是否有 <ins>以太网xx</ins> 等网络适配器。如有，则大概率有网口（有的PC的网口是折叠的，很小，误以为不是网口）。如无，可联系实验室老师借用 <ins>USB转网口转接器</ins> 获得一个网口（样例图中的 <ins>以太网4</ins> 就是使用转接器获得的网口）。
+- **设置连开发板的那个以太网**。样例图中，应设置连接开发板的 <ins>以太网4</ins> 的 IP 地址。样例图中的 <ins>以太网</ins> 是安装学校 VPN 软件后生成的虚拟网口，不是连接开发板的网口。
+
+<!--  -->
+**二、设置PC（个人电脑）的IP地址**
+
+样例界面如下：
+
+[![editip](./windowsug.assets/editip.png)](./windowsug.assets/editip.png)
+
+参数设置如下：
+
+- **编辑IP设置（Edit IP setting）**：选择 `手动（Manual）`
+- **IPv4**：选择 `ON`
+- **IP地址（IP address）**：输入 `192.168.137.111`
+
+    - 取值是 192.168.137.xxx
+    - xxx 可以是除 0（网络号）、255（广播地址）、100（开发板IP）、1（预留给网关）以外的数值
+    - xxx可以取 111、222 等
+    - **✴️ 注意事项**：IP地址不能设置为 `192.168.137.100`，因为该 IP 地址是开发板的 IP 地址。
+
+- **子网掩码（Subnet mask）**：输入 `255.255.255.0`
+
+    - 有的版本可能要求输入**子网掩码长度**，则输入 `24`
+
+- 点击 **保存（Save）** 按钮
+
+**✳️ 提示信息：**
+
+- 如要求设置 **网管（Gateway）**，则输入`192.168.137.1`。网管信息不会用到。再尝试点击 **保存（Save）** 按钮
+- 如要求设置 **DNS（Preferred DNS）**，则输入`114.114.114.114`。DNS不会用到。再尝试点击 **保存（Save）** 按钮
+- 因Windows版本不同，上述设置步骤可能有细微差别。
+
+[🔝](#top)
 
 ---
 
