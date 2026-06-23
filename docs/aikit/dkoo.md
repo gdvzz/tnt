@@ -44,10 +44,15 @@ nav_order: 10
 
 ---
 
+<span id="photo"></span>
+
 ## 外观
+`[aka] photo`
 
 [![dkoo2](./dkoo.assets/dkoos2.jpg)](./dkoo.assets/dkoo2.jpg)
 [![dkoo1](./dkoo.assets/dkoos1.png)](./dkoo.assets/dkoo1.png)
+
+[🔝](#top)
 
 ---
 

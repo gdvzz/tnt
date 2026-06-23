@@ -29,10 +29,15 @@ nav_order: 10
 
 ---
 
+<span id="photo"></span>
+
 ## 外观
+`[aka] photo`
 
 [![aidk1](./aidk.assets/aidks1.png)](./aidk.assets/aidk1.png)
 [![aidk2](./aidk.assets/aidks2.png)](./aidk.assets/aidk2.png)
+
+[🔝](#top)
 
 ---
 
