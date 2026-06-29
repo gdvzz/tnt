@@ -21,7 +21,7 @@ nav_order: 10
 
 <!--  -->
 <details markdown="block">
-    <summary>ℹ️ 更新历史</summary>
+  <summary>ℹ️ 更新历史</summary>
 <br>
 **260622**
 - 新增：[外观](#外观)
@@ -120,28 +120,28 @@ cp 01-netcfg.yaml 01-netcfg.bak年月曰
     内容如下：
 
     ```yaml
-  network:
-    version: 2
-    renderer: networkd
-    ethernets:
-      eth0:
-        dhcp4: yes
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: yes
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
     
-      eth1:
-        dhcp4: no
-        addresses: [192.168.137.100/24]
-        routes:
-          - to: default
-            via: 192.168.137.1
-            metric: 200          # 优先级低于 eth0
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
+    eth1:
+      dhcp4: no
+      addresses: [192.168.137.100/24]
+      routes:
+        - to: default
+          via: 192.168.137.1
+          metric: 200          # 优先级低于 eth0
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
 
-      usb0:
-        dhcp4: no
-        addresses: [192.168.0.2/24]
+    usb0:
+      dhcp4: no
+      addresses: [192.168.0.2/24]
     ```
 
 6. 让修改后的网络配置生效：
