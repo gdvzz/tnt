@@ -92,144 +92,37 @@ nav_order: 10
 ✴️ 加密的无线网络（比如 JNU-Secure），不能被共享给开发板上网。JNU-WLAN 可以被共享给开发板上网。
 
 ### 方法二：连网线
+<br>
 
 给开发板再接一根网线，通过这根网线是可以访问互联网的（比如实验室的网线）。该网线插入开发板上下排列的2个网口的 **👇下面那个网口**。
 
-还需要对网络设置做微调。操作步骤如下：
+验证是否可访问互联网：
 
-1. 然后用另一根网线，连接本地电脑和开发板。这根网线插入开发板上下排列的2个网口的 **👆上面那个网口**。
+```bash
+curl -fsSL www.baidu.com
+```
 
-2. 在本地电脑的 **终端** 应用中执行 `ssh root@192.168.137.100` 登录开发板。或者使用 MobeXterm 软件登录开发板。本地电脑先要配置 IP 地址，和开发板一个网段，比如 192.168.137.111。
+如可以访问互联网，则完成 ✅。
 
-3. 进入网络配置目录：
+如不能访问互联网，择还需要对网络设置做微调。操作步骤如下：
 
-    ```bash
+1、然后用另一根网线，连接本地电脑和开发板。这根网线插入开发板上下排列的2个网口的 **👆上面那个网口**。
+
+2、在本地电脑的 **终端** 应用中执行 `ssh root@192.168.137.100` 登录开发板。或者使用 MobeXterm 软件登录开发板。本地电脑先要配置 IP 地址，和开发板一个网段，比如 192.168.137.111。
+
+3、进入网络配置目录：
+
+```bash
 cd /etc/netplan
-    ```
+```
 
-4. 先备份原有网络配置信息：
+4、先备份原有网络配置信息：
 
-    ```bash
+```bash
 cp 01-netcfg.yaml 01-netcfg.bak
-    ```
+```
 
-5. 修改 01-netcfg.yaml 为如下内容：
-
-    内容如下：
-
-    ```yaml
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    eth0:
-      dhcp4: yes
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]
-    eth1:
-      dhcp4: no
-      addresses: [192.168.137.100/24]
-      routes:
-        - to: default
-          via: 192.168.137.1
-          metric: 200          # 优先级低于 eth0
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]
-    usb0:
-      dhcp4: no
-      addresses: [192.168.0.2/24]
-    ```
-
-    ```yml
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    eth0:
-      dhcp4: yes
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]
-    eth1:
-      dhcp4: no
-      addresses: [192.168.137.100/24]
-      routes:
-        - to: default
-          via: 192.168.137.1
-          metric: 200          # 优先级低于 eth0
-      nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]
-    usb0:
-      dhcp4: no
-      addresses: [192.168.0.2/24]
-    ```
-
-    内容如下：
-
-    ```yaml
-  network:
-    version: 2
-    renderer: NetworkManager
-    ethernets:
-      eth0:
-        dhcp4: no
-        addresses:
-          - 192.168.137.100/24
-        routes:
-          - to: default
-            via: 192.168.137.1
-            metric: 700
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-    ```
-
-    <!-- 内容如下： -->
-
-
-    ```yaml
-  network:
-    version: 2
-    renderer: networkd
-    ethernets:
-      eth0:
-        dhcp4: yes
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-      eth1:
-        dhcp4: no
-        addresses: [192.168.137.100/24]
-        routes:
-          - to: default
-            via: 192.168.137.1
-            metric: 200          # 优先级低于 eth0
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-      usb0:
-        dhcp4: no
-        addresses: [192.168.0.2/24]
-    ```
-
-    ```markdown
-  network:
-    version: 2
-    renderer: networkd
-    ethernets:
-      eth0:
-        dhcp4: yes
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-      eth1:
-        dhcp4: no
-        addresses: [192.168.137.100/24]
-        routes:
-          - to: default
-            via: 192.168.137.1
-            metric: 200          # 优先级低于 eth0
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-      usb0:
-        dhcp4: no
-        addresses: [192.168.0.2/24]
-    ```
+5、修改 01-netcfg.yaml 为如下内容：
 
 ```yaml
 network:
@@ -254,23 +147,23 @@ network:
       addresses: [192.168.0.2/24]
 ```
 
-6. 让修改后的网络配置生效：
+6、让修改后的网络配置生效：
 
-    ```bash
+```bash
 netplan try
-    ```
+```
 
-    如果网络配置信息正确，屏幕提示按回车键生效。请按 **回车键** 生效。
+如果网络配置信息正确，屏幕提示按回车键生效。请按 **回车键** 生效。
 
-    或者觉得配置肯定正确，也可以改为直接执行 `netplan apply`。
+或者觉得配置肯定正确，也可以改为直接执行 `netplan apply`。
 
-7. 验证是否可访问互联网：
+7、验证是否可访问互联网：
 
-    ```bash
+```bash
 curl -fsSL www.baidu.com
-    ```
+```
 
-    如果能获取网页的信息，就表明开发板可以访问互联网了。
+如果能获取网页的信息，就表明开发板可以访问互联网了。
 
 [🔝](#top)
 
