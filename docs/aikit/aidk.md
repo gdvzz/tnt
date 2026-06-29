@@ -107,6 +107,8 @@ nav_order: 10
 cd /etc/netplan
     ```
 
+
+
 4. 先备份原有网络配置信息：
 
     ```bash
@@ -118,27 +120,73 @@ cp 01-netcfg.yaml 01-netcfg.bak
     内容如下：
 
     ```yaml
-  network:
-    version: 2
-    renderer: networkd
-    ethernets:
-      eth0:
-        dhcp4: yes
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-      eth1:
-        dhcp4: no
-        addresses: [192.168.137.100/24]
-        routes:
-          - to: default
-            via: 192.168.137.1
-            metric: 200          # 优先级低于 eth0
-        nameservers:
-          addresses: [8.8.8.8, 114.114.114.114]
-      usb0:
-        dhcp4: no
-        addresses: [192.168.0.2/24]
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: yes
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+    eth1:
+      dhcp4: no
+      addresses: [192.168.137.100/24]
+      routes:
+        - to: default
+          via: 192.168.137.1
+          metric: 200          # 优先级低于 eth0
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+    usb0:
+      dhcp4: no
+      addresses: [192.168.0.2/24]
     ```
+
+    ```yml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: yes
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+    eth1:
+      dhcp4: no
+      addresses: [192.168.137.100/24]
+      routes:
+        - to: default
+          via: 192.168.137.1
+          metric: 200          # 优先级低于 eth0
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+    usb0:
+      dhcp4: no
+      addresses: [192.168.0.2/24]
+    ```
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: yes
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+    eth1:
+      dhcp4: no
+      addresses: [192.168.137.100/24]
+      routes:
+        - to: default
+          via: 192.168.137.1
+          metric: 200          # 优先级低于 eth0
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+    usb0:
+      dhcp4: no
+      addresses: [192.168.0.2/24]
+```
 
 6. 让修改后的网络配置生效：
 
