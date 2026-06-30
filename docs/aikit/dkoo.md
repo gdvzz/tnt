@@ -112,76 +112,102 @@ nav_order: 10
 
 ✴️ 加密的无线网络（比如 JNU-Secure），不能被共享给开发板上网。JNU-WLAN 可以被共享给开发板上网。
 
-### 连WiFi
-<br>
-先 root 用户登录开发板。或者已登录开发板，切换为 root 用户。
+<!--  -->
+<span id="wifi"></span>
 
-- `nmcli dev wifi`：查看有哪些WiFi
+### 连WiFi
+`[aka] wifi`
+
+✳️ 先 root 用户登录开发板。或者已登录开发板，执行 `su - root` 切换为 root 用户。
+
+✴️ 如何连接 JNU-WLAN 此类要在网页端输入账号密码的 WiFi，待补充。本章节方法不适用连接 JNU-WLAN。
+
+- **查看有哪些WiFi**
 
     ```bash
-    (base) root@orangepiaipro:~# nmcli dev wifi
-    IN-USE  BSSID              SSID                MODE   CHAN  RATE        SIGNAL  BARS  SECURITY    
-            44:DF:65:E7:BC:65  b102                Infra  6     130 Mbit/s  100     ▂▄▆█  WPA2        
-            44:DF:65:E7:BC:64  b102                Infra  48    270 Mbit/s  84      ▂▄▆█  WPA2        
-            14:D8:64:D1:D4:F3  b216                Infra  1     270 Mbit/s  80      ▂▄▆_  WPA1 WPA2   
+nmcli dev wifi
     ```
 
-- `nmcli dev wifi connect "b102" password "b102b102"`：密码方式连接WiFi（WiFi是b102）
+    可以看到如下类似信息：
 
     ```bash
-    (base) root@orangepiaipro:~# nmcli dev wifi connect "b102" password "b102b102"
-    Device 'wlan0' successfully activated with '3d96022d-1711-4206-8ff9-cfb991408b80'.
+IN-USE  BSSID              SSID                MODE   CHAN  RATE        SIGNAL  BARS  SECURITY    
+        44:DF:65:E7:BC:65  b102                Infra  6     130 Mbit/s  100     ▂▄▆█  WPA2        
+        44:DF:65:E7:BC:64  b102                Infra  48    270 Mbit/s  84      ▂▄▆█  WPA2        
+        14:D8:64:D1:D4:F3  b216                Infra  1     270 Mbit/s  80      ▂▄▆_  WPA1 WPA2   
+    ```
+
+- **密码方式连接WiFi（以连接 b102 WiFi 为例）**
+
+    ```bash
+nmcli dev wifi connect "b102" password "b102b102"
+    ```
+
+    可以看到如下提示信息：
+
+    ```bash
+Device 'wlan0' successfully activated with '3d96022d-1711-4206-8ff9-cfb991408b80'.
     ```
 
     连接 WiFi 成功后，可以执行 `curl -fsSL www.baidu.com` 访问百度是否成功。访问成功表示开发板可以访问外网了。
 
-- `nmcli con down "b102"`：断开和b102的连接
-- `nmcli con up "b102"`：连接（曾经连接过的）b102
+- **断开和b102的连接**
 
     ```bash
-    (base) root@orangepiaipro:/etc/netplan# nmcli con up "b102"
-    Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/6)
+nmcli con down "b102"
     ```
 
-- `nmcli con show`：看看连接过哪些 WiFi
+- **连接（曾经连接过的）b102**
 
     ```bash
-    (base) root@orangepiaipro:/etc/netplan# nmcli con show
-    NAME          UUID                                  TYPE      DEVICE  
-    b102          3d96022d-1711-4206-8ff9-cfb991408b80  wifi      wlan0   
-    eth0          112f0b6a-e274-4f66-8198-1c1ac5705217  ethernet  eth0    
-    docker0       6fdb6ff7-4ec5-46dc-9937-946a7988d084  bridge    docker0 
-    netplan-eth1  8bf25856-ca0b-388e-823c-b898666ab9d2  ethernet  --      
+nmcli con up "b102"
     ```
 
-- `nmcli con del "b102"`：忘记（曾经连接过的）b102
+- **查看连接过哪些 WiFi**
 
     ```bash
-    (base) root@orangepiaipro:/etc/netplan# nmcli con del "b102"
-    Connection 'b102' (3d96022d-1711-4206-8ff9-cfb991408b80) successfully deleted.
+nmcli con show
     ```
 
-- `nmcli radio wifi`：查看 WiFi 状态（开 或 关）
+- **忘记（曾经连接过的）b102**
 
     ```bash
-    (base) root@orangepiaipro:/etc/netplan# nmcli radio wifi
-    enabled
+nmcli con del "b102"
     ```
 
-- `nmcli radio wifi off`：关闭 WiFi
-- `nmcli radio wifi on`：打开 WiFi
-
-- `nmcli device status`：查看网络设备的状态
+- **查看 WiFi 状态（开 或 关）**
 
     ```bash
-    (base) root@orangepiaipro:~# nmcli device status
-    DEVICE         TYPE      STATE                   CONNECTION 
-    eth0           ethernet  connected               eth0       
-    docker0        bridge    connected (externally)  docker0    
-    wlan0          wifi      disconnected            --         
-    p2p-dev-wlan0  wifi-p2p  disconnected            --         
-    bond0          bond      unmanaged               --         
-    lo             loopback  unmanaged               --   
+nmcli radio wifi
+    ```
+- **关闭 WiFi**
+
+    ```bash
+nmcli radio wifi off
+    ```
+
+- **打开 WiFi**
+
+    ```bash
+nmcli radio wifi on
+    ```
+
+- **查看网络设备的状态**
+
+    ```bash
+nmcli device status
+    ```
+
+    可以看到如下类似信息：
+
+    ```bash
+DEVICE         TYPE      STATE                   CONNECTION 
+eth0           ethernet  connected               eth0       
+docker0        bridge    connected (externally)  docker0    
+wlan0          wifi      disconnected            --         
+p2p-dev-wlan0  wifi-p2p  disconnected            --         
+bond0          bond      unmanaged               --         
+lo             loopback  unmanaged               --   
     ```
 
 [🔝](#top)
