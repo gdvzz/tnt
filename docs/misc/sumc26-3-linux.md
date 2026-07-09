@@ -28,7 +28,63 @@ nav_order: -260720
 <!-- [Windows指南-ping开发板↗]: https://tnt.gdvzz.com/aikit/windowsug.html#pingdk
 [Windows指南↗]: https://tnt.gdvzz.com/aikit/windowsug.html -->
 
+## Linux 简述
 
+### Linux 随处可见
+<br>
+Linux 随处可见。比如：
+
+- **安卓Android**。基于 Linux 内核。它在 Linux 内核基础上做了定制和扩展，但通常不认为它是传统的 Linux 发行版。
+- **macOS**。不是基于 Linux，而是基于 Unix。其核心是开源的 Darwin 系统，内核为 XNU（混合了 Mach 和 BSD 组件）。从使用角度，和 Linux 基本一致。更合适的说法：从使用角度，Linux 和 Unix 基本一致。
+- **iOS**。也不是基于 Linux，同样基于 Unix。它与 macOS 同源，也基于 Darwin 和 XNU 内核。从使用角度，和 Linux 基本一致。更合适的说法：从使用角度，Linux 和 Unix 基本一致。
+- **Windows - PowerShell**。也支持较多 Linux 命令。
+- **Windows - WSL**。WSL（Windows Subsystem for Linux）是运行在 Windows 下的 App（不是双系统，不是虚拟机），提供了 Linux 环境。
+<!--  -->
+- **云厂家**。云厂商的庞大基础设施（物理服务器和绝大多数云主机）几乎都跑着 Linux，但为了满足特定客户的需求，他们也必须提供 Windows Server 等选项。
+    
+    - **Google Cloud**。高达 91.6% 的虚拟机运行 Linux。
+    - **AWS**。这个比例是 83.5%。
+    - **微软 Azure**。即便微软有自家的 Windows Server，Azure 上也有 61.8% 的虚拟机核心和超过 60% 的市场服务产品基于 Linux。
+    - **华为云 Huawei Cloud**。华为云的整体情况和主流云厂商一致：绝大多数核心业务和云主机都跑在Linux上，同时也提供了Windows Server等选项以满足特定需求。但华为云最独特的一点是，它不仅有通用的Linux发行版，还专门打造了自研的、基于Linux的企业级操作系统——Huawei Cloud EulerOS (HCE)。
+
+### 大家都要学点Linux
+<br>
+大家都要学点 Linux：
+
+- Linux 随处可见，应用很广。
+- 计算机专业的同学，总是要学点 Linux。
+- 有较多实验课，要用到 Linux。
+
+### Linux 和 Unix
+<br>
+Linux 不是 Unix。
+
+**1、Unix**
+
+- UNIX：源自早期项目 Multics（复杂信息系统），取其“反义”戏称为 Unics（单一信息系统），后谐音演变为 UNIX。它不是“用户网络操作系统”等单词的缩写。
+- 血脉（代码来源）：UNIX 是“亲儿子”，其内核源码源自 AT&T 贝尔实验室，现在主流分支（如 macOS 的 XNU、IBM 的 AIX）均闭源且需商业授权。
+- 灵魂（设计哲学）：UNIX 追求“极简稳定”，内核只做最基础的事情（如进程调度、文件管理），驱动等附加功能跑在用户空间，改动内核需严格审批，极其保守。
+
+**2、Linux**
+
+- Linux：是 Linus + Unix 的组合词，即 Linus Torvalds 开发的类 Unix 系统。官方全称是 GNU/Linux（因为核心工具来自 GNU 项目），而 GNU 本身是一个递归缩写，意为 “GNU's Not Unix”（GNU不是Unix）。
+- 血脉（代码来源）：Linux 是“最佳复刻”，内核完全从零重写，基于 GPL 开源协议，任何人都能看源码、改代码。
+- 灵魂（设计哲学）：Linux 拥抱“激进创新”，采用宏内核 + 动态模块加载，驱动随时能插拔，且拥有 CFS 调度器（完全公平调度）和 RCU 锁（读写并发优化），在高并发服务器场景下性能碾压老牌 UNIX。
+
+**3、Linux 的发行版**
+
+既然内核是“引擎”，那发行版（Distro）就是装上轮子和外壳的整车。市面上几百种发行版，主要分三大“帮派”：
+
+- Debian 系（Ubuntu、Linux Mint）：主打“新手友好”。包管理用 apt-get，软件格式是 .deb。优点是大而全，驱动和软件库最丰富，适合桌面用户和入门服务器。缺点是稍微“臃肿”，部分激进更新可能不够稳。
+- Red Hat 系（RHEL、CentOS、Fedora）：主打“企业稳如狗”。包管理用 yum 或 dnf，软件格式是 .rpm。RHEL 是付费商业版，CentOS 曾是它的免费克隆（现已转向CentOS Stream滚动版），Fedora 则是“试验田”最新技术。特点是软件版本偏旧但极度保守，银行、金融行业最爱。
+- Arch 系（Arch Linux、Manjaro）：主打“极致极客”。无版本号，采用滚动更新（永远是最新内核）。包管理用 pacman，最著名的特点是 AUR（用户仓库）——几乎所有第三方软件一键编译安装。缺点是需要手动配置，容易滚挂（更新后崩溃），适合喜欢折腾的高手。
+
+### 发音
+<br>
+- Linux:/ˈlɪn.əks/。谐音：“林纳克斯”。u 发 ə，**不能读成 “林尼克斯”**。
+- Ubuntu：/ʊˈbʊn.tuː/。谐音：“乌-本-图”（三个音节，重音在“本”上）。这是非洲祖鲁语/科萨语词汇，意为“人性善待他人”。**“乌” 不是“优”**。
+
+<!-- 
 # Linux速成班（开发板实战班）课程设计
 
 > 为期6天，每天2小时，以动手操作为主，最终在开发板上成功安装并运行OpenClaw。
@@ -250,7 +306,7 @@ cat ~/.openclaw/openclaw.json | grep access_token
 ✅ Onboarding过程无报错，顺利完成
 
 课后作业： 注册一个AI模型服务商账号（推荐阿里云百炼，获取通义千问API Key），为第5天的模型配置做好准备。同时，熟悉Telegram Bot的创建流程（通过 @BotFather），为后续配置通信渠道打基础。
-
+ -->
 
 
 <!--  -->
