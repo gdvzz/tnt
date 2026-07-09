@@ -1,14 +1,14 @@
 ---
-title: Linux速成-260720
+title: Linux速成-2607
 layout: default
 parent: misc其他
 nav_order: -260720
 # nav_exclude: true
 ---
 
-# Linux速成-260720
+# Linux速成-2607
 {: .no_toc }
-`更新-260624` \| `发布-260624`
+`更新-260709` \| `发布-260624`
 
 <!--  -->
 <details markdown="block">
@@ -28,9 +28,7 @@ nav_order: -260720
 <!-- [Windows指南-ping开发板↗]: https://tnt.gdvzz.com/aikit/windowsug.html#pingdk
 [Windows指南↗]: https://tnt.gdvzz.com/aikit/windowsug.html -->
 
-## Linux 简述
-
-### Linux 随处可见
+## Linux 随处可见
 <br>
 Linux 随处可见。比如：
 
@@ -47,7 +45,9 @@ Linux 随处可见。比如：
     - **微软 Azure**。即便微软有自家的 Windows Server，Azure 上也有 61.8% 的虚拟机核心和超过 60% 的市场服务产品基于 Linux。
     - **华为云 Huawei Cloud**。华为云的整体情况和主流云厂商一致：绝大多数核心业务和云主机都跑在Linux上，同时也提供了Windows Server等选项以满足特定需求。但华为云最独特的一点是，它不仅有通用的Linux发行版，还专门打造了自研的、基于Linux的企业级操作系统——Huawei Cloud EulerOS (HCE)。
 
-### 大家都要学点Linux
+---
+
+## 大家都要学点Linux
 <br>
 大家都要学点 Linux：
 
@@ -55,7 +55,9 @@ Linux 随处可见。比如：
 - 计算机专业的同学，总是要学点 Linux。
 - 有较多实验课，要用到 Linux。
 
-### Linux 和 Unix
+---
+
+## Linux 和 Unix
 <br>
 Linux 不是 Unix。
 
@@ -79,10 +81,15 @@ Linux 不是 Unix。
 - Red Hat 系（RHEL、CentOS、Fedora）：主打“企业稳如狗”。包管理用 yum 或 dnf，软件格式是 .rpm。RHEL 是付费商业版，CentOS 曾是它的免费克隆（现已转向CentOS Stream滚动版），Fedora 则是“试验田”最新技术。特点是软件版本偏旧但极度保守，银行、金融行业最爱。
 - Arch 系（Arch Linux、Manjaro）：主打“极致极客”。无版本号，采用滚动更新（永远是最新内核）。包管理用 pacman，最著名的特点是 AUR（用户仓库）——几乎所有第三方软件一键编译安装。缺点是需要手动配置，容易滚挂（更新后崩溃），适合喜欢折腾的高手。
 
-### 发音
+---
+
+## 发音
 <br>
+Linux怎么读？
+
 - Linux:/ˈlɪn.əks/。谐音：“林纳克斯”。u 发 ə，**不能读成 “林尼克斯”**。
 - Ubuntu：/ʊˈbʊn.tuː/。谐音：“乌-本-图”（三个音节，重音在“本”上）。这是非洲祖鲁语/科萨语词汇，意为“人性善待他人”。**“乌” 不是“优”**。
+
 
 <!-- 
 # Linux速成班（开发板实战班）课程设计
