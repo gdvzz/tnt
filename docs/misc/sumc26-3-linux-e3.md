@@ -1,16 +1,16 @@
 ---
-title: E2
+title: E3
 layout: default
 parent: Linux速成-2607
-nav_order: 2
+nav_order: 3
 # nav_exclude: true
 ---
 
-# Linux速成-2607-E2
+# Linux速成-2607-E3
 {: .no_toc }
 `更新-260710` \| `发布-260710`
 
-通过在（华为）开发板实现《基于FaceNet的多人身份识别考勤签到系统》，熟悉 Linux 相关操作。
+通过综合练习，进一步熟悉 Linux 相关操作。
 
 <!--  -->
 <details markdown="block">
@@ -72,6 +72,9 @@ nav_order: 2
 [🔝](#top)
 
 ---
+
+
+
 
 ## 0-上电开机
 <br>
@@ -257,7 +260,7 @@ pip3 install yolo5face facenet-pytorch opencv-python-headless numpy==1.26.4 Pill
 - **参考界面2：**
 
     [![ss02](./sumc26-3-linux-e2.assets/ss02.jpg)](./sumc26-3-linux-e2.assets/ss02.jpg)
-
+    
     <!-- <img src="./aidk260602.assets/ss02.jpg" alt="ss02" style=" width: auto; height: auto; max-width:100%;"> -->
 
 [🔝](#top)
