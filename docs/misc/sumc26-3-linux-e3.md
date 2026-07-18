@@ -1,12 +1,12 @@
 ---
-title: E3
+title: e3-综合练习
 layout: default
 parent: Linux速成-2607
 nav_order: 3
 # nav_exclude: true
 ---
 
-# Linux速成-2607-E3
+# e3-综合练习（Linux速成-2607）
 {: .no_toc }
 `更新-260710` \| `发布-260710`
 

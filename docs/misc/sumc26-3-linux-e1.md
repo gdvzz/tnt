@@ -1,12 +1,12 @@
 ---
-title: E1
+title: e1-初识开发板
 layout: default
 parent: Linux速成-2607
 nav_order: 1
 # nav_exclude: true
 ---
 
-# Linux速成-2607-E1
+# e1-初识开发板（Linux速成-2607）
 {: .no_toc }
 `更新-260709` \| `发布-260709`
 
@@ -46,6 +46,7 @@ nav_order: 1
 - WiFi（名称/密码）  ： b102 / b102b102
 
 [🔝](#top)
+
 ---
 
 ## 操作规范
