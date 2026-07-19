@@ -250,7 +250,8 @@ lo             loopback  unmanaged               --
 ---
 
 ## 更改默认静态IP
-<br>
+`[aka] setip`
+
 将开发板默认IP地址修改为 `192.168.137.100`。
 
 - **root 用户登录开发板**
@@ -262,6 +263,20 @@ cd /etc/netplan
     ```
 
 - **修改网络配置文件**
+
+    先看看有没有 `01-netcfg.yaml`
+
+    ```bash
+ls -l 01-netcfg.yaml
+    ```
+
+    如有，则改名以备份
+
+    ```bash
+    mv 01-netcfg.yaml bak.01-netcfg
+    ```
+
+    再新建 `01-netcfg.yaml`
 
     ```bash
 vim /etc/netplan/01-netcfg.yaml
@@ -292,6 +307,8 @@ vim /etc/netplan/01-netcfg.yaml
 netplan try
     ```
 
+    > 可能新 IP 地址生效后，会断开链接。重新 ssh 登录到新 IP 地址后，再执行后续几个操作。
+
 - **防止 NetworkManager 再次自动创建新的 eth0 连接**
 
     修改配置文件： 
@@ -320,7 +337,7 @@ systemctl restart NetworkManager
 nmcli conn show
     ```
 
-    比如看到 NAME 是 `eth0`
+    比如看到 NAME 是 `eth0`（**也可能没有**）
     
     ```bash
 NAME          UUID                                  TYPE      DEVICE  

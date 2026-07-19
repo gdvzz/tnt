@@ -1,16 +1,16 @@
 ---
-title: e3-综合练习
+title: e3-重装开发板
 layout: default
 parent: Linux速成-2607
 nav_order: 3
 # nav_exclude: true
 ---
 
-# e3-综合练习（Linux速成-2607）
+# e3-重装开发板（Linux速成-2607）
 {: .no_toc }
-`更新-260710` \| `发布-260710`
+`更新-260719` \| `发布-260719`
 
-通过综合练习，进一步熟悉 Linux 相关操作。
+本文简介重装开发板，以进一步熟悉 Linux 相关操作。
 
 <!--  -->
 <details markdown="block">
@@ -28,44 +28,34 @@ nav_order: 3
 </details> -->
 
 ## 简介
-
-### 关于开发板
 <br>
-本次实践将使用 <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> **鲲鹏开发板**，完成相关任务。
+主要完成以下任务：
 
-开发板外观请参考：
+- 重新烧录开发板的 Linux 操作系统
+- 运行一款程序
 
-- [鲲鹏开发板指南-外观↗]
+以鲲鹏开发板（[外观↗]）为例。
 
-### 账号信息
-<br>
-相关账号信息如下：
-
-- 开发板（账号/密码）： HwHiAiUser / Mind@123
-- 开发板（账号/密码）： root / Mind@123
-- WiFi（名称/密码）  ： b102 / b102b102
-
-[🔝](#top)
 
 ---
 
 ## 操作规范
 <br>
-敬请按照以下要求操作开发板：
+敬请按照以下要求操作：
 
-- 🚫 **禁止：水杯、饮料瓶等放在桌上**。以免液体泼洒导致开发板损坏。
+- 🚫 **禁止：水杯、饮料瓶等放在桌上**。以免液体泼洒导致器材损坏。
     
     可放在实验室四周或地上或书包中。
 
-- 🚫 **禁止：电源线、网线等，从桌子四周穿到桌面上**。以免磕碰导致开发板跌落损坏。
+- 🚫 **禁止：电源线、网线等，从桌子四周穿到桌面上**。以免磕碰导致器材跌落损坏。
 
     从桌子中间空洞穿到桌面上。
 
-- 🚫 **禁止：开机状态直接拔电源断电**。以免开发板意外损坏。
+- 🚫 **禁止：开机状态直接拔电源断电**。以免器材意外损坏。
 
     可先按关机键关机。确认关机后再拔电源断电。
 
-- ✴️ **书包等物品远离开发板**。以免磕碰导致开发板跌落损坏。<br>
+- ✴️ **书包等物品远离器材**。以免磕碰导致器材开发板跌落损坏。<br>
 
     可放在实验室四周或地上。
 
@@ -73,203 +63,55 @@ nav_order: 3
 
 ---
 
-
-
-
-## 0-上电开机
+## 烧录
 <br>
-插上电源即可开机：
+烧录软件可以用： balenaEtcher，ascend-devkit-imager。
 
-- 鲲鹏：前面板有2个 Type-C 口，电源插入✅**边上**那个（标有 DC 字样）。❌ 不是插入中间的 Type-C。
-- 鲲鹏：拿掉顶部的磁吸盖子，看到2个绿灯亮，**✴️ 并且风扇在转**，就表示开机完成。
+以下以 ascend-devkit-imager 为例。操作步骤请参考：[昇腾官网-Windows系统制卡↗]。
+
+几点注意事项：
+
+- 🚫 **禁止：开发板上电状态（插着电源，开机或未开机）插拔SD卡**。以免器材意外损坏。
+
+    开发板断电后（先关机再拔掉电源），才能拔出（或插入）SD卡。
+
+- ‼️ **注意：在烧录软件界面，选择要烧录的 SD卡**。以免意外覆盖PC（个人电脑）的硬盘。
+
+- ✳️ **选择本地制卡**。以免从网上下载产生不必要的流量。
+
+    有需要同学请索取本地镜像的 U 盘 或共享地址
 
 [🔝](#top)
 
 ---
 
-## 1-连网线
+## 更改静态 IP
 <br>
-将PC（个人电脑）和开发板用网线连起来：
+把新烧录的开发板的网口 IP，改成 `192.168.137.100`，以便用于其他实验。镜像中未配置静态 IP。
 
-- 网线一端连接PC（个人电脑），另一端连接开发板的以太网口。
-- 开发板以太网口指示灯绿色常亮，黄灯闪烁，表示连线正常。
+可以接屏幕、键鼠，然后通过 GUI 修改网口的静态 IP。（有需要同学请索取相关器材）
+
+或者通过命令方式修改。相关步骤如下：
+
+1. 下载 MobaXterm。详见：[MobaXterm指南↗]
+2. 通过串口方式访问开发板。详见：[鲲鹏开发板指南-连接串口↗]
+3. 修改开发板的静态IP。详见：[鲲鹏开发板指南-更改默认静态IP↗]
+
+如果不喜欢第 2 步的串口界面，还可以让开发板连实验室的 WiFi（详见：[鲲鹏开发板指南-连WiFi↗]），PC（个人电脑）也连实验室的 WiFi，然后通过 `ssh HwHiAiUser@<开发板的WiFi IP地址>` 方式登录开发板。
+
+更改完成后，请尝试连接网线，通过 SSH 登录开发板。详见：[e1-初识开发板（Linux速成-2607）↗]。
 
 [🔝](#top)
 
 ---
 
-## 2-设置PC（个人电脑）IP
+## 跑通一个程序
 <br>
-将 PC（个人电脑）的 IP 地址设置为和开发板同一个网段，以便通过网线访问开发板。详见：[Windows指南-设置PC（个人电脑）IP↗]
+尝试跑通一个使用了开发板 NPU 算力的程序。
 
-[🔝](#top)
+样例程序：[test.py](./sumc26-3-linux.assets/test.py)
 
----
-
-## 3-ping开发板
-<br>
-在 PC（个人电脑）上 ping 开发板，测试网络连通性。详见：[Windows指南-ping开发板↗]
-
-[🔝](#top)
-
----
-
-## 4-ssh登录
-<br>
-可用 MobeXterm 软件登录开发板，详见：[MobaXterm指南-ssh登录↗]
-
-或在PC（个人电脑）的终端 PowerShell 中执行：
-
-```bash
-ssh HwHiAiUser@192.168.137.100
-```
-
-在屏幕提示信息 `HwHiAiUser@192.168.137.100's password: ` 后面输入密码 `Mind@123`，输完后按 `回车` 键。**✳️ 输入密码过程中，在屏幕上不会显示信息，这是正常的（因为是密码，所以不能显示出来被TA人看到）**
-
-如果遇到以下报错信息：
-
-```bash
-~ % ssh HwHiAiUser@192.168.137.100
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-...
-```
-
-可以先执行以下命令：
-
-```bash
-ssh-keygen -R 192.168.137.100
-```
-
-然后再尝试 `ssh HwHiAiUser@192.168.137.100`
-
-[🔝](#top)
-
----
-
-## 5-连外网
-<br>
-开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：[鲲鹏开发板指南-连WiFi↗]
-
-连接外网后，在开发板上执行以下命令，验证是否确实能访问外网：
-
-```bash
-curl -fsSL www.baidu.com
-```
-
-[🔝](#top)
-
----
-
-## 6-代码调测
-<br>
-建议按如下步骤开展：
-
-1. **创建 conda 虚拟环境**
-
-    ```bash
-conda create -n chke2607 python=3.10
-    ```
-
-    - ✅ Conda 应该是正常的。如果不能成功创建虚拟环境，请实验室老师协助。
-    - ❌ 不要参考AI的建议，对 Conda 的相关设置做修改。
-    - 在虚拟环境中开展实验，可和开发板上的其他项目互不影响。
-
-2. **激活虚拟环境**
-
-    ```bash
-conda activate chke2607
-    ```
-
-3. **创建实验用目录**
-
-
-    ```bash
-mkdir ~/chkin2607
-    ```
-
-4. **上传源码到开发板的实验目录中**
-
-    **方式一：** 在本地电脑敲命令传文件。请参考：[Linux常用操作↗](https://tnt.gdvzz.com/aikit/linuxug.html) \| scp 远程复制文件/目录。比如：
-    
-    ```bash
-scp main.py HwHiAiUser@192.168.137.100:/home/HwHiAiUser/chkin2607
-    ```
-
-    **方式二：** 或者粘贴到开发板上**
-
-    先进入开发板上的实验目录
-
-    ```bash
-cd ~/chkin2607    
-    ```
-
-    在实验目录下编辑文件（新建一个空文件）
-
-    ```bash
-vim main.py
-    ```
-
-    在 vim 界面上：按 `Esc` → 按 `i` → 粘贴 → 按 `Esc` → 输入 `:wq` → 按 `Enter回车`
-
-    如果不保存：按 `Esc` → 输入 `:q!` → 按 `Enter回车`
-
-    更多信息请参考：[Linux指南-vim文本编辑↗]
-
-4. **在虚拟环境中安装 PyTorch (CPU 版)**
-
-    ```bash
-pip3 install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cpu
-    ```
-
-    ✳️ 要先激活虚拟环境，从而确保在虚拟环境中安装相关软件（而不是安装到其他环境中）。相关操作请参考：[Conda指南↗]。
-
-5. **安装其他依赖库**
-    
-    ```bash
-pip3 install yolo5face facenet-pytorch opencv-python-headless numpy==1.26.4 Pillow==10.2.0 pyyaml flask flask-cors
-    ```
-
-    ✳️ 要先激活虚拟环境，从而确保在虚拟环境中安装相关软件（而不是安装到其他环境中）。相关操作请参考：[Conda指南↗]。
-
-<br>
-
-**提示：**
-
-- ✴️ Conda（Python）虚拟环境（本文名称样例是 chke0602），创建一次即可。不需要反复重复创建。
-- ✳️ Conda 相关操作请参考：[Conda指南↗]
-
-### 参考代码
-<br>
-以下是参考代码：
-
-[主程序-main.py](./sumc26-3-linux-e2.assets/main.py)<br>
-[参考界面1-webapp.py](./sumc26-3-linux-e2.assets/webapp.py)<br>
-[参考界面2-app2.py](./sumc26-3-linux-e2.assets/app2.py)<br>
-[摄像头可用-camapp.py](./sumc26-3-linux-e2.assets/webapp.py)
-
-以下是部分参考界面：
-
-- **参考界面1：**
-
-    [![ss01](./sumc26-3-linux-e2.assets/ss01.jpg)](./sumc26-3-linux-e2.assets/ss01.jpg)
-
-    <!-- <img src="./aidk260602.assets/ss01.jpg" alt="ss01" style=" width: auto; height: auto; max-width:100%;"> -->
-
-- **参考界面2：**
-
-    [![ss02](./sumc26-3-linux-e2.assets/ss02.jpg)](./sumc26-3-linux-e2.assets/ss02.jpg)
-    
-    <!-- <img src="./aidk260602.assets/ss02.jpg" alt="ss02" style=" width: auto; height: auto; max-width:100%;"> -->
-
-[🔝](#top)
-
----
-
-## 小结
-<br>
-回顾使用过的操作。（待补充）
+参考读物：[深入解析：“零”成本迁移：基于 CANN 8.0 生态的 PyTorch on NPU 910B 落地实践↗]
 
 [🔝](#top)
 
@@ -307,9 +149,21 @@ pip3 install yolo5face facenet-pytorch opencv-python-headless numpy==1.26.4 Pill
 <!--  -->
 [鲲鹏开发板指南-连WiFi↗]: https://tnt.gdvzz.com/aikit/dkoo.html#wifi
 [鲲鹏开发板指南-普通用户访问摄像头↗]: https://tnt.gdvzz.com/aikit/dkoo.html#access-camera
-[鲲鹏开发板指南-外观↗]: https://tnt.gdvzz.com/aikit/dkoo.html#photo
 [Conda指南↗]: https://tnt.gdvzz.com/aikit/condaug.html
 [Linux指南-vim文本编辑↗]: https://tnt.gdvzz.com/aikit/linuxug.html#vim
 [MobaXterm指南-ssh登录↗]: https://tnt.gdvzz.com/aikit/mobaxtermug.html#ssh
 [Windows指南-设置PC（个人电脑）IP↗]: https://tnt.gdvzz.com/aikit/windowsug.html#setip
 [Windows指南-ping开发板↗]: https://tnt.gdvzz.com/aikit/windowsug.html#pingdk
+
+<!--  -->
+[鲲鹏开发板指南-更改默认静态IP↗]: https://tnt.gdvzz.com/aikit/dkoo.html#setip
+[鲲鹏开发板指南-连接串口↗]: https://tnt.gdvzz.com/aikit/dkoo.html#serial
+[鲲鹏开发板指南-连WiFi↗]: https://tnt.gdvzz.com/aikit/dkoo.html#wifi
+[昇腾官网-Windows系统制卡↗]: https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/latest/qs/qs_0005.html
+[外观↗]: https://tnt.gdvzz.com/aikit/dkoo.html#photo
+[e1-初识开发板（Linux速成-2607）↗]: https://tnt.gdvzz.com/misc/sumc26-3-linux-e1.html
+[MobaXterm指南↗]: https://tnt.gdvzz.com/aikit/mobaxtermug.html
+
+<!--  -->
+[Windows跑AI Agent，WSL才是终极答案，别羡慕Mac了， WSL保姆级全攻略，海量实战教程，一期视频精通↗]: https://www.bilibili.com/video/BV1pYNm69EPm
+[深入解析：“零”成本迁移：基于 CANN 8.0 生态的 PyTorch on NPU 910B 落地实践↗]: https://www.cnblogs.com/ljbguanli/p/19357875

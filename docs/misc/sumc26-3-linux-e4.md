@@ -114,14 +114,7 @@ passwd: password updated successfully
 wsl -l -v 
     ```
 
-<!-- 屏幕显示如下类似信息：
-
-```text
-NAME        STATE           VERSION
-* Ubuntu24    Stopped         2
-ubtu24      Stopped         2
-kali        Stopped         2
-``` -->
+    可以看到以下类似信息：
 
     ```text
       NAME      STATE           VERSION
@@ -192,10 +185,10 @@ wsl -l -v
     得到如下类似信息：
 
     ```text
-  NAME        STATE           VERSION
-* Ubuntu24    Stopped         2
-  ubtu24      Stopped         2
-  kali        Stopped         2
+      NAME        STATE           VERSION
+    * Ubuntu24    Stopped         2
+      ubtu24      Stopped         2
+      kali        Stopped         2
     ```
 
     执行以下命令进入某个 Linux 发行版：
