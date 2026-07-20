@@ -144,6 +144,8 @@ ssh-keygen -R 192.168.137.100
 cd ~/samples/notebooks
     ```
 
+    如果报错，可以先 [获取样例](#获取样例)，然后再进行后续操作。
+
 2. **启动 Jupyter Lab**
 
     ```bash
@@ -172,6 +174,43 @@ cd ~/samples/notebooks
     在PC（个人电脑）浏览器看到如下界面：
 
     ![aidk-demo](https://tnt.gdvzz.com/aikit/aidk.assets/aidk-demo.jpg)
+
+
+### 获取样例
+<br>
+样例：[云盘链接↗](https://pan.jiangnan.edu.cn/link/AA3111BE7AEEE54D8486377047D3375185)
+
+在PC（个人电脑）启动终端（PowerShell），执行以下操作，将样例上传到开发板：
+
+1. **进入样例保存的目录**
+
+2. **复制样例到开发板**
+
+```bash
+scp samples_aidk.zip HwHiAiUser@192.168.137.100:/home/HwHiAiUser
+```
+
+在开发板上，执行以下操作：
+
+1. **切换到 HOME 目录**
+
+```bash
+cd ~
+```
+
+2. **解压缩**
+
+```bash
+unzip samples_aidk.zip
+```
+
+3. **改名**
+
+```bash
+mv samples_aidk samples
+```
+
+[🔝](#top)
 
 ---
 
