@@ -186,29 +186,29 @@ cd ~/samples/notebooks
 
 2. **复制样例到开发板**
 
-```bash
+    ```bash
 scp samples_aidk.zip HwHiAiUser@192.168.137.100:/home/HwHiAiUser
-```
+    ```
 
 在开发板上，执行以下操作：
 
 1. **切换到 HOME 目录**
 
-```bash
+    ```bash
 cd ~
-```
+    ```
 
 2. **解压缩**
 
-```bash
+    ```bash
 unzip samples_aidk.zip
-```
+    ```
 
 3. **改名**
 
-```bash
+    ```bash
 mv samples_aidk samples
-```
+    ```
 
 [🔝](#top)
 
