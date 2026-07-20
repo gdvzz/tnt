@@ -241,22 +241,22 @@ pip3 install yolo5face facenet-pytorch opencv-python-headless numpy==1.26.4 Pill
 <br>
 以下是参考代码：
 
-[主程序-main.py](./sumc26-3-linux-e2.assets/main.py)<br>
-[参考界面1-webapp.py](./sumc26-3-linux-e2.assets/webapp.py)<br>
-[参考界面2-app2.py](./sumc26-3-linux-e2.assets/app2.py)<br>
-[摄像头可用-camapp.py](./sumc26-3-linux-e2.assets/webapp.py)
+[主程序-main.py](./sumc26-3-linux.assets/main.py)<br>
+[参考界面1-webapp.py](./sumc26-3-linux.assets/webapp.py)<br>
+[参考界面2-app2.py](./sumc26-3-linux.assets/app2.py)<br>
+[摄像头可用-camapp.py](./sumc26-3-linux.assets/webapp.py)
 
 以下是部分参考界面：
 
 - **参考界面1：**
 
-    [![ss01](./sumc26-3-linux-e2.assets/ss01.jpg)](./sumc26-3-linux-e2.assets/ss01.jpg)
+    [![ss01](./sumc26-3-linux.assets/ss01.jpg)](./sumc26-3-linux.assets/ss01.jpg)
 
     <!-- <img src="./aidk260602.assets/ss01.jpg" alt="ss01" style=" width: auto; height: auto; max-width:100%;"> -->
 
 - **参考界面2：**
 
-    [![ss02](./sumc26-3-linux-e2.assets/ss02.jpg)](./sumc26-3-linux-e2.assets/ss02.jpg)
+    [![ss02](./sumc26-3-linux.assets/ss02.jpg)](./sumc26-3-linux.assets/ss02.jpg)
 
     <!-- <img src="./aidk260602.assets/ss02.jpg" alt="ss02" style=" width: auto; height: auto; max-width:100%;"> -->
 
