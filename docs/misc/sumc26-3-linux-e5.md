@@ -8,7 +8,7 @@ nav_order: 5
 
 # e5-综合练习（Linux速成-2607）
 {: .no_toc }
-`更新-260710` \| `发布-260710`
+`更新-260722` \| `发布-260722`
 
 通过综合练习，进一步熟悉 Linux 相关操作。
 
@@ -27,289 +27,186 @@ nav_order: 5
 - 新增：[外观](#外观)
 </details> -->
 
-## 简介
-
-### 关于开发板
-<br>
-本次实践将使用 <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> **鲲鹏开发板**，完成相关任务。
-
-开发板外观请参考：
-
-- [鲲鹏开发板指南-外观↗]
-
-### 账号信息
-<br>
-相关账号信息如下：
-
-- 开发板（账号/密码）： HwHiAiUser / Mind@123
-- 开发板（账号/密码）： root / Mind@123
-- WiFi（名称/密码）  ： b102 / b102b102
-
-[🔝](#top)
-
 ---
 
-## 操作规范
+## 一切皆文件
 <br>
-敬请按照以下要求操作开发板：
+这句话确实是理解Linux世界观的第一性原理，但它不是字面意思，而是一种设计哲学。我用最直白的方式拆解给你：
 
-- 🚫 **禁止：水杯、饮料瓶等放在桌上**。以免液体泼洒导致开发板损坏。
-    
-    可放在实验室四周或地上或书包中。
+**1、到底什么是“文件”？**
 
-- 🚫 **禁止：电源线、网线等，从桌子四周穿到桌面上**。以免磕碰导致开发板跌落损坏。
+    在Linux眼里，文件就是一个字节流，也就是一串可以读、可以写的数据。为了管理这些数据，内核给每个“文件”都挂上了一个文件描述符（File Descriptor）——就是个整数编号（比如0、1、2）。
 
-    从桌子中间空洞穿到桌面上。
+**2、“一切”都包含了什么？**
 
-- 🚫 **禁止：开机状态直接拔电源断电**。以免开发板意外损坏。
+Linux把下面这几类东西，统统抽象成了文件：
 
-    可先按关机键关机。确认关机后再拔电源断电。
+- **普通数据文件**（txt、图片、视频）——这最好理解。
+- **目录**（文件夹）——也被当成特殊文件，里面存的是文件名和inode的对应表。
+- **硬件设备**（键盘、鼠标、硬盘、显示器）——在 `/dev/` 下体现。你往 `/dev/lp0`（打印机设备）写数据，打印机就动了；读 `/dev/input/mouse0`，就能拿到鼠标移动的原始数据。
+- **进程信息**（内存、CPU状态）——在 `/proc/` 下。比如 `/proc/cpuinfo` 是个虚拟文件，你读它，内核就实时把CPU信息拼成字节流给你。
+- **网络通信**（Socket套接字）——也被抽象成文件描述符，所以你可以用 `read()` 和 `write()` 去收发网络数据包。
 
-- ✴️ **书包等物品远离开发板**。以免磕碰导致开发板跌落损坏。<br>
+**3、这么设计有什么惊天好处？**
 
-    可放在实验室四周或地上。
+统一的操作接口。不管操作对象是什么，你只需要学会5个系统调用：
 
-[🔝](#top)
+> open() → read() → write() → close() → ioctl()
 
----
+这就好比练武只练一套**基础拳法**，无论对面是木头人（硬盘文件）还是水流（键盘输入），都用同一套招式应对。程序员不必为每种新硬件学习新API，内核开发者只需把新设备驱动成“看起来像文件”即可。
 
+**4、最容易踩的认知误区（重点）**
 
+✳️“一切皆文件”不等于“一切皆普通文件”。
 
+- 很多虚拟文件（如 `/dev/zero`、`/proc/meminfo`）**没有实际占用硬盘空间**，它们是内核凭空造出来的数据流。
+- **管道（Pipe）**和 **Socket** 不支持 `lseek()`（文件指针跳转），因为数据像水流，流过去就没了，不能往回退着读。
 
-## 0-上电开机
-<br>
-插上电源即可开机：
+**5、这个理念最生动的体现**
 
-- 鲲鹏：前面板有2个 Type-C 口，电源插入✅**边上**那个（标有 DC 字样）。❌ 不是插入中间的 Type-C。
-- 鲲鹏：拿掉顶部的磁吸盖子，看到2个绿灯亮，**✴️ 并且风扇在转**，就表示开机完成。
-
-[🔝](#top)
-
----
-
-## 1-连网线
-<br>
-将PC（个人电脑）和开发板用网线连起来：
-
-- 网线一端连接PC（个人电脑），另一端连接开发板的以太网口。
-- 开发板以太网口指示灯绿色常亮，黄灯闪烁，表示连线正常。
-
-[🔝](#top)
-
----
-
-## 2-设置PC（个人电脑）IP
-<br>
-将 PC（个人电脑）的 IP 地址设置为和开发板同一个网段，以便通过网线访问开发板。详见：[Windows指南-设置PC（个人电脑）IP↗]
-
-[🔝](#top)
-
----
-
-## 3-ping开发板
-<br>
-在 PC（个人电脑）上 ping 开发板，测试网络连通性。详见：[Windows指南-ping开发板↗]
-
-[🔝](#top)
-
----
-
-## 4-ssh登录
-<br>
-可用 MobeXterm 软件登录开发板，详见：[MobaXterm指南-ssh登录↗]
-
-或在PC（个人电脑）的终端 PowerShell 中执行：
+你试试在终端执行这条命令，就能亲眼看到“文件”的魔力：
 
 ```bash
-ssh HwHiAiUser@192.168.137.100
+echo "hello" > /dev/pts/0
 ```
 
-在屏幕提示信息 `HwHiAiUser@192.168.137.100's password: ` 后面输入密码 `Mind@123`，输完后按 `回车` 键。**✳️ 输入密码过程中，在屏幕上不会显示信息，这是正常的（因为是密码，所以不能显示出来被TA人看到）**
+（把/dev/pts/0换成你当前终端名，用 `tty` 命令查看）——你会看到自己发送的消息又显示在屏幕上，因为终端设备被当成文件，写进去就显示出来。大致步骤如下：
 
-如果遇到以下报错信息：
+1. 启动 2 个终端
+
+2. 在 2 个终端中，分别执行
+
+    ```bash
+tty
+    ```
+
+    可得到 2 个终端名。比如：第 1 个终端名是 `/dev/pts/1`，第 2 个终端名是 `/dev/pts/2`
+
+3. 在第 1 个终端中执行
+
+    ```bash
+echo "hi pts#2, greeting from pts#1" > /dev/pts/2
+    ```
+
+    可在第 2 个终端中看到显示 `hi pts#2, greeting from pts#1`
+
+4. 在第 2 个终端中执行
+
+    ```bash
+echo "hi pts#1, greeting from pts#2" > /dev/pts/1
+    ```
+
+    可在第 1 个终端中看到显示 `hi pts#1, greeting from pts#2`
+
+
+✳️ **一句话总结：** Linux通过“文件”这个万能插座，统一了 **存储**、**计算**、**通信**、**控制** 四大领域。这是它40年长盛不衰的核心抽象。
+
+[🔝](#top)
+
+---
+
+## 几种文件类型标志
+<br>
+执行 `ls -l`，你会看到类似这样的输出：
 
 ```bash
-~ % ssh HwHiAiUser@192.168.137.100
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-...
+-rw-r--r--  1 user group  1024 Jul 22 10:00 normal.txt
+drwxr-xr-x  2 user group  4096 Jul 22 10:00 mydir/
+lrwxrwxrwx  1 user group    11 Jul 22 10:00 link -> target
+crw-rw-rw-  1 root root   1,3 Jul 22 10:00 /dev/null
+brw-rw----  1 root disk   8,1 Jul 22 10:00 /dev/sda1
+srwxr-xr-x  1 user group     0 Jul 22 10:00 mysocket
+prw-r--r--  1 user group     0 Jul 22 10:00 mypipe
 ```
 
-可以先执行以下命令：
+**第一列首字符**就是类型标志：
+
+|首字符|文件类型|中文名|典型例子|
+|---|---|---|---|
+|-	|普通文件	|常规数据文件|	.txt, .jpg, 可执行程序|
+|d	|目录	|文件夹|	/home/, /etc/|
+|l	|符号链接	|快捷方式（软链接）|	指向另一个文件的指针|
+|c	|字符设备	|按字节流传输的设备|	键盘、鼠标、/dev/null|
+|b	|块设备	|按数据块传输的设备|	硬盘 /dev/sda, U盘|
+|s	|套接字	|进程间网络通信|	/var/run/docker.sock|
+|p	|管道	|进程间单向数据传输（FIFO）|	命名管道（用mkfifo创建）|
+
+### 逐行样例精讲（盯着第一列看）
+<br>
+```bash
+-rw-r--r--  1 alice alice  1024 Jul 22 10:00 report.pdf
+```
+
+- `-` → 普通文件。这是最常见的数据文件。
+- `rw-r--r--` 是权限位（后9个字符），与类型无关。
 
 ```bash
-ssh-keygen -R 192.168.137.100
+drwxr-xr-x  2 alice alice  4096 Jul 22 10:00 documents/
 ```
 
-然后再尝试 `ssh HwHiAiUser@192.168.137.100`
-
-[🔝](#top)
-
----
-
-## 5-连外网
-<br>
-开发板上电开机后，先让开发板连接外网，即能访问互联网。后续创建本次实验所需的 Python 虚拟环境，需要开发板能访问外网。开发板如何连接外网，请参考：[鲲鹏开发板指南-连WiFi↗]
-
-连接外网后，在开发板上执行以下命令，验证是否确实能访问外网：
+- `d` → 目录。注意权限中的 `x`（执行）对目录意味着**能否进入该目录**。
 
 ```bash
-curl -fsSL www.baidu.com
+lrwxrwxrwx  1 alice alice    11 Jul 22 10:00 shortcut -> report.pdf
 ```
 
-[🔝](#top)
+- `l` → 符号链接。箭头 `->` 指向真实文件。权限位永远是 `rwxrwxrwx`（实际权限看目标文件）。
 
----
+```bash
+crw-rw-rw-  1 root root   1, 3 Jul 22 10:00 /dev/null
+```
+- `c` → 字符设备。注意第五列不是文件大小，而是**主设备号（1）和次设备号（3）**，内核靠这个识别驱动程序。
 
-## 6-代码调测
-<br>
-建议按如下步骤开展：
+```bash
+brw-rw----  1 root disk   8, 1 Jul 22 10:00 /dev/sda1
+```
+- `b` → 块设备。同样显示主次设备号（8,1），表示硬盘第一个分区。
 
-1. **创建 conda 虚拟环境**
+```bash
+srwxr-xr-x  1 alice alice     0 Jul 22 10:00 mysocket
+```
+- `s` → 套接字。文件大小为0，因为数据不在硬盘上，只在内存中流通。
 
-    ```bash
-conda create -n chke2607 python=3.10
-    ```
+```bash
+prw-r--r--  1 alice alice     0 Jul 22 10:00 mypipe
+```
+- `p` → 管道（FIFO）。数据流单向，写入端和读取端必须同时存在。
 
-    - ✅ Conda 应该是正常的。如果不能成功创建虚拟环境，请实验室老师协助。
-    - ❌ 不要参考AI的建议，对 Conda 的相关设置做修改。
-    - 在虚拟环境中开展实验，可和开发板上的其他项目互不影响。
+### 核心知识点补丁
 
-2. **激活虚拟环境**
+1. 为什么设备文件（c/b）显示“主次设备号”而不是大小？
 
-    ```bash
-conda activate chke2607
-    ```
+    因为设备文件不占用硬盘空间，它只是内核的一个访问入口。主设备号决定用哪个驱动，次设备号决定驱动管理哪个具体硬件。
 
-3. **创建实验用目录**
+2. 如何用命令快速查看文件类型？
 
-
-    ```bash
-mkdir ~/chkin2607
-    ```
-
-4. **上传源码到开发板的实验目录中**
-
-    **方式一：** 在本地电脑敲命令传文件。请参考：[Linux常用操作↗](https://tnt.gdvzz.com/aikit/linuxug.html) \| scp 远程复制文件/目录。比如：
-    
-    ```bash
-scp main.py HwHiAiUser@192.168.137.100:/home/HwHiAiUser/chkin2607
-    ```
-
-    **方式二：** 或者粘贴到开发板上**
-
-    先进入开发板上的实验目录
+    除了 `ls -l`，还可以用：
 
     ```bash
-cd ~/chkin2607    
+file report.pdf   # 输出：PDF document, version 1.4
     ```
 
-    在实验目录下编辑文件（新建一个空文件）
+    `file` 命令会读取文件内容特征（魔数），告诉你“这到底是个什么格式”，比 `ls` 更智能。
 
-    ```bash
-vim main.py
-    ```
+3. 如何创建这些特殊文件？
 
-    在 vim 界面上：按 `Esc` → 按 `i` → 粘贴 → 按 `Esc` → 输入 `:wq` → 按 `Enter回车`
+- 普通文件：`touch file.txt`
+- 目录：`mkdir mydir`
+- 符号链接：`ln -s target linkname`
+- 管道：`mkfifo mypipe`
+- 套接字：通常由程序（如Nginx、Docker）自动创建
+- 设备文件：由内核在 `/dev/` 下自动生成（现代Linux用udev管理）
 
-    如果不保存：按 `Esc` → 输入 `:q!` → 按 `Enter回车`
+✳️ 一句话总结：
 
-    更多信息请参考：[Linux指南-vim文本编辑↗]
-
-4. **在虚拟环境中安装 PyTorch (CPU 版)**
-
-    ```bash
-pip3 install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cpu
-    ```
-
-    ✳️ 要先激活虚拟环境，从而确保在虚拟环境中安装相关软件（而不是安装到其他环境中）。相关操作请参考：[Conda指南↗]。
-
-5. **安装其他依赖库**
-    
-    ```bash
-pip3 install yolo5face facenet-pytorch opencv-python-headless numpy==1.26.4 Pillow==10.2.0 pyyaml flask flask-cors
-    ```
-
-    ✳️ 要先激活虚拟环境，从而确保在虚拟环境中安装相关软件（而不是安装到其他环境中）。相关操作请参考：[Conda指南↗]。
-
-<br>
-
-**提示：**
-
-- ✴️ Conda（Python）虚拟环境（本文名称样例是 chke0602），创建一次即可。不需要反复重复创建。
-- ✳️ Conda 相关操作请参考：[Conda指南↗]
-
-### 参考代码
-<br>
-以下是参考代码：
-
-[主程序-main.py](./sumc26-3-linux-e2.assets/main.py)<br>
-[参考界面1-webapp.py](./sumc26-3-linux-e2.assets/webapp.py)<br>
-[参考界面2-app2.py](./sumc26-3-linux-e2.assets/app2.py)<br>
-[摄像头可用-camapp.py](./sumc26-3-linux-e2.assets/webapp.py)
-
-以下是部分参考界面：
-
-- **参考界面1：**
-
-    [![ss01](./sumc26-3-linux-e2.assets/ss01.jpg)](./sumc26-3-linux-e2.assets/ss01.jpg)
-
-    <!-- <img src="./aidk260602.assets/ss01.jpg" alt="ss01" style=" width: auto; height: auto; max-width:100%;"> -->
-
-- **参考界面2：**
-
-    [![ss02](./sumc26-3-linux-e2.assets/ss02.jpg)](./sumc26-3-linux-e2.assets/ss02.jpg)
-    
-    <!-- <img src="./aidk260602.assets/ss02.jpg" alt="ss02" style=" width: auto; height: auto; max-width:100%;"> -->
+> `ls -l` 第一列的首字符，是Linux告诉你“这玩意儿本质是什么”的暗号——`-` 是数据，`d` 是抽屉，`l` 是标签，`c/b` 是硬件接口，`s/p` 是通信管道。
 
 [🔝](#top)
 
 ---
 
-## 小结
-<br>
-回顾使用过的操作。（待补充）
 
-[🔝](#top)
-
----
-
-## 关机断电复位离开
-<br>
-实验结束后，请完成以下事项，再离开实验课。
-
-1. **关机断电**
-
-    开发板要先关机、再断电。🚫 **严谨开机状态直接断电（拔电源）！**
-
-    - <img src="https://tnt.gdvzz.com/aikit/dkoo.assets/kunpeng-logo.svg" alt="kunpeng-log" style=" width: auto; height: 1.2rem; max-width: 100%;"> **鲲鹏**：[关机断电↗](https://tnt.gdvzz.com/aikit/dkoo.html#onoff) 
-
-2. **归还实验器材，给实验室老师**
-
-    - 开发板
-    - 开发板电源
-    - 网线
-    - 借用的其他器材
-
-3. **椅子复位**
-
-    - 每个桌子，配套 6 个椅子。请将椅子推到桌子下面。
-    - 西侧玻璃门，前中后靠墙，各 6 个。共 18 个。请按此数量靠墙摆放。
-
-4. **带齐随身物品**
-
-✅ 上述事项完成后，可离开实验室。
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
 
-<!--  -->
-[鲲鹏开发板指南-连WiFi↗]: https://tnt.gdvzz.com/aikit/dkoo.html#wifi
-[鲲鹏开发板指南-普通用户访问摄像头↗]: https://tnt.gdvzz.com/aikit/dkoo.html#access-camera
-[鲲鹏开发板指南-外观↗]: https://tnt.gdvzz.com/aikit/dkoo.html#photo
-[Conda指南↗]: https://tnt.gdvzz.com/aikit/condaug.html
-[Linux指南-vim文本编辑↗]: https://tnt.gdvzz.com/aikit/linuxug.html#vim
-[MobaXterm指南-ssh登录↗]: https://tnt.gdvzz.com/aikit/mobaxtermug.html#ssh
-[Windows指南-设置PC（个人电脑）IP↗]: https://tnt.gdvzz.com/aikit/windowsug.html#setip
-[Windows指南-ping开发板↗]: https://tnt.gdvzz.com/aikit/windowsug.html#pingdk
