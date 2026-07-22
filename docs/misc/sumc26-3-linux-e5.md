@@ -35,7 +35,7 @@ nav_order: 5
 
 **1、到底什么是“文件”？**
 
-    在Linux眼里，文件就是一个字节流，也就是一串可以读、可以写的数据。为了管理这些数据，内核给每个“文件”都挂上了一个文件描述符（File Descriptor）——就是个整数编号（比如0、1、2）。
+在Linux眼里，文件就是一个字节流，也就是一串可以读、可以写的数据。为了管理这些数据，内核给每个“文件”都挂上了一个文件描述符（File Descriptor）——就是个整数编号（比如0、1、2）。
 
 **2、“一切”都包含了什么？**
 
@@ -113,8 +113,8 @@ echo "hi pts#1, greeting from pts#2" > /dev/pts/1
 -rw-r--r--  1 user group  1024 Jul 22 10:00 normal.txt
 drwxr-xr-x  2 user group  4096 Jul 22 10:00 mydir/
 lrwxrwxrwx  1 user group    11 Jul 22 10:00 link -> target
-crw-rw-rw-  1 root root   1,3 Jul 22 10:00 /dev/null
-brw-rw----  1 root disk   8,1 Jul 22 10:00 /dev/sda1
+crw-rw-rw-  1 root root   1,3  Jul 22 10:00 /dev/null
+brw-rw----  1 root disk   8,1  Jul 22 10:00 /dev/sda1
 srwxr-xr-x  1 user group     0 Jul 22 10:00 mysocket
 prw-r--r--  1 user group     0 Jul 22 10:00 mypipe
 ```
@@ -122,7 +122,7 @@ prw-r--r--  1 user group     0 Jul 22 10:00 mypipe
 **第一列首字符**就是类型标志：
 
 |首字符|文件类型|中文名|典型例子|
-|---|---|---|---|
+|:---:|---|---|---|
 |-	|普通文件	|常规数据文件|	.txt, .jpg, 可执行程序|
 |d	|目录	|文件夹|	/home/, /etc/|
 |l	|符号链接	|快捷方式（软链接）|	指向另一个文件的指针|
@@ -136,36 +136,39 @@ prw-r--r--  1 user group     0 Jul 22 10:00 mypipe
 ```bash
 -rw-r--r--  1 alice alice  1024 Jul 22 10:00 report.pdf
 ```
-
 - `-` → 普通文件。这是最常见的数据文件。
 - `rw-r--r--` 是权限位（后9个字符），与类型无关。
+
 
 ```bash
 drwxr-xr-x  2 alice alice  4096 Jul 22 10:00 documents/
 ```
-
 - `d` → 目录。注意权限中的 `x`（执行）对目录意味着**能否进入该目录**。
+
 
 ```bash
 lrwxrwxrwx  1 alice alice    11 Jul 22 10:00 shortcut -> report.pdf
 ```
-
 - `l` → 符号链接。箭头 `->` 指向真实文件。权限位永远是 `rwxrwxrwx`（实际权限看目标文件）。
+
 
 ```bash
 crw-rw-rw-  1 root root   1, 3 Jul 22 10:00 /dev/null
 ```
 - `c` → 字符设备。注意第五列不是文件大小，而是**主设备号（1）和次设备号（3）**，内核靠这个识别驱动程序。
 
+
 ```bash
 brw-rw----  1 root disk   8, 1 Jul 22 10:00 /dev/sda1
 ```
 - `b` → 块设备。同样显示主次设备号（8,1），表示硬盘第一个分区。
 
+
 ```bash
 srwxr-xr-x  1 alice alice     0 Jul 22 10:00 mysocket
 ```
 - `s` → 套接字。文件大小为0，因为数据不在硬盘上，只在内存中流通。
+
 
 ```bash
 prw-r--r--  1 alice alice     0 Jul 22 10:00 mypipe
@@ -190,12 +193,12 @@ file report.pdf   # 输出：PDF document, version 1.4
 
 3. 如何创建这些特殊文件？
 
-- 普通文件：`touch file.txt`
-- 目录：`mkdir mydir`
-- 符号链接：`ln -s target linkname`
-- 管道：`mkfifo mypipe`
-- 套接字：通常由程序（如Nginx、Docker）自动创建
-- 设备文件：由内核在 `/dev/` 下自动生成（现代Linux用udev管理）
+    - 普通文件：`touch file.txt`
+    - 目录：`mkdir mydir`
+    - 符号链接：`ln -s target linkname`
+    - 管道：`mkfifo mypipe`
+    - 套接字：通常由程序（如Nginx、Docker）自动创建
+    - 设备文件：由内核在 `/dev/` 下自动生成（现代Linux用udev管理）
 
 ✳️ 一句话总结：
 
@@ -205,7 +208,128 @@ file report.pdf   # 输出：PDF document, version 1.4
 
 ---
 
+## 权限位的结构拆解（3组 × 3个字符）
 
+`-rw-r--r--` 去掉第一个的类型标志（比如 `-`），剩下的就是 9 位权限。按每3个字符一组，正好三组：
+
+```text
+ rw-  r--  r--
+ [  ] [  ] [  ]
+ 用户  组  其他人
+ (u)  (g)  (o)
+```
+
+对应关系：
+
+- 第1-3位：文件所有者（User）的权限 → `rw-`
+- 第4-6位：文件所属组（Group）的权限 →` r--`
+- 第7-9位：其他人（Others）的权限 → `r--`
+
+每个位置的字符含义是固定的：
+
+|字符|	含义|	数值（二进制位）|
+|:---:|---|---|
+|r|	读权限（Read）	|4（100）|
+|w|	写权限（Write）	|2（010）|
+|x|	执行权限（eXecute）	|1（001）|
+|-|	无此权限	|0|
+
+所以 `rw-r--r--` 的数值表示是：
+
+- 所有者：`rw-` = 4+2+0 = 6
+- 组：`r--` = 4+0+0 = 4
+- 其他人：`r--` = 4+0+0 = 4
+
+合起来就是权限数字 **644**（这是Linux中最常见的文件权限）。
+
+### `rwx` 在不同对象上的含义完全不同！（重点）
+<br>
+同样三个字母，对文件和目录的解释天差地别：
+
+|权限|	对普通文件的含义|	对目录的含义|
+|---|---|---|
+|r（读）|	能读取文件内容（如cat）|	能列出目录内容（如ls），但前提是必须有x权限才能进入
+|w（写）|	能修改/删除文件内容（如vim）|	能在目录内创建/删除/重命名文件（必须同时有x权限）
+|x（执行）|	能执行该文件（如二进制程序或脚本）|	能进入该目录（如cd），是访问目录内任何文件的前提
+
+关键陷阱：
+
+- 对目录有 `w` 权限但没有 `x`，你无法删除里面的文件（因为进不去目录）。
+- 对文件有 `r` 权限但没有 `x`，你能读脚本源码，但无法执行它。
+
+### 权限位的“特殊附加项”
+<b>
+`ls -l` 显示的第一列是10个字符，不是9个。第1个是类型，后9个是标准权限，有时在第10个位置会出现额外字符：
+
+```bash
+-rwsr-xr-x  1 root root   /usr/bin/passwd
+drwxrwsr-x  2 root staff  /shared/
+drwxrwxrwt  1 root root   /tmp/
+```
+
+注意看：
+
+- `rws` 中的 `s` → **SetUID**（执行时以文件所有者身份运行）
+- `rws` 中的 `s`（组权限位）→ **SetGID**（执行时以文件所属组身份运行）
+- 最后一位 `t` → **Sticky Bit**（粘滞位，只有文件所有者才能删除文件，**/tmp** 就是典型）
+
+这些是高级权限，用数字表示时放在最前面：
+
+- `4755` 表示 SetUID（4开头）
+- `2770` 表示 SetGID（2开头）
+- `1777` 表示 Sticky Bit（1开头，`/tmp` 就是 `drwxrwxrwt`）
+
+### 实战演练：如何修改权限
+
+1. **符号方式（更直观）**
+
+    ```bash
+chmod u+x file.txt    # 给所有者添加执行权限
+chmod g-w file.txt    # 移除组的写权限
+chmod o=r file.txt    # 设置其他人的权限为只读
+chmod a+rwx file.txt  # 给所有人（all）所有权限
+    ```
+
+2. **数字方式（更快捷）**
+
+    ```bash
+chmod 644 file.txt    # rw-r--r--
+chmod 755 script.sh   # rwxr-xr-x（所有者全权，组和其他只读+执行）
+chmod 600 secret.txt  # rw-------（只有所有者能读写）
+    ```
+
+3. **查看当前用户的权限**
+
+    ```bash
+whoami          # 查看当前用户名
+groups          # 查看当前用户所属组
+    ```
+
+### 一个容易混淆的经典例子
+<br>
+看这个权限：`-rw-r-----`
+
+- 所有者：`rw-` → 可读可写
+- 组：`r--` → 只读
+- 其他人：`---` → 没有任何权限
+
+如果我是其他人，想读这个文件 → **Permission denied**（即使我知道文件路径也不行）。
+
+如果我是 **文件所有者**，但我不在文件所属组里 → 我拥有的是 `rw-`（所有者权限），而不是 `r--`（组权限）。
+
+**核心规则：Linux权限检查按顺序匹配，命中即停。**
+
+1. 你是所有者吗？是 → 用 `rw-`，不再看组权限。
+1. 你不是所有者，但属于文件所属组？是 → 用 `r--`。
+1. 两者都不是 → 用其他人权限 `---`。
+
+✳️ **一句话总结**
+
+> `rw-r--r--` 不是密码，而是一份权力清单：所有者能读写，同组人能看，其他人只能看。其中 `r` 是眼睛，`w` 是手，`x` 是脚——对文件来说是“能跑”，对目录来说是“能进”。
+
+[🔝](#top)
+
+---
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
