@@ -360,7 +360,7 @@ groups          # 查看当前用户所属组
     - `sudo` 临时提权（用root身份执行）
 
 ### 二、进程管理
-
+<br>
 查看进程：
 
 |命令	|用途	|看什么|
@@ -401,7 +401,7 @@ kill -1 PID     # 重新加载配置（不重启进程，nginx常用）
 ssh user@192.168.1.100 -p 22
     ```
 
-加 -i key.pem 用密钥登录（云服务器标配）
+    加 -i key.pem 用密钥登录（云服务器标配）
 
 2. **文件传输**
 
@@ -432,7 +432,7 @@ ps -ef | grep nginx | grep -v grep | awk '{print $2}'
 ```
 
 ### 五、系统信息查看（出问题先看这些）
-
+<br>
 ```bash
 top / htop          # 实时资源监控（htop更友好，需要安装）
 df -h               # 磁盘使用情况（-h 人类可读）
@@ -448,11 +448,17 @@ dmesg | tail        # 内核日志（看硬件报错）
 
 1. **安装软件（不同发行版不一样）**
 
-    ```bash
-apt update && apt install nginx # Debian/Ubuntu
+    Debian/Ubuntu：
 
-yum install nginx   # CentOS/RHEL 老版本 
-dnf install nginx   # CentOS/RHEL 新版本
+    ```bash
+apt update && apt install nginx
+    ```
+
+    CentOS/RHEL 老版本 yum 和新版本 dnf
+
+    ```bash
+yum install nginx 
+dnf install nginx
     ```
 
 2. **管理服务（systemd）**
