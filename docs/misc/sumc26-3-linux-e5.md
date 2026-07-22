@@ -331,6 +331,193 @@ groups          # 查看当前用户所属组
 
 ---
 
+## Linux综述
+<br>
+列一个 "Linux 生存必备清单" ，按紧急程度排序，每样都是刚需：
+
+### 一、必须立刻补上的三块基石（优先级最高）
+
+1. **文件操作三件套（你已经会 ls，还要会 cp/mv/rm）**
+
+- `cp -r` 复制目录
+- `mv` 移动或重命名（同一分区内是秒级，只是改文件名）
+- ‼️`rm -rf` 删除（极度危险，删了就没了，没有回收站）
+
+2. **文本查看四兄弟（查日志必备）**
+
+|命令|	场景	|核心参数|
+|---|---|---|
+|cat|	看小文件	|没有分页，直接全量输出|
+|less|	看大文件（重点学）	|空格翻页，/搜索，q退出，G跳到最后|
+|head|	看文件开头	|-n 100 看前100行|
+|tail|	看文件结尾（看日志最常用）	|-f 实时跟踪（tail -f /var/log/syslog）|
+
+3. **权限管理补刀**
+
+- `chmod` 改权限
+- `chown` 改所有者：`chown user:group file.txt`
+- `sudo` 临时提权（用root身份执行）
+
+### 二、进程管理
+
+查看进程：
+
+|命令	|用途	|看什么|
+|---|---|---|
+|ps -ef	|看进程树关系	|父进程ID（PPID）、完整命令路径|
+|ps aux	|看资源占用	|CPU%、内存%、VSZ/RSS（排查性能问题首选）|
+
+三个高频搭配：
+
+```bash
+# 1. 找特定进程（最常用）
+ps -ef | grep nginx
+
+# 2. 找CPU/内存前10名
+ps aux --sort=-%cpu | head -10
+ps aux --sort=-%mem | head -10
+
+# 3. 看树形结构（查服务启动依赖）
+ps -ef --forest
+```
+
+
+信号控制（杀死/暂停进程）:
+
+```bash
+kill -15 PID    # 优雅终止（默认），进程可以清理现场
+kill -9 PID     # 强制杀死（暴力，直接拔电源）
+kill -1 PID     # 重新加载配置（不重启进程，nginx常用）
+```
+
+补充： pkill 按名字杀，killall 按名字杀所有同名进程。
+
+### 三、网络与远程操作（服务器运维必备）
+
+1. **远程连接**
+
+```bash
+ssh user@192.168.1.100 -p 22
+```
+
+加 -i key.pem 用密钥登录（云服务器标配）
+
+2. **文件传输**
+
+```bash
+scp file.txt user@192.168.1.100:/home/user/   # 上传
+scp user@192.168.1.100:/remote/file.txt .      # 下载
+```
+
+3. **端口与连接检查**
+
+```bash
+netstat -tulnp   # 看哪些端口在监听（-t TCP, -u UDP, -l 监听, -n 数字显示, -p 显示进程）
+ss -tulnp        # netstat的现代替代，更快
+```
+
+### 四、文本处理三剑客（以后写脚本的命根子）
+<br>
+这三个是Linux文本处理的灵魂，你现在不必全懂，但必须知道它们能干什么：
+
+- `grep` → 搜内容：`grep "error" /var/log/syslog`
+- `sed` → 替换/编辑：`sed 's/old/new/g' file.txt`
+- `awk` → 切列/统计：`ps aux | awk '{print $2}'`（打印第二列）
+
+实战例子： 找出所有nginx进程的PID
+
+```bash
+ps -ef | grep nginx | grep -v grep | awk '{print $2}'
+```
+
+### 五、系统信息查看（出问题先看这些）
+
+```bash
+top / htop          # 实时资源监控（htop更友好，需要安装）
+df -h               # 磁盘使用情况（-h 人类可读）
+du -sh *            # 查看当前目录下每个文件/文件夹的大小
+free -h             # 内存使用情况
+uname -a            # 内核版本信息
+uptime              # 系统运行时间和负载
+dmesg | tail        # 内核日志（看硬件报错）
+```
+
+### 六、包管理与服务控制（软件装与启）
+<br>
+
+1. **安装软件（不同发行版不一样）**
+
+    ```bash
+# Debian/Ubuntu
+apt update && apt install nginx
+
+# CentOS/RHEL
+yum install nginx   # 老版本
+dnf install nginx   # 新版本
+    ```
+
+2. **管理服务（systemd）**
+
+    ```bash
+systemctl start nginx   # 启动
+systemctl stop nginx    # 停止
+systemctl restart nginx # 重启
+systemctl status nginx  # 看状态
+systemctl enable nginx  # 开机自启
+    ````
+
+### 七、管道与重定向（把命令串起来的胶水）
+<br>
+这是Linux最酷的设计，把前面学的所有东西串起来：
+
+```bash
+# | 管道：把左边输出作为右边输入
+ps aux | grep nginx
+
+# > 重定向：输出到文件（覆盖）
+echo "hello" > file.txt
+
+# >> 重定向：追加到文件
+echo "world" >> file.txt
+
+# 2> 错误重定向
+command 2> error.log
+
+# &> 所有输出重定向
+command &> output.log
+```
+
+### 八、学习路线图（按这个顺序刷）
+
+- 文件操作（ls/cp/mv/rm）+ 文本查看（cat/less/tail）
+- 权限（chmod/chown）+ 进程（ps/kill）
+- 网络（ssh/scp/netstat）+ 服务（systemctl）
+- 文本三剑客（grep/sed/awk）入门
+- 综合实战（写一个监控脚本）
+
+### 九、两个救命技能（必须会）
+
+1. **查命令用法**
+
+    ```bash
+man ps      # 完整手册（按 q 退出）
+ps --help   # 快速帮助
+    ```
+
+    > [编者按] 也可以问问大模型
+
+2. **在vim里怎么退出（新手必死题）**
+
+    ```text
+按 Esc → 输入 :q! → 回车（强制退出不保存）
+按 Esc → 输入 :wq → 回车（保存并退出）
+    ```
+
+✳️ **一句话总结**
+
+> **你已经有了"看懂Linux"的底子，现在差的是"操作肌肉记忆"：文件搬移、日志查看、进程管理、网络连通、软件安装——这五件事熟练了，你就是合格的运维工程师。**
+
+> 建议你现在打开终端，把每个命令都敲一遍。
+
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
-
