@@ -209,7 +209,7 @@ file report.pdf   # 输出：PDF document, version 1.4
 ---
 
 ## 权限位的结构拆解（3组 × 3个字符）
-
+<br>
 `-rw-r--r--` 去掉第一个的类型标志（比如 `-`），剩下的就是 9 位权限。按每3个字符一组，正好三组：
 
 ```text
@@ -258,7 +258,7 @@ file report.pdf   # 输出：PDF document, version 1.4
 - 对文件有 `r` 权限但没有 `x`，你能读脚本源码，但无法执行它。
 
 ### 权限位的“特殊附加项”
-<b>
+<br>
 `ls -l` 显示的第一列是10个字符，不是9个。第1个是类型，后9个是标准权限，有时在第10个位置会出现额外字符：
 
 ```bash
@@ -336,27 +336,28 @@ groups          # 查看当前用户所属组
 列一个 "Linux 生存必备清单" ，按紧急程度排序，每样都是刚需：
 
 ### 一、必须立刻补上的三块基石（优先级最高）
+<br>
 
 1. **文件操作三件套（你已经会 ls，还要会 cp/mv/rm）**
 
-- `cp -r` 复制目录
-- `mv` 移动或重命名（同一分区内是秒级，只是改文件名）
-- ‼️`rm -rf` 删除（极度危险，删了就没了，没有回收站）
+    - `cp -r` 复制目录
+    - `mv` 移动或重命名（同一分区内是秒级，只是改文件名）
+    - ‼️`rm -rf` 删除（极度危险，删了就没了，没有回收站）
 
 2. **文本查看四兄弟（查日志必备）**
 
-|命令|	场景	|核心参数|
-|---|---|---|
-|cat|	看小文件	|没有分页，直接全量输出|
-|less|	看大文件（重点学）	|空格翻页，/搜索，q退出，G跳到最后|
-|head|	看文件开头	|-n 100 看前100行|
-|tail|	看文件结尾（看日志最常用）	|-f 实时跟踪（tail -f /var/log/syslog）|
+    |命令|	场景	|核心参数|
+    |---|---|---|
+    |cat|	看小文件	|没有分页，直接全量输出|
+    |less|	看大文件（重点学）	|空格翻页，/搜索，q退出，G跳到最后|
+    |head|	看文件开头	|-n 100 看前100行|
+    |tail|	看文件结尾（看日志最常用）	|-f 实时跟踪（tail -f /var/log/syslog）|
 
 3. **权限管理补刀**
 
-- `chmod` 改权限
-- `chown` 改所有者：`chown user:group file.txt`
-- `sudo` 临时提权（用root身份执行）
+    - `chmod` 改权限
+    - `chown` 改所有者：`chown user:group file.txt`
+    - `sudo` 临时提权（用root身份执行）
 
 ### 二、进程管理
 
@@ -381,7 +382,7 @@ ps aux --sort=-%mem | head -10
 ps -ef --forest
 ```
 
-
+<br>
 信号控制（杀死/暂停进程）:
 
 ```bash
@@ -393,28 +394,28 @@ kill -1 PID     # 重新加载配置（不重启进程，nginx常用）
 补充： pkill 按名字杀，killall 按名字杀所有同名进程。
 
 ### 三、网络与远程操作（服务器运维必备）
-
+<br>
 1. **远程连接**
 
-```bash
+    ```bash
 ssh user@192.168.1.100 -p 22
-```
+    ```
 
 加 -i key.pem 用密钥登录（云服务器标配）
 
 2. **文件传输**
 
-```bash
+    ```bash
 scp file.txt user@192.168.1.100:/home/user/   # 上传
 scp user@192.168.1.100:/remote/file.txt .      # 下载
-```
+    ```
 
 3. **端口与连接检查**
 
-```bash
+    ```bash
 netstat -tulnp   # 看哪些端口在监听（-t TCP, -u UDP, -l 监听, -n 数字显示, -p 显示进程）
 ss -tulnp        # netstat的现代替代，更快
-```
+    ```
 
 ### 四、文本处理三剑客（以后写脚本的命根子）
 <br>
@@ -448,12 +449,10 @@ dmesg | tail        # 内核日志（看硬件报错）
 1. **安装软件（不同发行版不一样）**
 
     ```bash
-# Debian/Ubuntu
-apt update && apt install nginx
+apt update && apt install nginx # Debian/Ubuntu
 
-# CentOS/RHEL
-yum install nginx   # 老版本
-dnf install nginx   # 新版本
+yum install nginx   # CentOS/RHEL 老版本 
+dnf install nginx   # CentOS/RHEL 新版本
     ```
 
 2. **管理服务（systemd）**
@@ -488,7 +487,7 @@ command &> output.log
 ```
 
 ### 八、学习路线图（按这个顺序刷）
-
+<br>
 - 文件操作（ls/cp/mv/rm）+ 文本查看（cat/less/tail）
 - 权限（chmod/chown）+ 进程（ps/kill）
 - 网络（ssh/scp/netstat）+ 服务（systemctl）
@@ -513,6 +512,7 @@ ps --help   # 快速帮助
 按 Esc → 输入 :wq → 回车（保存并退出）
     ```
 
+<br>
 ✳️ **一句话总结**
 
 > **你已经有了"看懂Linux"的底子，现在差的是"操作肌肉记忆"：文件搬移、日志查看、进程管理、网络连通、软件安装——这五件事熟练了，你就是合格的运维工程师。**
