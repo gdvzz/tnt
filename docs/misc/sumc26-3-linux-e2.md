@@ -244,7 +244,7 @@ pip3 install yolo5face facenet-pytorch opencv-python-headless numpy==1.26.4 Pill
 [主程序-main.py](./sumc26-3-linux.assets/main.py)<br>
 [参考界面1-webapp.py](./sumc26-3-linux.assets/webapp.py)<br>
 [参考界面2-app2.py](./sumc26-3-linux.assets/app2.py)<br>
-[摄像头可用-camapp.py](./sumc26-3-linux.assets/webapp.py)
+[摄像头可用-camapp.py](./sumc26-3-linux.assets/camapp.py)
 
 以下是部分参考界面：
 
