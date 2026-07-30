@@ -39,8 +39,11 @@ nav_order: 90
 
 （从略）
 
+<span id="jetson"></span>
+
 ### Jetson开发板
-<br>
+`[aka] jetson`
+
 点击界面左下角的 `九宫格(Show Applications)`，然后搜索 `VSCode`。如能找到则打开直接使用。如没有找到，参考如下步骤安装 VSCode 到开发板。
 
 - 打开发板上的浏览器，访问 VSCode 官网 Download 页面：[https://code.visualstudio.com/Download↗](https://code.visualstudio.com/Download)
