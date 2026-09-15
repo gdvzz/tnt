@@ -8,7 +8,7 @@ nav_order: 10
 
 # 视觉实验箱
 {: .no_toc }
-`更新-260723` \| `发布-260515`
+`更新-260915` \| `发布-260515`
 
 本文档描述 **视觉实验箱** 的相关信息，用于快速熟悉和入门教具。
 
@@ -186,6 +186,43 @@ sudo apt install fcitx-googlepinyin
 ## 机械臂体验
 
 机械臂体验，详见：[机械臂体验↗]
+
+
+---
+
+## 连接机房模型
+
+1. 替换 api.py
+
+    [api.py](./viki.assets/api.py)
+
+2. 修改 agent.py
+
+    agent.py  文件在/elephant-ai下。实例化agent，修改为
+
+    ```python
+llm = RequestLLM(base_url="http://172.18.144.18:11434/v1/", model_name="qwen3-35b-a3b")
+    ```
+
+3. 修改 LLM.py
+    
+    LLM.py 文件在 react_agent下
+
+    修改api_key为sk-1111
+    
+    ```python
+self.client = openai.OpenAI(api_key="sk-1111", base_url=self.base_url)
+    ```
+
+    修改main函数里的地址
+    
+    ```python
+llm = RequestLLM(base_url="http://172.18.144.18:11434/v1", model_name="qwen3-35b-a3b")
+    ```
+
+4. 替换 react_agent/agent.py
+
+    [react_agent-agent.py](./viki.assets/react_agent-agent.py)
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>

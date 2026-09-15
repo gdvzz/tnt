@@ -875,6 +875,8 @@ Hello from the pygame community. https://www.pygame.org/contribute.html
 感谢！
 
 
+260305-好的，董老师，没有问题，换了一个gradio的版本，换成5.44.1的版本就好了，
+
 ---
 
 pip3 install gradio==5.44.1 openai Jetson.GPIO smbus2 pygame requests soundfile
