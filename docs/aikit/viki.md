@@ -211,7 +211,7 @@ llm = RequestLLM(base_url="http://172.18.144.18:11434/v1/", model_name="qwen3-35
     修改api_key为sk-1111
     
     ```python
-self.client = openai.OpenAI(api_key="sk-1111", base_url=self.base_url)
+self.client = openai.OpenAI(api_key=":1", base_url=self.base_url)
     ```
 
     修改main函数里的地址
