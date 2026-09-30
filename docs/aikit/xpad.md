@@ -25,6 +25,12 @@ nav_order: 10
 
 <span style="font-size:12px; color:#999">--- end ---</span>
 </details> -->
+## termux 快捷键
+
+粘贴：Ctrl + Alt + V
+
+复制：Ctrl + Alt + C
+
 
 ## 本地安装demo
 <br>
@@ -61,6 +67,29 @@ python3 -m venv gradio_env
 source gradio_env/bin/activate
 
 ```
+
+**2、Python依赖安装**
+
+在激活的虚拟环境中执行:
+
+```bash
+
+pip install --upgrade pip
+
+#安装前置
+apt install mecab mecab-ipadic ffmpeg 
+
+# 安装核心库
+pip install gradio
+pip install pydub ffmpeg-python gradio_client librosa noisereduce pydantic
+
+# 安装语音处理相关
+pip install mecab-python3 unidic-lite cutlet langid
+
+# 安装其他依赖
+pip install typing-extensions emoji deepspeed asyncio
+```
+
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
