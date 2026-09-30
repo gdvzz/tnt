@@ -90,6 +90,9 @@ pip install mecab-python3 unidic-lite cutlet langid
 pip install typing-extensions emoji deepspeed asyncio
 ```
 
+**AI语音助手** 样例：
+
+[aiapp.zip](./xpad.assets/aiapp.zip)
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
