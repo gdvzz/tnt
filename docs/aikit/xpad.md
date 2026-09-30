@@ -103,16 +103,16 @@ pip install gradio==4.44.0
 > 似乎有更多错误 <br>
 > 恢复到新的gradio版本，略修改了程序
 
+
+运行后报错，修改后版本：<br>
+[appv2.py](./xpad.assets/appv2.py)
+
 ## 体验网址
 
-AI语音助手<br>
-https://172.18.144.18/plugin/frontend#/appview/oNbnIDhD?i=1
+[AI语音助手↗](https://172.18.144.18/plugin/frontend#/appview/oNbnIDhD?i=1)
+[AI同声传译↗](https://172.18.144.18/plugin/frontend#/appview/975WwGQ5?i=1)
+[AI外语助教↗](https://172.18.144.18/plugin/frontend#/appview/AJ62kgyj?i=1)
 
-AI同声传译<br>
-https://172.18.144.18/plugin/frontend#/appview/975WwGQ5?i=1
-
-AI外语助教<br>
-https://172.18.144.18/plugin/frontend#/appview/AJ62kgyj?i=1
 
 <!--  -->
 <span style="font-size:12px; color:#999">THE END</span>
