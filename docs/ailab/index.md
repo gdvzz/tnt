@@ -2,7 +2,7 @@
 title: ailab实验课
 layout: default
 # parent: AI实验课
-nav_order: 10
+nav_order: 19
 # nav_exclude: true
 ---
 
