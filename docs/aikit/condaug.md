@@ -67,33 +67,33 @@ Python是一种有特别多用处的计算机语言，可以用来做网页开�
 <br>
 在 Jetson 开发板上启动 **终端 Terminal** App，然后输入 `conda` 并回车。执行后如果屏幕显示“命令没有找到”之类的信息，则表明尚未安装，请参考如下命令先安装 Conda。
 
-1. **建个临时目录**
+**1、建个临时目录**
 
-    ```bash
+```bash
 mkdir ~/tmp2603
-    ```
+```
 
-    > 临时目录的名字可随意。
+> 临时目录的名字可随意。
 
-2. **进入临时目录**
+**2、进入临时目录**
 
-    ```bash
+```bash
 cd ~/tmp2603
-    ```
-3. **从科大镜像下载安装包**
+```
 
-    ```bash
+**3、从科大镜像下载安装包**
+
+```bash
 wget https://mirrors.ustc.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-aarch64.sh
-    ```
+```
 
-4. **安装**
+**4、安装**
 
-    ```bash
+```bash
 bash Miniforge3-Linux-aarch64.sh
-    ```
-    > 安装过程中，请仔细阅读提示。并在询问“是否初始化Miniforge3”时输入 yes。
+```
 
-    ```bash
+```bash
 Miniforge3 will now be installed into this location:
 /home/jetson/miniforge3
 
@@ -102,25 +102,24 @@ Miniforge3 will now be installed into this location:
   - Or specify a different location below
 
 [/home/jetson/miniforge3] >>> 
-    ```
+```
 
-    请按 `回车键`。回车键的英文就是 `Enter` 或者 `Return` <br>
-    此处是指：按 `回车键`，就安装到 `/home/jetson/miniforge3`。而不是输入 ENTER 5个字母。
+✅ 请按 `回车键`，就安装到默认目录 `/home/jetson/miniforge3`。回车键的英文就是 `Enter` 或者 `Return`。🚫 而不是输入 `ENTER` 5个字母。
 
-    ```bash
+```bash
 Proceed with initialization? [yes|no]
 [no] >>>
-    ```
+```
 
-    此处输 yes
+此处输 `yes`
 
 
 
-5. **安装完成后，关闭并重新打开终端，或者执行以下命令使配置生效：**
+**5、安装完成后，关闭并重新打开终端，或者执行以下命令使配置生效：**
     
-    ```bash
+```bash
 source ~/.bashrc
-    ```
+```
 
 ✅ Done！之后，你的命令行前会出现 (base) 字样，表示基础环境已激活。
 
