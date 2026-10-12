@@ -93,6 +93,29 @@ bash Miniforge3-Linux-aarch64.sh
     ```
     > 安装过程中，请仔细阅读提示。并在询问“是否初始化Miniforge3”时输入 yes。
 
+    ```bash
+Miniforge3 will now be installed into this location:
+/home/jetson/miniforge3
+
+  - Press ENTER to confirm the location
+  - Press CTRL-C to abort the installation
+  - Or specify a different location below
+
+[/home/jetson/miniforge3] >>> 
+    ```
+
+    请按 `回车键`。回车键的英文就是 `Enter` 或者 `Return` <br>
+    此处是指：按 `回车键`，就安装到 `/home/jetson/miniforge3`。而不是输入 ENTER 5个字母。
+
+    ```bash
+Proceed with initialization? [yes|no]
+[no] >>>
+    ```
+
+    此处输 yes
+
+
+
 5. **安装完成后，关闭并重新打开终端，或者执行以下命令使配置生效：**
     
     ```bash
