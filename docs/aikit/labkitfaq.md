@@ -22,6 +22,7 @@ nav_exclude: true
   <summary>✳️ 历史</summary>
 261013<br>
     （1）增加 [开发板开机快速时间同步（sntp-once）操作说明](#开发板开机快速时间同步sntp-once操作说明)
+    （2）增加 [日志持久化操作](#日志持久化操作)
 <br>
 261012<br>
     （1）增加 [插网线 6 小时会断网](#插网线-6-小时会断网dhcp-客户端-id-修复方案)
@@ -285,6 +286,8 @@ ping -c 3 172.18.145.1
 
 先放过大模型。先到此为止。
 
+[🔝](#top)
+
 ---
 
 ## 开发板开机快速时间同步（sntp-once）操作说明
@@ -517,3 +520,159 @@ sudo systemctl enable --now chrony
 - 依赖 `network-online.target` 并配置自动重试，可容忍首次网络未就绪。
 - 冷启动验证是唯一可靠的验证方式（`reboot` 不算）。
 - 建议同时做日志持久化，便于长期观察。
+
+[🔝](#top)
+
+---
+
+## 日志持久化操作
+
+解决 Ubuntu / Jetson 等设备默认将系统日志保存在内存（`/run/log/journal`）、重启后丢失的问题。持久化后日志写入磁盘，重启后仍可查询，便于排查故障。同时限制日志大小，防止占满 eMMC / SD 卡。
+
+---
+
+### 一、操作步骤
+
+**1. 创建持久化目录**
+
+```bash
+sudo mkdir -p /var/log/journal
+```
+
+**2. 创建配置目录**
+
+```bash
+sudo mkdir -p /etc/systemd/journald.conf.d
+```
+
+**3. 写入配置（限制 500M，保留 7 天）**
+
+```bash
+sudo tee /etc/systemd/journald.conf.d/persistent.conf > /dev/null << 'EOF'
+[Journal]
+Storage=persistent
+SystemMaxUse=500M
+SystemKeepFree=1G
+SystemMaxFileSize=100M
+MaxRetentionSec=7day
+EOF
+```
+
+**4. 初始化 journal 目录结构（关键步骤）**
+
+```bash
+sudo systemd-tmpfiles --create --prefix /var/log/journal
+```
+
+> 这一步会创建 `/var/log/journal/<machine-id>/` 子目录并设置正确权限（`root:systemd-journal` + `2755` + ACL）。只用 `mkdir` 不够，journald 不会识别。
+
+**5. 重载并重启 journald**
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart systemd-journald
+```
+
+---
+
+### 二、验证
+
+```bash
+# 1. 确认目录和文件已创建
+ls -lh /var/log/journal/
+ls -lh /var/log/journal/<machine-id>/
+
+# 2. 确认 File path 已切到 /var/log/journal
+journalctl --header | head -3
+
+# 3. 确认配置已加载
+systemd-analyze cat-config systemd/journald.conf | tail -10
+
+# 4. 查看当前占用
+journalctl --disk-usage
+```
+
+**成功标志**：
+
+- `ls` 能看到 `/var/log/journal/<machine-id>/` 目录，里面有 `system.journal` 等文件；
+- `journalctl --header` 第一行为 `File path: /var/log/journal/<machine-id>/system.journal`（而不是 `/run/log/journal/`）；
+- `cat-config` 末尾显示 `Storage=persistent` 等配置；
+- `--disk-usage` 显示非零大小。
+
+---
+
+### 三、配置参数说明
+
+| 参数 | 值 | 作用 |
+|---|---|---|
+| `Storage=persistent` | 持久化 | 日志写入磁盘，重启保留 |
+| `SystemMaxUse=500M` | 500MB | 日志总占用上限 |
+| `SystemKeepFree=1G` | 1GB | 磁盘至少保留的空闲空间 |
+| `SystemMaxFileSize=100M` | 100MB | 单个日志文件上限 |
+| `MaxRetentionSec=7day` | 7 天 | 日志最长保留时间 |
+
+两个限制**同时生效，先到先得**：达到 500MB 或超过 7 天，都会触发清理。
+
+---
+
+### 四、日常维护（可选）
+
+```bash
+# 只保留最近 7 天
+sudo journalctl --vacuum-time=7d
+
+# 只保留最近 500MB
+sudo journalctl --vacuum-size=500M
+
+# 只保留最近 5 个日志文件
+sudo journalctl --vacuum-files=5
+
+# 查看当前占用
+journalctl --disk-usage
+```
+
+---
+
+### 五、常见问题
+
+| 现象 | 原因 | 解决 |
+|---|---|---|
+| `tee: ... No such file or directory` | 配置目录不存在 | `sudo mkdir -p /etc/systemd/journald.conf.d` |
+| `File path` 仍是 `/run/log/journal/` | 缺少 tmpfiles 初始化 | `sudo systemd-tmpfiles --create --prefix /var/log/journal` 后重启 journald |
+| 配置写了但未生效 | journald 未重启或未 daemon-reload | `sudo systemctl daemon-reload && sudo systemctl restart systemd-journald` |
+| 目录权限不对 | 手动 mkdir 未设权限 | `sudo chown root:systemd-journal /var/log/journal && sudo chmod 2755 /var/log/journal`，或重跑 tmpfiles |
+| 主配置冲突 | `/etc/systemd/journald.conf` 里有 `Storage=volatile` | 注释掉主配置里的 `Storage=` 行 |
+| `--list-boots` 只有一个 | 时间跳变（无 RTC 电池） | 正常现象，非配置问题；根治需加装 RTC 电池 |
+
+---
+
+### 六、回滚
+
+```bash
+# 1. 删除自定义配置
+sudo rm /etc/systemd/journald.conf.d/persistent.conf
+
+# 2. 重载并重启
+sudo systemctl daemon-reload
+sudo systemctl restart systemd-journald
+
+# 3. 可选：删除持久化目录，回到内存模式
+sudo rm -rf /var/log/journal
+sudo systemctl restart systemd-journald
+```
+
+回滚后，`journalctl --header` 的 `File path` 会变回 `/run/log/journal/...`。
+
+---
+
+### 七、说明
+
+- 默认情况下 journald 已限制日志为磁盘的 10%（上限 4GB），不会无限增长。
+- 本方案将上限压到 500MB + 7 天，更适合 eMMC / SD 卡空间有限的开发板。
+- 500MB 通常能保留数周日志，加 7 天上限后实际占用一般远低于 500MB。
+- `SystemKeepFree=1G` 保证磁盘至少留 1GB 空闲，进一步防止撑爆。
+- 若磁盘非常紧张（< 8GB 可用），可将 `SystemMaxUse` 调到 `200M`。
+
+[🔝](#top)
+
+<span style="font-size:12px; color:#999">THE END</span>
