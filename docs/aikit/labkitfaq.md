@@ -8,7 +8,7 @@ nav_exclude: true
 
 # AI教具维护
 {: .no_toc }
-`更新-261012` \| `发布-260326`
+`更新-261013` \| `发布-260326`
 
 <!--  -->
 <details markdown="block">
@@ -20,8 +20,11 @@ nav_exclude: true
 <!--  -->
 <details markdown="block">
   <summary>✳️ 历史</summary>
+261013<br>
+    （1）增加 [开发板开机快速时间同步（sntp-once）操作说明](#开发板开机快速时间同步sntp-once操作说明)
+<br>
 261012<br>
-  （1）增加“插网线 6 小时会断网”
+    （1）增加 [插网线 6 小时会断网](#插网线-6-小时会断网dhcp-客户端-id-修复方案)
 </details>
 ---
 
@@ -281,3 +284,236 @@ ping -c 3 172.18.145.1
 大模型一通解释，大致是这是偶然，可以对不同的 IP 段，处理有点不同（← 不符合期望）
 
 先放过大模型。先到此为止。
+
+---
+
+## 开发板开机快速时间同步（sntp-once）操作说明
+
+适用于无 RTC 电池的 ARM 开发板（Jetson、树莓派等），系统使用 `systemd` 且已安装 `ntp` 包（包含 `sntp` 命令）。解决开机后系统时间停留在 1970 或旧日期，需等待 1–2 分钟才被 `ntpd` 校正的问题。
+
+---
+
+### 一、问题背景
+
+- 开发板没有 RTC 电池，断电后 RTC 丢失，开机默认时间常为 `1970-01-01` 或 `2023-11-22`。
+- 系统使用 `ntp` 服务同步时间，但 `ntpd` 首次同步需要 1–2 分钟（轮询周期 + 步进确认）。
+- 期间依赖正确时间的程序（ROS、日志、证书校验等）会异常。
+- 需要一个开机时快速、一次性强制校时的服务，在 `ntpd` 之前把时间大致调对。
+
+---
+
+### 二、原理
+
+- `sntp` 是 `ntp` 包自带的一次性 SNTP 客户端，可与 NTP 服务器通信并立即调整系统时间。
+- 使用 `-S`（大写）选项：**强制步进（step）** 系统时间，适合冷启动时时间偏差巨大的场景。
+- 若使用 `-s`（小写）：尝试平滑调整，时间差过大时会报 `adj_systime: Invalid argument` 而失败。
+- 配合 `systemd` 服务，在网络就绪后、`ntp.service` 之前执行，失败自动重试。
+
+---
+
+### 三、前置检查
+
+```bash
+# 1. 确认系统使用 systemd
+systemctl --version
+
+# 2. 确认已安装 ntp 包（含 sntp）
+which sntp
+# 若未安装：
+# sudo apt update && sudo apt install ntp
+
+# 3. 确认没有使用 chrony（两者冲突）
+systemctl is-active chrony chronyd 2>/dev/null
+# 若 chrony 处于 active，请勿使用本方案，改用 chrony 的 makestep 配置
+
+# 4. 确认当前时间同步服务
+timedatectl
+systemctl is-enabled ntp
+```
+
+---
+
+### 四、配置步骤
+
+**1. 创建 systemd 服务文件**
+
+将下方命令中的 NTP 服务器地址替换为你网络中最快、最稳定的源（可用 `ntpq -p` 查看当前 `*` 标记的服务器）。
+
+```bash
+sudo tee /etc/systemd/system/sntp-once.service > /dev/null << 'EOF'
+[Unit]
+Description=One-shot SNTP sync at boot
+After=network-online.target
+Wants=network-online.target
+Before=ntp.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sntp -S -t 10 210.28.130.4 time.neu.edu.cn
+Restart=on-failure
+RestartSec=5
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+参数说明：
+
+| 参数 | 作用 |
+|---|---|
+| `After=network-online.target` | 等待网络就绪 |
+| `Wants=network-online.target` | 拉入网络依赖 |
+| `Before=ntp.service` | 在 ntpd 之前执行，避免 socket 冲突 |
+| `-S` | 强制步进时间，解决大时间差 |
+| `-t 10` | 超时 10 秒 |
+| `Restart=on-failure` | 失败自动重试 |
+| `RestartSec=5` | 重试间隔 5 秒 |
+| `RemainAfterExit=yes` | 执行完保持 active (exited) 状态 |
+
+**2. 重载并启用服务**
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable sntp-once.service
+systemctl is-enabled sntp-once.service
+# 应输出 enabled
+```
+
+**3. 立即测试（非冷启动）**
+
+```bash
+sudo systemctl start sntp-once.service
+systemctl status sntp-once.service --no-pager
+journalctl -u sntp-once.service --no-pager -n 20
+```
+
+期望看到：
+
+- `Active: active (exited)` + `status=0/SUCCESS`
+- 日志中有 `sntp[...]: 2026-xx-xx ... +0.xxx ... <服务器地址>`
+- 无 `adj_systime: Invalid argument`
+
+---
+
+### 五、冷启动验证（必须）
+
+热重启（`reboot`）不会丢失 RTC，无法验证。必须**完全断电**后重新上电。
+
+```bash
+# 1. 关机
+sudo shutdown -h now
+
+# 2. 等待指示灯全灭，拔掉电源，等 5–10 秒
+
+# 3. 重新上电，立即登录系统
+
+# 4. 第一时间执行以下命令
+date
+systemctl status sntp-once.service --no-pager
+journalctl -b -u sntp-once.service --no-pager | head -30
+```
+
+判断标准：
+
+| 观察 | 结论 |
+|---|---|
+| 登录后 `date` 在 30 秒内显示正确年份 | ✅ 成功 |
+| 服务最终 `active (exited)` + `status=0/SUCCESS` | ✅ 成功 |
+| 日志中有成功同步记录 `sntp[...]: 2026-...` | ✅ 成功 |
+| 日志开头为 `1970-01-01` 但随后跳到正确时间 | 正常，说明 RTC 丢失，sntp 已校正 |
+| 无 `adj_systime: Invalid argument` | ✅ `-S` 生效 |
+| 第一次 `Network is unreachable` 后自动重试成功 | ✅ `Restart` 机制生效 |
+
+---
+
+### 六、日志持久化（推荐）
+
+默认 journal 日志保存在内存，重启后丢失。建议持久化，便于排查。
+
+```bash
+sudo mkdir -p /var/log/journal
+sudo systemd-tmpfiles --create --prefix /var/log/journal
+sudo systemctl restart systemd-journald
+ls -l /var/log/journal/
+```
+
+---
+
+### 七、排错
+
+| 现象 | 原因 | 解决 |
+|---|---|---|
+| `adj_systime: Invalid argument` | 使用了 `-s` 而非 `-S` | 修改 `ExecStart` 为 `-S` |
+| `Network is unreachable` | 网络未就绪，首次执行失败 | 已配置 `Restart` 自动重试；若持续失败，可适当增加 `RestartSec` 或检查 `network-online.target` |
+| `time.neu.edu.cn lookup error` | DNS 未就绪 | 可改用纯 IP 的 NTP 服务器，或等待重试 |
+| 服务未执行 | 未 enable 或未 daemon-reload | 执行 `systemctl enable sntp-once` 并 `daemon-reload` |
+| 时间仍然很慢 | `ntp` 与 `sntp-once` 顺序颠倒 | 确认 `Before=ntp.service`，检查 `systemctl list-dependencies` |
+| `which sntp` 无输出 | 未安装 ntp 包 | `sudo apt install ntp` |
+
+---
+
+### 八、回滚
+
+```bash
+# 停止并禁用服务
+sudo systemctl stop sntp-once.service
+sudo systemctl disable sntp-once.service
+
+# 删除服务文件
+sudo rm /etc/systemd/system/sntp-once.service
+
+# 重载 systemd
+sudo systemctl daemon-reload
+
+# 确认 ntp 仍然正常
+systemctl status ntp --no-pager
+```
+
+---
+
+### 九、可选优化
+
+**1. 缩短重试间隔**
+
+将 `RestartSec=5` 改为 `2`，使首次同步更快：
+
+```bash
+sudo sed -i 's|RestartSec=5|RestartSec=2|' /etc/systemd/system/sntp-once.service
+sudo systemctl daemon-reload
+sudo systemctl restart sntp-once.service
+```
+
+**2. 使用多个 NTP 服务器**
+
+在 `ExecStart` 中追加备用服务器，提高成功率：
+
+```bash
+ExecStart=/usr/bin/sntp -S -t 10 210.28.130.4 time.neu.edu.cn ntp.ubuntu.com
+```
+
+**3. 更换为 chrony（更现代的替代方案）**
+
+若系统允许，可改用 `chrony`，其 `makestep` 配置对开机校时支持更好：
+
+```bash
+sudo apt install chrony
+echo "makestep 1.0 3" | sudo tee -a /etc/chrony/chrony.conf
+sudo systemctl disable --now ntp sntp-once.service
+sudo systemctl enable --now chrony
+```
+
+**4. 硬件加装 RTC 电池（最彻底）**
+
+为开发板加装 RTC 纽扣电池（如 CR1220），断电后时间不丢失，开机即准，无需网络校时。
+
+---
+
+### 十、总结
+
+- 核心命令：`sntp -S -t 10 <NTP服务器>`，`-S` 必须大写。
+- 服务必须在 `ntp.service` 之前运行（`Before=ntp.service`）。
+- 依赖 `network-online.target` 并配置自动重试，可容忍首次网络未就绪。
+- 冷启动验证是唯一可靠的验证方式（`reboot` 不算）。
+- 建议同时做日志持久化，便于长期观察。
