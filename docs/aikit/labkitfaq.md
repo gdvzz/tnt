@@ -286,6 +286,30 @@ ping -c 3 172.18.145.1
 
 先放过大模型。先到此为止。
 
+### 还是要改成 dhclient
+<br>
+经比对测试，还是要改成 dhclient 方式。相关操作如下：
+
+```bash
+# 安装
+sudo apt update; sudo apt install -y isc-dhcp-client
+
+# 配置
+sudo tee /etc/NetworkManager/conf.d/10-use-dhclient.conf > /dev/null << 'EOF'
+[main]
+dhcp=dhclient
+EOF
+
+# 重启 NetworkManager（SSH 会短暂断线）
+sudo systemctl restart NetworkManager
+```
+
+改完后验证：
+
+```bash
+echo "=== dhcp backend ==="; NetworkManager --print-config | grep -i dhcp; echo "=== client-id ==="; nmcli -f ipv4.dhcp-client-id connection show "Wired connection 1"; echo "=== IP ==="; ip -4 addr show eth0 | grep inet; echo "=== 路由 ==="; ip route; echo "=== dhclient ==="; ps aux | grep dhclient | grep -v grep
+```
+
 [🔝](#top)
 
 ---
@@ -674,5 +698,7 @@ sudo systemctl restart systemd-journald
 - 若磁盘非常紧张（< 8GB 可用），可将 `SystemMaxUse` 调到 `200M`。
 
 [🔝](#top)
+
+
 
 <span style="font-size:12px; color:#999">THE END</span>
