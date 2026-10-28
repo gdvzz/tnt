@@ -163,27 +163,42 @@ proot-distro login ubuntu
 
 === ubuntu 里面执行一下命令 ===
 
-cp /etc/apt/sources.list /etc/apt/sources.list.bak # 备份
+备份
 
--- 换源
+```bash
+cp /etc/apt/sources.list /etc/apt/sources.list.bak 
+```
+
+换源
+
+```bash
 cat > /etc/apt/sources.list << 'EOF'
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-updates main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-backports main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-security main restricted universe multiverse
 EOF
+```
 
-apt-get update -o "Acquire::https::Verify-Peer=false"
+更新
+
+```bash
+apt-get update -o "Acquire::https::Verify-Peer=false" 
 apt-get install -y ca-certificates --no-install-recommends -o "Acquire::https::Verify-Peer=false"
 apt upgrade -y
+```
 
 <!-- 安装证书
 apt install ca-certificates
 
 update-ca-certificates # 刷新证书库（非常关键，让系统信任新证书）（可能是多余的） -->
 
-# 安装必要的应用
+安装必要的应用
+
+```bash
 apt install sudo vim nano wget git curl apt-utils -y
+```
+
 <!-- 否则都是在 /data/data/com.termux/files/usr/bin下
 root@localhost:~# which vim
 /data/data/com.termux/files/usr/bin/vim
@@ -201,44 +216,58 @@ root@localhost:~# which git
 === 1026 ===
 <!-- proot-distro login ubuntu 后，在 ubuntu 里面执行 -->
 
-块 1｜安装 OpenSSH 服务端
+块 1 - 安装 OpenSSH 服务端
 
+```bash
 apt update && apt install -y openssh-server && which sshd && ls -l /etc/ssh/sshd_config && dpkg -l | grep openssh-server
+```
 
-块 2｜备份并修改 sshd_config
+块 2 - 备份并修改 sshd_config
 
+```bash
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak && \
 sed -i 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config && \
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
 sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
 sed -i 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config && \
 grep -E '^(Port|PermitRootLogin|PasswordAuthentication|UsePAM)' /etc/ssh/sshd_config
+```
 
 期望输出：
+```
 Port 2222
 PermitRootLogin yes
 PasswordAuthentication yes
 UsePAM no
+```
 
-块 3｜生成主机密钥 + 创建 /run/sshd
+块 3 - 生成主机密钥 + 创建 /run/sshd
 
+```bash
 ssh-keygen -A && mkdir -p /run/sshd && ls -l /etc/ssh/ssh_host_*
+```
 
+改密码（默认密码为 `xpad7`）
+
+```bash
 passwd
-`xpad7`
+```
 
-块 4｜首次启动 sshd（前台方式验证一次）
+块 4 - 首次启动 sshd（前台方式验证一次）
+
+```bash
 pkill -f '/usr/sbin/sshd' 2>/dev/null; /usr/sbin/sshd && timeout 2 bash -c 'echo > /dev/tcp/127.0.0.1/2222' && echo "端口 2222 通" || echo "端口 2222 不通"
-
+```
 
 🚀 第二阶段：每次重启平板/ZeroTermux 后的启动
 以下命令都在 Termux 宿主（不是 Ubuntu 容器内）执行，通过 proot-distro 直接拉起容器内的 sshd，并以 -D 前台模式让 proot 进程常驻后台。
 
-块 A｜后台启动 sshd + 确认进程 + 查 IP（一块粘完）
-bash
+块 A- 后台启动 sshd + 确认进程 + 查 IP（一块粘完）
+```bash
 pkill -f 'sshd -D' 2>/dev/null; \
 nohup proot-distro login ubuntu -- bash -c "mkdir -p /run/sshd && exec /usr/sbin/sshd -D" > /tmp/ubuntu-sshd.log 2>&1 & \
 sleep 2 && ps aux | grep '[s]shd -D' && echo "--- IP ---" && proot-distro login ubuntu -- ip addr | grep 'inet '
+```
 
 /usr/sbin/sshd
 
