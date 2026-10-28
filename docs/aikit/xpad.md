@@ -245,8 +245,14 @@ sleep 2 && ps aux | grep '[s]shd -D' && echo "--- IP ---" && proot-distro login 
 === conda ===
 
 不默认启动base，否则有点慢
+```bash
 conda config --set auto_activate false
 conda config --show auto_activate
+```
+
+zt开机自启动
+
+DONE✅
 
 === xiaoai ===
 
