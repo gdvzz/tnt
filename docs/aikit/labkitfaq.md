@@ -699,6 +699,506 @@ sudo systemctl restart systemd-journald
 
 [🔝](#top)
 
+---
 
+## 相关脚本
+<br>
+以下为相关脚本，用于 boardfleet 主控管理系统。
+
+### viki-dhcp-dhclient
+`更新-261022` \| `发布-261020`
+
+- 现象：插网线时，每 6 小时会断网
+- 方案：修改 dhcp 方式为 dhclient
+- 适用：viki
+
+
+```bash
+#!/bin/bash
+set -e
+
+CONF="/etc/NetworkManager/conf.d/10-use-dhclient.conf"
+CURRENT_DHCP=$(NetworkManager --print-config 2>/dev/null | grep -E "^dhcp=" | head -1)
+NEED_RESTART=0
+
+echo "开始检查并配置 dhclient..."
+
+# 1. 检查并安装依赖
+if ! dpkg -l 2>/dev/null | grep -q "^ii.*isc-dhcp-client"; then
+    echo "未安装 isc-dhcp-client，开始安装..."
+    apt update
+    apt install -y isc-dhcp-client
+else
+    echo "isc-dhcp-client 已安装，跳过。"
+fi
+
+# 2. 检查并写入配置文件
+mkdir -p /etc/NetworkManager/conf.d
+if [ ! -f "$CONF" ] || ! grep -q "^dhcp=dhclient" "$CONF"; then
+    echo "写入配置 $CONF..."
+    cat > "$CONF" << 'EOF'
+[main]
+dhcp=dhclient
+EOF
+    NEED_RESTART=1
+else
+    echo "配置文件已存在且正确，跳过。"
+fi
+
+# 3. 检查运行状态
+if [ "$CURRENT_DHCP" != "dhcp=dhclient" ]; then
+    echo "当前运行状态不是 dhclient，准备重启 NetworkManager..."
+    NEED_RESTART=1
+fi
+
+# 4. 按需重启 NetworkManager
+if [ "$NEED_RESTART" = "1" ]; then
+    echo "正在重启 NetworkManager，网络会短暂断开（主控会自动重连并回传结果）..."
+    systemctl restart NetworkManager
+    echo "NetworkManager 重启完成。"
+    # 等待几秒让网络稳定
+    sleep 3
+else
+    echo "已经是 dhclient 模式且运行正常，无需重启 NetworkManager。"
+fi
+
+# 5. 【新增】自动清理 secondary IP 残留
+echo "检查并清理多余的次要 IP 残留..."
+# 获取所有 IPv4 地址
+IPS=$(ip -4 addr show eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
+IP_COUNT=$(echo "$IPS" | wc -l)
+
+if [ "$IP_COUNT" -gt 1 ]; then
+    echo "检测到多个 IP：$IPS，开始清理..."
+    # 跳过第一个（主 IP），删除剩下的
+    FIRST=1
+    for IP in $IPS; do
+        if [ $FIRST -eq 1 ]; then
+            FIRST=0
+            echo "保留主 IP: $IP"
+        else
+            echo "删除次要 IP: $IP"
+            ip addr del "$IP/24" dev eth0 || true
+        fi
+    done
+else
+    echo "IP 状态正常，无残留。"
+fi
+
+# 6. 最终验证输出（这些输出会回传到主控日志里）
+echo "================ 验证信息 ================"
+echo "=== dhcp backend ==="; NetworkManager --print-config | grep -i dhcp
+echo "=== client-id ==="; nmcli -f ipv4.dhcp-client-id connection show "Wired connection 1"
+echo "=== IP ==="; ip -4 addr show eth0 | grep inet
+echo "=== 路由 ==="; ip route
+echo "=== dhclient 进程 ==="; ps aux | grep dhclient | grep -v grep
+echo "=========================================="
+echo "脚本执行完毕。"
+```
+
+以下脚本废弃
+
+```bash
+#!/bin/bash
+set -e
+
+CONF="/etc/NetworkManager/conf.d/10-use-dhclient.conf"
+CURRENT_DHCP=$(NetworkManager --print-config 2>/dev/null | grep -E "^dhcp=" | head -1)
+NEED_RESTART=0
+
+echo "开始检查并配置 dhclient..."
+
+# 0. 自动探测网卡名称 (根据默认路由)
+INTERFACE=$(ip route | grep default | awk '{print $5}' | head -n1)
+# 如果没获取到（比如刚断网），通过 nmcli 找第一个连上的设备
+if [ -z "$INTERFACE" ]; then
+    INTERFACE=$(nmcli -t -f DEVICE,STATE device | grep ':connected' | cut -d: -f1 | head -n1)
+fi
+# 自动探测连接名称 (根据网卡名称找对应的连接)
+CONNECTION=$(nmcli -t -f NAME,DEVICE connection show --active | grep ":$INTERFACE$" | cut -d: -f1 | head -n1)
+
+echo "自动探测结果：网卡名=$INTERFACE, 连接名=$CONNECTION"
+
+# 1. 检查并安装依赖
+if ! dpkg -l 2>/dev/null | grep -q "^ii.*isc-dhcp-client"; then
+    echo "未安装 isc-dhcp-client，开始安装..."
+    apt update
+    apt install -y isc-dhcp-client
+else
+    echo "isc-dhcp-client 已安装，跳过。"
+fi
+
+# 2. 检查并写入配置文件
+mkdir -p /etc/NetworkManager/conf.d
+if [ ! -f "$CONF" ] || ! grep -q "^dhcp=dhclient" "$CONF"; then
+    echo "写入配置 $CONF..."
+    cat > "$CONF" << 'EOF'
+[main]
+dhcp=dhclient
+EOF
+    NEED_RESTART=1
+else
+    echo "配置文件已存在且正确，跳过。"
+fi
+
+# 3. 检查运行状态
+if [ "$CURRENT_DHCP" != "dhcp=dhclient" ]; then
+    echo "当前运行状态不是 dhclient，准备重启 NetworkManager..."
+    NEED_RESTART=1
+fi
+
+# 4. 按需重启 NetworkManager
+if [ "$NEED_RESTART" = "1" ]; then
+    echo "正在重启 NetworkManager，网络会短暂断开（主控会自动重连并回传结果）..."
+    systemctl restart NetworkManager
+    echo "NetworkManager 重启完成。"
+    sleep 3 # 等待网络重新拉起
+    
+    # 重启后重新探测一下名称（以防连网后重新分配了名字）
+    INTERFACE=$(ip route | grep default | awk '{print $5}' | head -n1)
+    CONNECTION=$(nmcli -t -f NAME,DEVICE connection show --active | grep ":$INTERFACE$" | cut -d: -f1 | head -n1)
+else
+    echo "已经是 dhclient 模式且运行正常，无需重启 NetworkManager。"
+fi
+
+# 5. 自动清理 secondary IP 残留
+if [ -n "$INTERFACE" ]; then
+    echo "检查并清理多余的次要 IP 残留..."
+    IPS=$(ip -4 addr show "$INTERFACE" | grep inet | awk '{print $2}' | cut -d/ -f1)
+    IP_COUNT=$(echo "$IPS" | wc -w)
+
+    if [ "$IP_COUNT" -gt 1 ]; then
+        echo "检测到多个 IP：$IPS，开始清理..."
+        FIRST=1
+        for IP in $IPS; do
+            if [ $FIRST -eq 1 ]; then
+                FIRST=0
+                echo "保留主 IP: $IP"
+            else
+                echo "删除次要 IP: $IP"
+                ip addr del "$IP/24" dev "$INTERFACE" || true
+            fi
+        done
+    else
+        echo "IP 状态正常，无残留。"
+    fi
+else
+    echo "警告：未能探测到活动网卡，跳过 IP 清理。"
+fi
+
+# 6. 最终验证输出
+echo "================ 验证信息 ================"
+echo "=== dhcp backend ==="; NetworkManager --print-config | grep -i dhcp
+if [ -n "$CONNECTION" ]; then
+    echo "=== client-id ==="; nmcli -f ipv4.dhcp-client-id connection show "$CONNECTION"
+else
+    echo "=== client-id === 未知（未找到活动连接）"
+fi
+if [ -n "$INTERFACE" ]; then
+    echo "=== IP ==="; ip -4 addr show "$INTERFACE" | grep inet
+    echo "=== dhclient 进程 ==="; ps aux | grep dhclient | grep -v grep
+fi
+echo "=== 路由 ==="; ip route
+echo "=========================================="
+echo "脚本执行完毕。"
+```
+
+### viki-sntp-once
+`更新-261022` \| `发布-261022`
+
+- 现象：冷启动后要等一会才同步正确的网络时间
+- 方案：先大致同步下，再精确同步时间
+- 适用：viki
+
+```bash
+#!/bin/bash
+
+# ==========================================
+# 开发板开机快速时间同步 (sntp-once) 自动配置脚本
+# ==========================================
+
+# 1. 检查是否为 root 权限
+if [ "$EUID" -ne 0 ]; then
+  echo "❌ 错误：请使用 root 权限运行此脚本 (sudo ./setup.sh)"
+  exit 1
+fi
+
+echo "⏳ 开始配置 sntp-once 服务..."
+
+# 2. 前置检查：chrony 冲突检测
+if systemctl is-active --quiet chrony || systemctl is-active --quiet chronyd; then
+  echo "❌ 错误：检测到 chrony 或 chronyd 正在运行！"
+  echo "请先禁用 chrony (systemctl disable --now chrony) 再使用本方案。"
+  exit 1
+fi
+
+# 3. 前置检查：sntp 是否安装
+if ! command -v sntp &> /dev/null; then
+  echo "⚠️ 未检测到 sntp 命令，尝试自动安装 ntp 包..."
+  apt-get update && apt-get install -y ntp
+  if [ $? -ne 0 ]; then
+    echo "❌ 错误：ntp 包安装失败，请检查网络或软件源。"
+    exit 1
+  fi
+fi
+
+# 4. 配置 NTP 服务器 (可根据你的实际网络环境修改)
+# 这里默认使用文档中的 210.28.130.4 time.neu.edu.cn
+NTP_SERVER_IP="210.28.130.4"
+NTP_SERVER_HOST="time.neu.edu.cn"
+
+# 5. 创建 systemd 服务文件
+echo "📝 正在创建 /etc/systemd/system/sntp-once.service ..."
+cat << EOF > /etc/systemd/system/sntp-once.service
+[Unit]
+Description=One-shot SNTP sync at boot
+After=network-online.target
+Wants=network-online.target
+Before=ntp.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sntp -S -t 10 ${NTP_SERVER_IP} ${NTP_SERVER_HOST}
+Restart=on-failure
+RestartSec=5
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# 6. 重载系统服务并设置开机自启
+echo "🔄 重载 systemd 配置..."
+systemctl daemon-reload
+echo "🚀 启用 sntp-once 开机自启..."
+systemctl enable sntp-once.service
+
+# 7. 立即执行一次测试（热重启测试）
+echo "⚡ 立即执行一次时间同步..."
+systemctl start sntp-once.service
+
+# 8. 检查执行结果
+sleep 2
+echo "=========================================="
+echo "✅ 配置完成！当前服务状态如下："
+systemctl status sntp-once.service --no-pager
+echo "=========================================="
+
+# 9. 打印当前系统时间
+echo "🕒 当前系统时间为："
+date
+
+exit 0
+```
+---
+
+### viki-install-sshpass
+`更新-261022` \| `发布-261022`
+
+用于 scp 复制文件等。
+
+```bash
+#!/bin/bash
+
+# ==========================================
+# 开发板批量安装 sshpass 脚本 (修复版)
+# ==========================================
+
+echo "=========================================="
+echo "开始检查 sshpass 环境..."
+
+# 1. 检查是否已经安装
+if command -v sshpass >/dev/null 2>&1; then
+    echo "✅ sshpass 已经安装，版本信息："
+    sshpass -V | head -n 1
+    echo "无需重复安装，脚本结束。"
+    exit 0
+fi
+
+# 2. 检查系统权限并确定 sudo 命令
+if [ "$EUID" -ne 0 ]; then
+    echo "⚠️ 非 root 用户运行，将尝试使用 sudo..."
+    SUDO="sudo"
+else
+    SUDO=""
+fi
+
+# 3. 随机延迟 (防止并发过高)
+# sleep $((RANDOM % 10))
+
+# 4. 开始安装
+echo "⏳ 正在更新软件源 (忽略 ROS 源报错)..."
+# 加上 || true 防止 ROS 源的 GPG 警告导致脚本中断
+$SUDO apt-get update -qq || true
+
+echo "⏳ 正在安装 sshpass..."
+# 修复语法：将环境变量独立出来，避免 root 权限下被当成命令执行
+export DEBIAN_FRONTEND=noninteractive
+$SUDO apt-get install -y -qq sshpass
+
+# 5. 验证安装结果
+if command -v sshpass >/dev/null 2>&1; then
+    echo "✅ 安装成功！"
+    sshpass -V | head -n 1
+    echo "=========================================="
+    exit 0
+else
+    echo "❌ 安装失败！请检查开发板是否能够正常访问 apt 软件源，或者网络是否通畅。"
+    echo "=========================================="
+    exit 1
+fi
+```
+
+### viki-cp-file
+`更新-261022` \| `发布-261022`
+
+
+
+```bash
+#!/bin/bash
+
+# ==========================================
+# 自动复制 106v 目录到 /home/jetson/ 并设置归属
+# ==========================================
+
+# 1. 配置变量 (⚠️ 请务必替换为你真实的密码)
+TARGET_DIR="/home/jetson/106v"
+SOURCE_ADDR="jetson@172.18.145.11:/home/jetson/106v"
+PASSWORD="yahboom" 
+
+echo "=========================================="
+echo "开始检测目录: $TARGET_DIR"
+
+# 2. 检测目录是否存在
+if [ -d "$TARGET_DIR" ]; then
+    echo "✅ 目录 $TARGET_DIR 已存在，脚本结束。"
+    exit 0
+fi
+
+# 3. 确保 sshpass 已安装
+if ! command -v sshpass >/dev/null 2>&1; then
+    echo "❌ 未检测到 sshpass，请先执行安装脚本。"
+    exit 1
+fi
+
+# 4. 随机延迟（强烈建议保留，防止几十台板卡同时向 viki36 发起 scp 导致卡死）
+sleep $((RANDOM % 10))
+
+echo "⏳ 目录不存在，开始从 $SOURCE_ADDR 拷贝到 /home/jetson/ ..."
+
+# 5. 执行 scp 拷贝
+# 参数说明：
+# -o StrictHostKeyChecking=no 和 UserKnownHostsFile=/dev/null 用于跳过首次连接的指纹确认
+sshpass -p "$PASSWORD" scp -r \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    "$SOURCE_ADDR" "/home/jetson/"
+
+# 6. 检查复制结果并修改归属
+if [ $? -eq 0 ] && [ -d "$TARGET_DIR" ]; then
+    echo "✅ 复制成功！正在修正目录归属为 jetson:jetson ..."
+    
+    # 判断当前执行用户，决定是否使用 sudo
+    if [ "$EUID" -ne 0 ]; then
+        sudo chown -R jetson:jetson "$TARGET_DIR"
+    else
+        chown -R jetson:jetson "$TARGET_DIR"
+    fi
+
+    # 检查 chown 是否成功
+    if [ $? -eq 0 ]; then
+        echo "✅ 权限修改成功！"
+        ls -ld "$TARGET_DIR"
+        echo "=========================================="
+        exit 0
+    else
+        echo "⚠️ 复制成功，但修改归属失败，请检查当前执行用户是否有 sudo 权限。"
+        echo "=========================================="
+        exit 1
+    fi
+else
+    echo "❌ 拷贝失败！请检查网络、密码或源路径是否正确。"
+    echo "=========================================="
+    exit 1
+fi
+```
+
+### viki-check-conda
+
+```bash
+#!/bin/bash
+
+# ==========================================
+# 检查 jetson 用户下的 Conda 安装情况
+# ==========================================
+
+JETSON_HOME="/home/jetson"
+CONDA_FOUND=0
+CONDA_BASE_PATH=""
+
+echo "=========================================="
+echo "🔍 开始检查 jetson 用户的 Conda 环境..."
+
+# 1. 扫描最常见的安装路径
+for dir in "$JETSON_HOME/miniconda3" "$JETSON_HOME/anaconda3"; do
+    if [ -f "$dir/bin/conda" ]; then
+        CONDA_FOUND=1
+        CONDA_BASE_PATH="$dir"
+        break
+    fi
+done
+
+# 2. 如果常规路径没找到，解析 .bashrc 寻找线索
+if [ $CONDA_FOUND -eq 0 ] && [ -f "$JETSON_HOME/.bashrc" ]; then
+    # 查找 conda initialize 代码块中的安装路径
+    # 通常格式为: __conda_setup="$('/home/jetson/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    INIT_PATH=$(grep -oP '(?<=__conda_setup="\$\(\x27)[^ \x27]+(?=\x27)' "$JETSON_HOME/.bashrc" | head -n 1)
+    
+    if [ -n "$INIT_PATH" ] && [ -f "$INIT_PATH" ]; then
+        CONDA_FOUND=1
+        # 去掉尾部的 /bin/conda 得到 base 路径
+        CONDA_BASE_PATH=$(dirname $(dirname "$INIT_PATH"))
+    fi
+fi
+
+echo "------------------------------------------"
+
+# 3. 输出检测结果
+if [ $CONDA_FOUND -eq 1 ]; then
+    echo "✅ 成功找到 jetson 用户的 Conda 安装！"
+    echo "   -> 安装路径: $CONDA_BASE_PATH"
+    
+    # 尝试以 jetson 用户执行 conda --version (如果是 root 下发的脚本)
+    if [ "$EUID" -eq 0 ]; then
+        CONDA_VERSION=$(sudo -u jetson "$CONDA_BASE_PATH/bin/conda" --version 2>/dev/null)
+    else
+        CONDA_VERSION=$("$CONDA_BASE_PATH/bin/conda" --version 2>/dev/null)
+    fi
+    
+    if [ -n "$CONDA_VERSION" ]; then
+        echo "   -> 版本信息: $CONDA_VERSION"
+    else
+        echo "   -> 版本信息: 获取失败（可能权限不足或环境损坏）"
+    fi
+    echo "=========================================="
+    exit 0
+else
+    echo "❌ 未能在 jetson 用户下找到 Conda。"
+    echo "   (已检查: $JETSON_HOME/miniconda3, $JETSON_HOME/anaconda3, 以及 .bashrc)"
+    echo "=========================================="
+    exit 1
+fi
+```
+
+<!-- 
+261019，来自赵老师
+
+董老师，这是我整理的用到的模型：
+AI语音实验箱用到的模型：
+whisper-large-v3-turbo、qwen2.5:32b、ChatTTS
+自然语言处理实验箱：
+qwen3-embedding:8b、qwen2.5:32b、whisper-large-v3-turbo、BAAI/bge-small-en
+视觉实验箱：
+后续更新。 -->
 
 <span style="font-size:12px; color:#999">THE END</span>

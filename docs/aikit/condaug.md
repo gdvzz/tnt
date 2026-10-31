@@ -90,10 +90,14 @@ wget https://mirrors.ustc.edu.cn/github-release/conda-forge/miniforge/LatestRele
 **4、安装**
 
 ```bash
-bash Miniforge3-Linux-aarch64.sh
+bash Miniforge3-Linux-aarch64.sh -b -p $HOME/miniforge3
 ```
 
-```bash
+<!-- ```bash
+bash Miniforge3-Linux-aarch64.sh
+``` -->
+
+<!-- ```bash
 Miniforge3 will now be installed into this location:
 /home/jetson/miniforge3
 
@@ -102,16 +106,16 @@ Miniforge3 will now be installed into this location:
   - Or specify a different location below
 
 [/home/jetson/miniforge3] >>> 
-```
+``` -->
 
-✅ 请按 `回车键`，就安装到默认目录 `/home/jetson/miniforge3`。回车键的英文就是 `Enter` 或者 `Return`。🚫 而不是输入 `ENTER` 5个字母。
+<!-- ✅ 请按 `回车键`，就安装到默认目录 `/home/jetson/miniforge3`。回车键的英文就是 `Enter` 或者 `Return`。🚫 而不是输入 `ENTER` 5个字母。 -->
 
-```bash
+<!-- ```bash
 Proceed with initialization? [yes|no]
 [no] >>>
 ```
 
-此处输 `yes`
+此处输 `yes` -->
 
 
 
