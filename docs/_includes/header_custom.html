@@ -1,1 +1,11 @@
 <!-- Try & Test -->
+
+<!-- by George, 26-11-01 -->
+{% assign math = page.math | default: layout.math | default: site.math %}
+
+{% case math %}
+  {% when "mathjax" %}
+    {% include mathjax.html %}
+  {% when "katex" %}
+    {% include katex.html %}
+{% endcase %}
